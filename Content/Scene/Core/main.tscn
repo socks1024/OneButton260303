@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://c3lso300yfoep"]
+
+[ext_resource type="Script" uid="uid://dksbae5wxuiyc" path="res://Content/Scene/Core/main.gd" id="1_mk4ev"]
+[ext_resource type="PackedScene" uid="uid://blo0dey15c4q" path="res://Content/Scene/UI/Menus/Start/start_menu.tscn" id="1_wqkls"]
+[ext_resource type="PackedScene" uid="uid://s5jmpb74xkon" path="res://Content/Scene/UI/Menus/Settings/settings_menu.tscn" id="2_hlmvs"]
+[ext_resource type="PackedScene" uid="uid://cmfy2e20lt70m" path="res://Content/Scene/UI/Menus/Credit/credit_menu.tscn" id="3_mk4ev"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_ogkmc"]
+
+[sub_resource type="Curve" id="Curve_ogkmc"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_csq5v"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_1nq2c"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_7cd8j"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_o1lq6"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_drmw0"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_73ngu"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_pk274"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="Main" type="Node" unique_id=82085738]
+script = ExtResource("1_mk4ev")
+
+[node name="UI" type="Control" parent="." unique_id=429287348]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartMenu" parent="UI" unique_id=712769790 instance=ExtResource("1_wqkls")]
+layout_mode = 1
+
+[node name="NewGame" parent="UI/StartMenu/Panel/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(712769790, 709712620) index="0" unique_id=962221927]
+ease_curve = SubResource("Curve_ogkmc")
+
+[node name="Continue" parent="UI/StartMenu/Panel/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(712769790, 709712620) index="1" unique_id=132687649]
+ease_curve = SubResource("Curve_csq5v")
+
+[node name="Settings" parent="UI/StartMenu/Panel/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(712769790, 709712620) index="2" unique_id=966228876]
+ease_curve = SubResource("Curve_1nq2c")
+
+[node name="Credits" parent="UI/StartMenu/Panel/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(712769790, 709712620) index="3" unique_id=819866585]
+ease_curve = SubResource("Curve_7cd8j")
+
+[node name="Exit" parent="UI/StartMenu/Panel/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(712769790, 709712620) index="4" unique_id=792682864]
+ease_curve = SubResource("Curve_o1lq6")
+
+[node name="SettingsMenu" parent="UI" unique_id=1528348063 instance=ExtResource("2_hlmvs")]
+visible = false
+layout_mode = 1
+
+[node name="Back" parent="UI/SettingsMenu/MarginContainer/HBoxContainer" parent_id_path=PackedInt32Array(1528348063, 345389617) index="0" unique_id=962221927]
+ease_curve = SubResource("Curve_drmw0")
+
+[node name="ResetAll" parent="UI/SettingsMenu/MarginContainer/HBoxContainer" parent_id_path=PackedInt32Array(1528348063, 345389617) index="1" unique_id=1174507797]
+ease_curve = SubResource("Curve_73ngu")
+
+[node name="CreditMenu" parent="UI" unique_id=191120225 instance=ExtResource("3_mk4ev")]
+visible = false
+layout_mode = 1
+
+[node name="Back" parent="UI/CreditMenu/Panel" parent_id_path=PackedInt32Array(191120225, 1741080736) index="1" unique_id=962221927]
+ease_curve = SubResource("Curve_pk274")
+
+[node name="MainCamera2D" type="Camera2D" parent="." unique_id=875827449]
+anchor_mode = 0
+
+[node name="PhantomCameraHost" type="Node" parent="MainCamera2D" unique_id=937441823]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_ogkmc")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/Settings" to="." method="_on_goto_settings"]
+[connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/Credits" to="." method="_on_goto_credits"]
+[connection signal="back" from="UI/SettingsMenu" to="." method="_on_back_to_start"]
+[connection signal="button_anim_finish" from="UI/CreditMenu/Panel/Back" to="." method="_on_back_to_start"]
+
+[editable path="UI/StartMenu"]
+[editable path="UI/SettingsMenu"]
+[editable path="UI/SettingsMenu/MarginContainer/TabContainer/Audio/MarginContainer/VolumeSliders/MasterVolume"]
+[editable path="UI/SettingsMenu/MarginContainer/TabContainer/Audio/MarginContainer/VolumeSliders/MusicVolume"]
+[editable path="UI/SettingsMenu/MarginContainer/TabContainer/Audio/MarginContainer/VolumeSliders/SFXVolume"]
+[editable path="UI/SettingsMenu/MarginContainer/TabContainer/Audio/MarginContainer/VolumeSliders/UIVolume"]
+[editable path="UI/SettingsMenu/MarginContainer/TabContainer/Audio/MarginContainer/VolumeSliders/VoiceVolume"]
+[editable path="UI/CreditMenu"]
