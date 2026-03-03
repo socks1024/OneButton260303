@@ -1,5 +1,7 @@
 extends Node
 
+const GAME_WORLD_SCENE_PATH := "res://Content/Scene/World3D/game_world.tscn"
+
 @onready var start_menu: Control = $UI/StartMenu
 @onready var settings_menu: Control = $UI/SettingsMenu
 @onready var credit_menu: Control = $UI/CreditMenu
@@ -21,3 +23,7 @@ func _on_goto_credits() -> void:
 
 func _on_back_to_start() -> void:
 	_show_only_menu(start_menu)
+
+
+func _on_new_game() -> void:
+	SceneUtils.switch_scene_by_path(self, GAME_WORLD_SCENE_PATH)

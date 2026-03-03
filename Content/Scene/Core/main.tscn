@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://blo0dey15c4q" path="res://Content/Scene/UI/Menus/Start/start_menu.tscn" id="1_wqkls"]
 [ext_resource type="PackedScene" uid="uid://s5jmpb74xkon" path="res://Content/Scene/UI/Menus/Settings/settings_menu.tscn" id="2_hlmvs"]
 [ext_resource type="PackedScene" uid="uid://cmfy2e20lt70m" path="res://Content/Scene/UI/Menus/Credit/credit_menu.tscn" id="3_mk4ev"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_ogkmc"]
 
 [sub_resource type="Curve" id="Curve_ogkmc"]
 resource_local_to_scene = true
@@ -100,15 +99,7 @@ layout_mode = 1
 [node name="Back" parent="UI/CreditMenu/Panel" parent_id_path=PackedInt32Array(191120225, 1741080736) index="1" unique_id=962221927]
 ease_curve = SubResource("Curve_pk274")
 
-[node name="MainCamera2D" type="Camera2D" parent="." unique_id=875827449]
-anchor_mode = 0
-
-[node name="PhantomCameraHost" type="Node" parent="MainCamera2D" unique_id=937441823]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("5_ogkmc")
-metadata/_custom_type_script = "uid://bd046eokvcnu2"
-
+[connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/NewGame" to="." method="_on_new_game"]
 [connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/Settings" to="." method="_on_goto_settings"]
 [connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/Credits" to="." method="_on_goto_credits"]
 [connection signal="back" from="UI/SettingsMenu" to="." method="_on_back_to_start"]
