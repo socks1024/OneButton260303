@@ -25,6 +25,14 @@ fog_density = 1.0
 fog_height = -5.0
 fog_depth_end = 50.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_void_fog"]
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_void_fog"]
+size = Vector2(200, 200)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.6
 height = 3.2
@@ -61,6 +69,12 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=348390002]
 environment = SubResource("Environment_1")
+
+[node name="VoidFog" type="MeshInstance3D" parent="." unique_id=111111111]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, -0.75, 0)
+material_override = SubResource("StandardMaterial3D_void_fog")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_void_fog")
 
 [node name="GhostSpawner" type="Node" parent="." unique_id=111802632]
 script = ExtResource("5_ghost_spawner")

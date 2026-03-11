@@ -17,6 +17,8 @@ const SCENE_PATH := "res://Content/Scene/World3D/game_world.tscn"
 
 ## 鬼怪生成器
 @onready var _ghost_spawner: GhostSpawner = $GhostSpawner
+## 全局虚空黑雾平面（静态布设在场景中，跟随玩家Z轴移动）
+@onready var _void_fog: MeshInstance3D = $VoidFog
 
 ## Gameplay 输入上下文（包含 jump 动作）
 var _gameplay_context: InputContext = preload("res://Content/Data/Input/Contexts/gameplay_context.tres")
@@ -27,10 +29,12 @@ var _game_over := false
 ## 当前阶段索引（-1 = 尚未开始，等于 phase_count = 全部完成）
 var _current_phase_index: int = -1
 
+## 进度条填充样式（只创建一次，运行时只改颜色）
+var _fear_bar_style: StyleBoxFlat
+var _lost_bar_style: StyleBoxFlat
+
 ## 闭眼渐变 Tween 引用（用于打断上一个渐变动画）
 var _eyes_tween: Tween
-## 全局虚空黑雾平面（跟随玩家，遮住路面下方所有虚空）
-var _void_fog: MeshInstance3D
 ## 闭眼渐变持续时间（秒）
 const EYES_CLOSE_DURATION := 0.3
 ## 睁眼渐变持续时间（秒）
@@ -58,6 +62,21 @@ func _ready() -> void:
 	fear_bar.value = 0.0
 	lost_bar.max_value = 100.0
 	lost_bar.value = 0.0
+
+	# 初始化进度条样式（只创建一次，后续只改颜色）
+	_fear_bar_style = StyleBoxFlat.new()
+	_fear_bar_style.corner_radius_top_left = 2
+	_fear_bar_style.corner_radius_top_right = 2
+	_fear_bar_style.corner_radius_bottom_left = 2
+	_fear_bar_style.corner_radius_bottom_right = 2
+	fear_bar.add_theme_stylebox_override("fill", _fear_bar_style)
+
+	_lost_bar_style = StyleBoxFlat.new()
+	_lost_bar_style.corner_radius_top_left = 2
+	_lost_bar_style.corner_radius_top_right = 2
+	_lost_bar_style.corner_radius_bottom_left = 2
+	_lost_bar_style.corner_radius_bottom_right = 2
+	lost_bar.add_theme_stylebox_override("fill", _lost_bar_style)
 
 	# 连接玩家信号
 	player.player_fell.connect(_on_player_fell)
@@ -91,9 +110,6 @@ func _ready() -> void:
 	# 启用 Gameplay 输入上下文，让 jump 动作可以传递到玩家
 	InputManager.add_context(_gameplay_context)
 
-	# 创建全局虚空黑雾平面
-	_create_void_fog()
-
 	CLog.o("游戏世界已加载，开始奔跑！")
 
 
@@ -120,27 +136,7 @@ func _physics_process(_delta: float) -> void:
 	_update_difficulty_phase(distance)
 
 
-## 创建全局虚空黑雾：一个巨大的黑色水平平面，位于路面下方，遮住所有虚空
-func _create_void_fog() -> void:
-	_void_fog = MeshInstance3D.new()
-	var quad := QuadMesh.new()
-	# 超大尺寸覆盖玩家视野范围内的所有区域
-	quad.size = Vector2(200.0, 200.0)
-	_void_fog.mesh = quad
-
-	# 纯黑不透明材质
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(0.0, 0.0, 0.0, 1.0)
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
-	_void_fog.material_override = mat
-
-	# 水平平铺：绕X轴旋转-90度
-	_void_fog.rotation_degrees.x = -90.0
-	# 放在路面底部下方（路面顶部在Y=0，底部在Y=-ROAD_HEIGHT）
-	_void_fog.position = Vector3(0, -RoadSegment.ROAD_HEIGHT * 1.5, player.position.z)
-	add_child(_void_fog)
-
+## 闭眼/睁眼状态变化
 
 
 
@@ -180,21 +176,18 @@ func _update_bar_color(bar: ProgressBar, ratio: float) -> void:
 	var color: Color
 	if ratio < 0.5:
 		# 绿 → 黄（0.0 ~ 0.5）
-		var t := ratio / 0.5
+		var t: float = ratio / 0.5
 		color = Color(t, 0.8 + 0.2 * (1.0 - t), 0.2 * (1.0 - t))
 	else:
 		# 黄 → 红（0.5 ~ 1.0）
-		var t := (ratio - 0.5) / 0.5
+		var t: float = (ratio - 0.5) / 0.5
 		color = Color(1.0, 0.8 * (1.0 - t), 0.0)
 
-	# 使用 StyleBoxFlat 设置 fill 颜色
-	var style := StyleBoxFlat.new()
-	style.bg_color = color
-	style.corner_radius_top_left = 2
-	style.corner_radius_top_right = 2
-	style.corner_radius_bottom_left = 2
-	style.corner_radius_bottom_right = 2
-	bar.add_theme_stylebox_override("fill", style)
+	# 直接修改已有样式的颜色，不重复创建对象
+	if bar == fear_bar:
+		_fear_bar_style.bg_color = color
+	elif bar == lost_bar:
+		_lost_bar_style.bg_color = color
 
 
 ## --- 难度阶段追踪 ---
