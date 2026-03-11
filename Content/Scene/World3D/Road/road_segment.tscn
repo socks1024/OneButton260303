@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bhs4pp5yo21aw"]
+
+[ext_resource type="Script" uid="uid://brfkjckfmnds2" path="res://Content/Scene/World3D/Road/road_segment.gd" id="1_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape_road"]
+size = Vector3(4, 0.5, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape_back"]
+size = Vector3(4, 0.5, 20)
+
+
+
+[node name="RoadSegment" type="Node3D" unique_id=248813960]
+script = ExtResource("1_script")
+
+[node name="RoadBody" type="StaticBody3D" parent="." unique_id=1406555452]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoadBody" unique_id=1993991695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -10)
+shape = SubResource("BoxShape_road")
+
+[node name="BackBody" type="StaticBody3D" parent="." unique_id=1617776429]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackBody" unique_id=1828888999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -10)
+shape = SubResource("BoxShape_back")
+
+

@@ -1,97 +1,62 @@
 class_name GhostSpawner
 extends Node
 ## 鬼怪生成管理器。
-## 采用波次式随机生成：安全期 → 鬼怪活跃期 → 循环。
-## 随玩家奔跑距离推进，鬼怪生成频率增加、数量增加、存在时间变长、
-## 生成位置靠近玩家、玩家掉 San 速率上升。
+## 采用波次式生成：安全期 → 鬼怪活跃期 → 循环。
+## 同时只存在一个鬼，鬼跟随玩家同步移动。
+## 随玩家奔跑距离推进，鬼的位置逐渐靠近玩家、恐惧增长倍率上升。
 
 ## 需要由外部注入的玩家引用
 var player: Player
 ## 需要由外部注入的父节点（鬼添加到哪个节点下）
 var spawn_parent: Node3D
 
-## 当前存活的鬼列表（供 Player 读取）
-var active_ghosts: Array[Ghost] = []
+## 当前存活的鬼（供 Player 读取，同时只存在一个鬼，无鬼时为 null）
+var current_ghost: Ghost = null
 
-## 当前距离对应的恐惧增长倍率（供 Player 读取）
-var fear_gain_multiplier := 1.0
+## 难度配置资源引用（由 GameWorld 注入）
+var difficulty_config: DifficultyConfig
 
-## --- 生成参数（基础值，会随距离动态调整） ---
-## 安全期基础时长（秒）
-@export var base_safe_duration := 6.0
-## 活跃期基础时长（秒）
-@export var base_active_duration := 4.0
-## 活跃期内生成间隔基础值（秒）
-@export var base_spawn_interval := 2.0
-## 每次生成的基础鬼怪数量
-@export var base_spawn_count := 1
-## 鬼怪基础存在时间（秒）
-@export var base_ghost_lifetime := 4.0
-## 鬼怪生成距玩家的基础Z偏移（负值=玩家前方）
-@export var base_spawn_distance := 30.0
-## 鬼怪生成距玩家的最近Z偏移
-@export var min_spawn_distance := 8.0
-## 鬼怪生成的X轴基础范围（初始较大=鬼在路边远处，逐渐缩小=靠近路中央）
-@export var base_spawn_x_range := 4.0
-## 鬼怪生成的X轴最小范围（难度最高时，鬼就在路中央附近）
-@export var min_spawn_x_range := 0.5
-## 鬼怪生成的Y轴范围（高度偏移范围）
+
+
+# ============================================================
+#  导出参数
+# ============================================================
+
+@export_group("生成位置 - Z轴（前方距离）", "spawn_z_")
+## 游戏开始时鬼距玩家的 Z 偏移（米）
+@export var spawn_z_start := 30.0
+## 难度最大时鬼距玩家的 Z 偏移（米）
+@export var spawn_z_end := 8.0
+## Z偏移从 start 过渡到 end 所需的路程（米）
+@export var spawn_z_transition_distance := 500.0
+
+@export_group("生成位置 - X轴（横向范围）", "spawn_x_")
+## 游戏开始时鬼的横向随机范围（米，在桥外侧偏移基础上叠加）
+@export var spawn_x_range_start := 4.0
+## 难度最大时鬼的横向随机范围（米）
+@export var spawn_x_range_end := 0.5
+## X范围从 start 过渡到 end 所需的路程（米）
+@export var spawn_x_transition_distance := 500.0
+## 鬼离桥中央的最小横向距离（鬼只会生成在此距离之外）
+@export var spawn_x_min_from_center := 2.5
+
+@export_group("生成位置 - Y轴（高度）", "spawn_y_")
+## 鬼生成的最低高度偏移（米）
 @export var spawn_y_min := 0.5
+## 鬼生成的最高高度偏移（米）
 @export var spawn_y_max := 2.0
-
-## --- 难度缩放参数 ---
-## 通用难度参考距离（跑这么远时通用难度因子=1.0，影响生成频率、数量、存在时间、安全/活跃期时长）
-@export var difficulty_scale_distance := 300.0
-## 鬼颜色变红的参考距离（跑这么远时鬼完全变红，恐惧增长倍率达到最大）
-@export var color_max_distance := 500.0
-## 鬼生成位置靠近的参考距离（跑这么远时鬼贴到最近距离）
-@export var proximity_max_distance := 500.0
-
-## --- 数量增长参数 ---
-## 数量增长系数（越大数量上涨越快）
-@export var spawn_count_growth := 1.5
-## 最大额外生成数量（在基础数量上最多额外增加几只）
-@export var max_extra_spawn_count := 2
-
-## --- 生成间隔缩短参数 ---
-## 间隔缩短系数（越大间隔缩短越快）
-@export var interval_shrink_rate := 0.6
-## 间隔最低比例（基础间隔的最低百分比，0.4 = 最短为基础值的40%）
-@export var interval_min_ratio := 0.4
-
-## --- 安全期/活跃期参数 ---
-## 安全期缩短系数（越大安全期缩短越快）
-@export var safe_shrink_rate := 0.7
-## 安全期最低比例（基础安全期的最低百分比）
-@export var safe_min_ratio := 0.3
-## 活跃期延长系数（越大活跃期延长越快）
-@export var active_growth_rate := 1.5
-## 活跃期最高倍率上限
-@export var active_max_multiplier := 2.5
-
-## --- 鬼存在时间参数 ---
-## 存在时间延长系数（越大存在时间增长越快）
-@export var lifetime_growth_rate := 1.5
-## 存在时间最高倍率上限
-@export var lifetime_max_multiplier := 2.5
-
-## --- 恐惧倍率参数 ---
-## 恐惧增长倍率的最大额外值（最终倍率 = 1.0 + 此值）
-@export var fear_max_extra := 2.0
 
 ## 内部状态
 enum Phase { SAFE, ACTIVE }
 var _current_phase := Phase.SAFE
 ## 当前阶段剩余时间
 var _phase_timer := 0.0
-## 活跃期内距下次生成的计时
-var _spawn_timer := 0.0
 ## 是否启用
 var _enabled := false
 
 
-func _ready() -> void:
-	# 初始进入安全期
+## 初始化生成器（需在 difficulty_config 和 player 注入后由外部调用）
+func initialize() -> void:
 	_enter_safe_phase()
 	_enabled = true
 
@@ -99,9 +64,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not _enabled or player == null:
 		return
-
-	# 更新难度倍率
-	_update_difficulty()
 
 	# 阶段计时
 	_phase_timer -= delta
@@ -113,123 +75,184 @@ func _process(delta: float) -> void:
 		Phase.ACTIVE:
 			if _phase_timer <= 0.0:
 				_enter_safe_phase()
-			else:
-				# 活跃期内按间隔生成鬼
-				_spawn_timer -= delta
-				if _spawn_timer <= 0.0:
-					_do_spawn()
-					_spawn_timer = _get_spawn_interval()
+
+
+## 获取玩家当前奔跑距离
+func _get_distance() -> float:
+	if player == null:
+		return 0.0
+	return player.get_distance_traveled()
 
 
 ## 进入安全期（无鬼）
 func _enter_safe_phase() -> void:
 	_current_phase = Phase.SAFE
-	var difficulty := _get_difficulty_factor()
-	# 安全期随难度缩短
-	_phase_timer = base_safe_duration * maxf(1.0 - difficulty * safe_shrink_rate, safe_min_ratio)
+	var dist := _get_distance()
+	_phase_timer = difficulty_config.sample_param("safe_duration", dist)
+	# 移除当前鬼
+	_remove_current_ghost()
 
 
-## 进入活跃期（生成鬼）
+## 进入活跃期（生成一个鬼）
 func _enter_active_phase() -> void:
 	_current_phase = Phase.ACTIVE
-	var difficulty := _get_difficulty_factor()
-	# 活跃期随难度延长
-	_phase_timer = base_active_duration * minf(1.0 + difficulty * active_growth_rate, active_max_multiplier)
-	_spawn_timer = 0.0  # 立刻生成第一波
+	var dist := _get_distance()
+	_phase_timer = difficulty_config.sample_param("active_duration", dist)
+	# 生成鬼
+	_spawn_ghost()
 
 
-## 更新距离相关的难度参数
-func _update_difficulty() -> void:
-	var distance := player.get_distance_traveled()
-	# 颜色/恐惧倍率：使用 color_max_distance 独立控制
-	var color_factor := clampf(distance / color_max_distance, 0.0, 1.0)
-	fear_gain_multiplier = 1.0 + color_factor * fear_max_extra
-	# 更新所有存活鬼的威胁强度（用于颜色渐变：蓝→红）
-	var threat := color_factor
-	for ghost in active_ghosts:
-		if is_instance_valid(ghost):
-			ghost.threat_intensity = threat
-
-
-## 获取当前难度因子（0.0 ~ 1.0+，距离越远越高）
-func _get_difficulty_factor() -> float:
-	if player == null:
-		return 0.0
-	return player.get_distance_traveled() / difficulty_scale_distance
-
-
-## 获取当前生成间隔（随难度缩短）
-func _get_spawn_interval() -> float:
-	var difficulty := _get_difficulty_factor()
-	# 间隔缩短
-	return base_spawn_interval * maxf(1.0 - difficulty * interval_shrink_rate, interval_min_ratio)
-
-
-## 获取当前单次生成数量（随难度增加）
-func _get_spawn_count() -> int:
-	var difficulty := _get_difficulty_factor()
-	# 数量增加
-	return mini(base_spawn_count + int(difficulty * spawn_count_growth), base_spawn_count + max_extra_spawn_count)
-
-
-## 获取当前鬼的存在时间（随难度增加）
-func _get_ghost_lifetime() -> float:
-	var difficulty := _get_difficulty_factor()
-	# 存在时间延长
-	return base_ghost_lifetime * minf(1.0 + difficulty * lifetime_growth_rate, lifetime_max_multiplier)
-
-
-## 获取当前鬼生成距离（使用 proximity_max_distance 独立控制靠近速度）
+## 获取当前鬼生成距离
 func _get_spawn_z_offset() -> float:
-	var distance := player.get_distance_traveled()
-	var proximity_factor := clampf(distance / proximity_max_distance, 0.0, 1.0)
-	# 从 base_spawn_distance 线性靠近到 min_spawn_distance
-	return lerpf(base_spawn_distance, min_spawn_distance, proximity_factor)
+	var progress: float = clampf(_get_distance() / spawn_z_transition_distance, 0.0, 1.0)
+	var raw_z_offset: float = lerpf(spawn_z_start, spawn_z_end, progress)
+	return _cap_spawn_z_for_visibility(raw_z_offset)
 
 
-## 获取当前鬼生成的X轴范围（与靠近速度同步，鬼从路边远处逐渐靠近路中央）
+## 获取当前鬼生成的X轴范围
 func _get_spawn_x_range() -> float:
-	var distance := player.get_distance_traveled()
-	var proximity_factor := clampf(distance / proximity_max_distance, 0.0, 1.0)
-	return lerpf(base_spawn_x_range, min_spawn_x_range, proximity_factor)
+	var progress: float = clampf(_get_distance() / spawn_x_transition_distance, 0.0, 1.0)
+	return lerpf(spawn_x_range_start, spawn_x_range_end, progress)
 
 
-## 执行一次鬼生成
-func _do_spawn() -> void:
+## 基于相机与雾效配置，限制鬼的前方生成距离，避免生成在不可见区域
+func _cap_spawn_z_for_visibility(raw_z_offset: float) -> float:
+	var capped: float = raw_z_offset
+
+	# 1) 受相机远裁剪面约束
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	if camera:
+		capped = minf(capped, camera.far * 0.75)
+
+		# 2) 受全局雾深度约束（本项目世界中雾深度较近）
+		var world_3d: World3D = camera.get_world_3d()
+		if world_3d and world_3d.environment and world_3d.environment.fog_enabled:
+			var fog_end: float = world_3d.environment.fog_depth_end
+			if fog_end > 0.0:
+				capped = minf(capped, fog_end * 0.8)
+
+	# 保底：至少保证在玩家前方有一定距离，避免贴脸生成
+	return maxf(capped, 2.0)
+
+
+## 基于当前相机视角估算可见的横向范围（世界单位）
+func _get_visible_half_width_at_distance(distance: float) -> float:
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	if not camera:
+		return INF
+
+	var viewport_size: Vector2i = get_viewport().get_visible_rect().size
+	if viewport_size.y <= 0:
+		return INF
+
+	var aspect: float = float(viewport_size.x) / float(viewport_size.y)
+	var half_vertical: float = tan(deg_to_rad(camera.fov) * 0.5) * distance
+	return half_vertical * aspect
+
+
+## 将“相机局部空间偏移”转换为世界偏移，确保鬼总是在当前镜头前方
+func _build_world_offset_from_camera(local_x: float, local_y: float, local_forward: float) -> Vector3:
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	if not camera:
+		# 回退：没有相机时使用世界坐标系（与旧逻辑一致）
+		return Vector3(local_x, local_y, -local_forward)
+
+	var right: Vector3 = camera.global_transform.basis.x.normalized()
+	var forward: Vector3 = -camera.global_transform.basis.z
+	# 仅取水平前向，避免相机俯仰把鬼抬到天上或压到地面
+	forward.y = 0.0
+	if forward.length_squared() <= 0.0001:
+		forward = Vector3(0.0, 0.0, -1.0)
+	else:
+		forward = forward.normalized()
+
+	return right * local_x + Vector3(0.0, local_y, 0.0) + forward * local_forward
+
+
+## 随机生成一个偏移量（相对于玩家的位置）
+## 鬼只会出现在桥面两侧的虚空中，不会在桥面上
+func _random_offset() -> Vector3:
+	var z_offset: float = _get_spawn_z_offset()
+	# Z 偏移加一点随机散布（±20%）
+	var z_jitter: float = z_offset * randf_range(0.8, 1.2)
+
+	var x_range: float = _get_spawn_x_range()
+	# X偏移：在桥面外生成，范围为 [min_from_center, min_from_center + x_range]
+	var x_abs: float = spawn_x_min_from_center + randf_range(0.0, x_range)
+	# 为了保证可见性，限制在相机视锥横向范围内（预留边距）
+	var visible_half_width: float = _get_visible_half_width_at_distance(z_jitter)
+	if visible_half_width < INF:
+		x_abs = minf(x_abs, visible_half_width * 0.8)
+		x_abs = maxf(x_abs, spawn_x_min_from_center)
+	# 随机左右两侧
+	if randf() < 0.5:
+		x_abs = -x_abs
+
+	var y_offset: float = randf_range(spawn_y_min, spawn_y_max)
+	return _build_world_offset_from_camera(x_abs, y_offset, z_jitter)
+
+
+## 鬼的场景资源（预加载）
+const GHOST_SCENE := preload("res://Content/Scene/World3D/ghost.tscn")
+
+## 生成一个鬼
+func _spawn_ghost() -> void:
 	if player == null or spawn_parent == null:
 		return
 
-	var count := _get_spawn_count()
-	var lifetime := _get_ghost_lifetime()
-	var z_offset := _get_spawn_z_offset()
+	# 确保之前的鬼已清理
+	_remove_current_ghost()
 
-	for i in count:
-		var ghost := Ghost.new()
-		ghost.lifetime = lifetime
+	var ghost: Ghost = GHOST_SCENE.instantiate()
+	ghost.lifetime = _phase_timer  # 鬼的存在时间等于活跃期剩余时间
+	ghost.follow_target = player
+	ghost.offset = _random_offset()
 
-		# 随机位置：在玩家前方 z_offset 处，X 和 Y 随机偏移
-		# X 轴范围随难度缩小，鬼从路两侧远处逐渐靠近路中央（靠近玩家）
-		var x_range := _get_spawn_x_range()
-		var x_offset := randf_range(-x_range, x_range)
-		var y_offset := randf_range(spawn_y_min, spawn_y_max)
-		# Z 偏移加一点随机散布（±20%），避免所有鬼在同一直线上
-		var z_jitter := z_offset * randf_range(0.8, 1.2)
+	# 随机选择鬼的初始状态（Idle 或 Move）
+	var random_state: Ghost.State
+	if randf() < 0.5:
+		random_state = Ghost.State.IDLE
+	else:
+		random_state = Ghost.State.MOVE
+	ghost.initial_state = random_state
 
-		var spawn_pos := player.global_position + Vector3(x_offset, y_offset, -z_jitter)
-		ghost.global_position = spawn_pos
+	# 如果是 Move 状态，根据鬼所在侧面决定移动方向
+	# 精灵图默认朝向是从左至右，鬼应从屏幕外侧向内侧（桥的方向）移动
+	# X > 0 在玩家右侧 → 向左移（-1），需要翻转精灵
+	# X < 0 在玩家左侧 → 向右移（+1），使用默认朝向
+	if random_state == Ghost.State.MOVE:
+		ghost.move_direction = -1.0 if ghost.offset.x > 0.0 else 1.0
 
-		# 连接消失信号，从列表中移除
-		ghost.ghost_vanished.connect(_on_ghost_vanished)
+	# 连接消失信号（鬼自行消失时清理引用）
+	ghost.ghost_vanished.connect(_on_ghost_vanished)
 
-		spawn_parent.add_child(ghost)
-		active_ghosts.append(ghost)
+	# 先加入场景树，再设置 global_position
+	# （未加入场景树的节点设置 global_position 无效，会导致鬼出现在原点）
+	spawn_parent.add_child(ghost)
+	ghost.global_position = player.global_position + ghost.offset
+	current_ghost = ghost
 
 
-## 鬼消失时的回调
+## 移除当前的鬼
+func _remove_current_ghost() -> void:
+	if current_ghost and is_instance_valid(current_ghost):
+		current_ghost.ghost_vanished.disconnect(_on_ghost_vanished)
+		current_ghost.queue_free()
+		current_ghost = null
+
+
+## 鬼自行消失时的回调（lifetime 耗尽触发）
 func _on_ghost_vanished(ghost: Ghost) -> void:
-	active_ghosts.erase(ghost)
+	if ghost == current_ghost:
+		current_ghost = null
 
 
 ## 停止生成（游戏结束时调用）
 func stop() -> void:
 	_enabled = false
+	_remove_current_ghost()
+
+
+## 是否当前有存活的鬼
+func has_ghost() -> bool:
+	return current_ghost != null and is_instance_valid(current_ghost)

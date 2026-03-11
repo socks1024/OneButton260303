@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="DifficultyPhase" format=3 uid="uid://1ypbf2ik1m20"]
+
+[ext_resource type="Script" uid="uid://hpw8t25oofdi" path="res://Content/Data/Difficulty/difficulty_phase.gd" id="1_uvdmv"]
+
+[sub_resource type="Curve" id="Curve_uvdmv"]
+_limits = [0.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 4), 0.0, 2.0, 0, 1, Vector2(1, 6), 2.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1wuqt"]
+_data = [Vector2(0, 0.2), 0.0, 0.5, 0, 1, Vector2(1, 0.7), 0.5, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_gd4sd"]
+_limits = [0.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 6), 0.0, -5.0, 0, 1, Vector2(1, 1), -5.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ydlny"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 8), nan, 32.0, 1, 1, Vector2(1, 40), 32.0, 0.0, 1, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_uvdmv")
+distance = 2000.0
+speed_curve = SubResource("Curve_ydlny")
+gap_chance_curve = SubResource("Curve_1wuqt")
+safe_duration_curve = SubResource("Curve_gd4sd")
+active_duration_curve = SubResource("Curve_uvdmv")
+metadata/_custom_type_script = "uid://hpw8t25oofdi"

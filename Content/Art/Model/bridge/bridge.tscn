@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://mbcuxk25ch7e"]
+
+[ext_resource type="PackedScene" uid="uid://c0d62vqmehlmp" path="res://Content/Art/Model/bridge/bridge.fbx" id="1_fcfrd"]
+[ext_resource type="Texture2D" uid="uid://be0ustktsueex" path="res://Content/Art/Texture/bridge/zong_02 - Default_BaseColor.png" id="2_pbo4y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yv608"]
+albedo_texture = ExtResource("2_pbo4y")
+
+[node name="bridge" unique_id=793228605 instance=ExtResource("1_fcfrd")]
+
+[node name="Box004" parent="." index="0" unique_id=991155341]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -10)
+surface_material_override/0 = SubResource("StandardMaterial3D_yv608")

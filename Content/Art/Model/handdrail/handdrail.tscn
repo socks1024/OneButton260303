@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c4bewl1j06bjm"]
+
+[ext_resource type="PackedScene" uid="uid://ue0ehf0yes2g" path="res://Content/Art/Model/handdrail/handdrail.fbx" id="1_grl2g"]
+[ext_resource type="Texture2D" uid="uid://1q0d31o2nxw0" path="res://Content/Art/Texture/handdrail/zong_24 - Default_BaseColor.png" id="2_2j5h4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w11us"]
+albedo_texture = ExtResource("2_2j5h4")
+
+[node name="zhalan" unique_id=977063594 instance=ExtResource("1_grl2g")]
+
+[node name="Cylinder007" parent="." index="0" unique_id=1016552570]
+transform = Transform3D(-0.009974906, -0.04200679, 0, 0, 0, 0.050291, -0.061149776, 0.0068522543, 0, 0, 1, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_w11us")

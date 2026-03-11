@@ -14,29 +14,22 @@ signal lost_maxed
 
 ## 初始移动速度
 @export var base_speed := 8.0
-## 速度随时间增长的倍率（每秒增加的速度）
-@export var speed_increase_per_second := 0.3
 ## 重力
 @export var gravity := 20.0
 ## 掉落判定的Y坐标阈值
 @export var fall_threshold := -10.0
+## 跳跃高度（米），决定每次跳跃的最高点，所有跳跃高度一致
+@export var jump_height := 1.5
 ## 跳跃安全裕量（落点距断口对面边缘多远，单位：米）
-## 值越大落点越靠近断口对面安全区中间，值越小越擦边
-@export var jump_landing_margin := 1.5
+## 值越大落点越靠近对面安全区中间，值越小越擦边
+@export var jump_landing_margin := 1.0
 ## 前方地面探测距离（距玩家脚下前方多远开始探测）
 @export var gap_detect_distance := 2.0
 ## 跳跃后的冷却时间（落地后多久才能再次起跳）
 @export var jump_cooldown := 0.3
 
-## --- 数值参数 ---
-## 恐惧值增长速率（点/秒，看到鬼时）
-@export var fear_gain_rate := 10.0
-## 恐惧值下降速率（点/秒，闭眼时下降）
-@export var fear_decay_rate := 3.0
-## 迷失值增长速率（点/秒，闭眼时）
-@export var lost_gain_rate := 5.0
-## 迷失值下降速率（点/秒，睁眼时下降）
-@export var lost_decay_rate := 4.0
+## 难度配置资源引用（由 GameWorld 注入）
+var difficulty_config: DifficultyConfig
 
 ## 当前移动速度
 var current_speed := 0.0
@@ -54,6 +47,10 @@ var stats: PlayerStats
 var _jump_cooldown_timer := 0.0
 ## 上一帧是否在地面上（用于检测刚落地的时刻）
 var _was_on_floor := true
+## 跳跃时锁定的水平速度（跳跃期间保持不变，落地后清除）
+var _jump_locked_speed := 0.0
+## 是否正在跳跃中（用于锁定水平速度）
+var _is_jumping := false
 
 ## RoadManager 引用（由 game_world 注入，用于查询断口信息）
 var road_manager: RoadManager
@@ -81,21 +78,23 @@ func _physics_process(delta: float) -> void:
 
 	# 更新存活时间和速度
 	alive_time += delta
-	current_speed = base_speed + speed_increase_per_second * alive_time
+	var dist := get_distance_traveled()
+	current_speed = difficulty_config.sample_param("speed", dist)
 
-	# 数值消耗与恢复逻辑：只统计玩家前方且 X 轴足够近的鬼
-	var visible_ghost_count := 0
-	if ghost_spawner:
-		# 获取当前鬼生成的X范围作为可见判定阈值（加一点余量）
-		var visible_x_threshold := ghost_spawner.base_spawn_x_range + 2.0
-		for ghost: Ghost in ghost_spawner.active_ghosts:
+	# 动态更新数值参数（从难度配置读取，允许随阶段变化）
+	stats.fear_gain_rate = difficulty_config.sample_param("fear_gain_rate", dist)
+	stats.fear_decay_rate = difficulty_config.sample_param("fear_decay_rate", dist)
+	stats.lost_gain_rate = difficulty_config.sample_param("lost_gain_rate", dist)
+	stats.lost_decay_rate = difficulty_config.sample_param("lost_decay_rate", dist)
+
+	# 数值消耗与恢复逻辑：判断当前鬼是否在玩家前方且已完全显现
+	var ghost_visible := false
+	if ghost_spawner and ghost_spawner.current_ghost:
+		var ghost := ghost_spawner.current_ghost
+		if is_instance_valid(ghost) and ghost.is_fully_visible:
 			# 鬼必须在玩家前方（Z 比玩家小）
-			if ghost.global_position.z >= global_position.z:
-				continue
-			# 用 X 轴距离判断远近：X 轴偏移在生成范围内才算可见
-			var x_dist := absf(ghost.global_position.x - global_position.x)
-			if x_dist < visible_x_threshold:
-				visible_ghost_count += 1
+			if ghost.global_position.z < global_position.z:
+				ghost_visible = true
 
 	if is_eyes_closed:
 		# 闭眼：迷失值增长，恐惧值下降
@@ -104,12 +103,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		# 睁眼：迷失值始终下降
 		stats.decay_lost(delta)
-		if visible_ghost_count > 0:
-			# 睁眼且有鬼：恐惧值增长，距离倍率由 GhostSpawner 提供
-			var distance_multiplier := 1.0
-			if ghost_spawner:
-				distance_multiplier = ghost_spawner.fear_gain_multiplier
-			stats.gain_fear(delta, float(visible_ghost_count) * distance_multiplier)
+		if ghost_visible:
+			# 睁眼且有鬼：恐惧值增长
+			stats.gain_fear(delta)
 		else:
 			# 睁眼且无鬼：恐惧值也下降
 			stats.decay_fear(delta)
@@ -121,16 +117,29 @@ func _physics_process(delta: float) -> void:
 	# 检测刚落地的时刻，开始冷却
 	var on_floor_now := is_on_floor()
 	if on_floor_now and not _was_on_floor:
-		# 刚落地，启动跳跃冷却
+		# 刚落地，启动跳跃冷却，解除跳跃锁定
 		_jump_cooldown_timer = jump_cooldown
+		_is_jumping = false
+		_jump_locked_speed = 0.0
 	_was_on_floor = on_floor_now
 
 	# 自动跳跃检测：在地面上且睁眼时，冷却结束后，检测前方是否有断口
 	if on_floor_now and not is_eyes_closed and _jump_cooldown_timer <= 0.0:
 		if not _ground_ray.is_colliding():
 			# 前方地面消失（断口），自动跳跃
-			# 用物理公式精确计算跳跃力：刚好飞过断口 + 安全裕量
+			# 垂直方向：固定高度 → 固定初速度
 			velocity.y = _calculate_jump_velocity()
+			# 水平方向：计算确保能飞过断口的最低速度，取 max(当前速度, 所需速度)
+			_jump_locked_speed = _calculate_jump_horizontal_speed()
+			_is_jumping = true
+
+	# 闭眼时掉入断口检测：闭眼且在地面上时，检查玩家脚下是否处于断口区域
+	# 如果脚下正好在断口上方，给一个向下的速度让玩家掉落（而不是滑过断口）
+	if is_eyes_closed and on_floor_now and not _is_jumping:
+		if _is_player_over_gap():
+			# 玩家闭眼走到断口上方，施加向下速度使其掉落
+			velocity.y = -gravity * delta
+			on_floor_now = false
 
 	# 应用重力
 	if not on_floor_now:
@@ -141,7 +150,11 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0.0
 
 	# 自动向前移动（Z轴负方向）
-	velocity.z = -current_speed
+	# 跳跃期间使用锁定的水平速度（保证飞过断口），落地后恢复正常速度
+	if _is_jumping:
+		velocity.z = -_jump_locked_speed
+	else:
+		velocity.z = -current_speed
 
 	move_and_slide()
 
@@ -191,10 +204,6 @@ func _find_camera() -> Camera3D:
 ## 初始化数值系统
 func _setup_stats() -> void:
 	stats = PlayerStats.new()
-	stats.fear_gain_rate = fear_gain_rate
-	stats.fear_decay_rate = fear_decay_rate
-	stats.lost_gain_rate = lost_gain_rate
-	stats.lost_decay_rate = lost_decay_rate
 	stats.fear_maxed.connect(func(): fear_maxed.emit())
 	stats.lost_maxed.connect(func(): lost_maxed.emit())
 
@@ -210,27 +219,39 @@ func _setup_ground_ray() -> void:
 	_ground_ray.enabled = true
 
 
-## 根据前方断口长度精确计算跳跃力度
-## 物理模型：抛物线运动
-##   水平飞行距离 = current_speed × 滞空时间
-##   滞空时间 = 2 × vy / gravity  （上升+下降回到同一高度）
-##   所以: 目标距离 = current_speed × 2 × vy / gravity
-##   反推: vy = (目标距离 × gravity) / (2 × current_speed)
+## 根据固定跳跃高度计算跳跃垂直初速度
+## 物理公式：v² = 2 * g * h → vy = sqrt(2 * gravity * jump_height)
+## 无论玩家速度快慢，跳跃高度始终一致
 func _calculate_jump_velocity() -> float:
-	# 从 RoadManager 获取前方最近断口的实际信息
+	return sqrt(2.0 * gravity * jump_height)
+
+
+## 根据断口信息计算跳跃所需的水平速度
+## 保证玩家一定能飞过断口（睁眼状态下）
+## 如果当前速度已经足够，直接使用当前速度
+func _calculate_jump_horizontal_speed() -> float:
+	# 计算固定跳跃高度对应的滞空时间
+	# vy = sqrt(2*g*h), 滞空时间 t = 2*vy/g
+	var vy := sqrt(2.0 * gravity * jump_height)
+	var air_time := 2.0 * vy / gravity
+
+	# 获取断口信息，计算需要飞过的水平距离
 	var target_distance := RoadSegment.BASE_GAP_LENGTH + gap_detect_distance + jump_landing_margin
 	if road_manager:
 		var gap_info := road_manager.get_next_gap_info(position.z)
 		if gap_info["has_gap"]:
-			# 完整飞行距离 = 起跳点到断口起点的距离 + 断口长度 + 安全裕量
-			# distance_to_gap 是从玩家当前位置到断口起始边缘的距离
-			# 但玩家在检测到断口时已经处于断口前 gap_detect_distance 处
-			# 所以实际飞行距离 ≈ distance_to_gap + gap_length + landing_margin
+			# 实际飞行距离 = 到断口的距离 + 断口长度 + 安全裕量
 			target_distance = gap_info["distance_to_gap"] + gap_info["gap_length"] + jump_landing_margin
 
-	# 用物理公式反推跳跃力: vy = (distance * gravity) / (2 * horizontal_speed)
-	var vy := (target_distance * gravity) / (2.0 * current_speed)
+	# 所需最低水平速度 = 水平距离 / 滞空时间
+	var required_speed := target_distance / air_time
 
-	# 限制最小和最大跳跃力，避免异常值
-	vy = clampf(vy, 3.0, 20.0)
-	return vy
+	# 取当前速度和所需速度的较大值（速度够就不额外加速）
+	return maxf(current_speed, required_speed)
+
+
+## 判断玩家当前位置是否在某个断口的上方
+func _is_player_over_gap() -> bool:
+	if not road_manager:
+		return false
+	return road_manager.is_over_gap(position.z)

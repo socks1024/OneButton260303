@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://djjc14ifthfbr"]
+
+[ext_resource type="Script" uid="uid://cmv2dbehqa5f" path="res://Content/Script/Ghost/ghost.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b1fxg4nvqoeow" path="res://Content/Art/Sprite/GhostIdle/Body.png" id="2_body"]
+[ext_resource type="Texture2D" uid="uid://7kysayu5lsub" path="res://Content/Art/Sprite/GhostIdle/LeftArm.png" id="3_left_arm"]
+[ext_resource type="Texture2D" uid="uid://cu4mxujfyu5jh" path="res://Content/Art/Sprite/GhostIdle/RightArm.png" id="4_right_arm"]
+[ext_resource type="Texture2D" uid="uid://bpi0nplbt3lf3" path="res://Content/Art/Sprite/GhostIdle/Head.png" id="5_head"]
+[ext_resource type="Resource" path="res://Content/Art/Audio/Events/BGM/bgm_ghost.tres" id="6_ghost_music"]
+[ext_resource type="Texture2D" uid="uid://bxv881dv8vivk" path="res://Content/Art/Sprite/GhostMove/head.png" id="7_u1fk4"]
+[ext_resource type="Texture2D" uid="uid://kqesmmmv0bb" path="res://Content/Art/Sprite/GhostMove/leftarm.png" id="8_e44cc"]
+[ext_resource type="Texture2D" uid="uid://dgonh8aefccj5" path="res://Content/Art/Sprite/GhostMove/rightarm.png" id="9_7s4av"]
+[ext_resource type="Texture2D" uid="uid://cfuv48vt3ntaq" path="res://Content/Art/Sprite/GhostMove/body.png" id="10_ny8wf"]
+
+[node name="Ghost" type="Node3D" unique_id=856372917]
+script = ExtResource("1_script")
+bob_frequency = 0.8
+move_speed = 2.0
+ghost_music = ExtResource("6_ghost_music")
+
+[node name="Idle" type="Node3D" parent="." unique_id=1363967288]
+
+[node name="Head" type="Sprite3D" parent="Idle" unique_id=240550091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.254, 3.479, 0.01)
+no_depth_test = true
+render_priority = 2
+texture = ExtResource("5_head")
+
+[node name="LeftArm" type="Sprite3D" parent="Idle" unique_id=1333553329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4665446, 1.5728586, 0)
+no_depth_test = true
+render_priority = 1
+texture = ExtResource("3_left_arm")
+
+[node name="RightArm" type="Sprite3D" parent="Idle" unique_id=682124882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.023611, 1.2061563, 0)
+no_depth_test = true
+render_priority = 1
+texture = ExtResource("4_right_arm")
+
+[node name="Body" type="Sprite3D" parent="Idle" unique_id=425051378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+no_depth_test = true
+texture = ExtResource("2_body")
+
+[node name="Move" type="Node3D" parent="." unique_id=858355960]
+visible = false
+
+[node name="Head" type="Sprite3D" parent="Move" unique_id=599579029]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6413264, 6.1663456, 0.010000953)
+no_depth_test = true
+render_priority = 2
+texture = ExtResource("7_u1fk4")
+
+[node name="LeftArm" type="Sprite3D" parent="Move" unique_id=1538996714]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5372148, 0.6641147, -9.536743e-07)
+no_depth_test = true
+render_priority = 1
+texture = ExtResource("8_e44cc")
+
+[node name="RightArm" type="Sprite3D" parent="Move" unique_id=2088502055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.344851, 3.3110883, -0.02)
+no_depth_test = true
+render_priority = -1
+texture = ExtResource("9_7s4av")
+
+[node name="Body" type="Sprite3D" parent="Move" unique_id=1717852506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+no_depth_test = true
+texture = ExtResource("10_ny8wf")

@@ -1,6 +1,7 @@
 class_name RoadSegment
 extends Node3D
 ## 道路段，代表一段路面。可以包含断口（gap）。
+## 节点树结构由 road_segment.tscn 场景提供，脚本负责数据控制。
 
 ## 路段总长度（沿Z轴负方向延伸）
 const SEGMENT_LENGTH := 20.0
@@ -11,7 +12,18 @@ const ROAD_HEIGHT := 0.5
 ## 默认断口长度（最小值）
 const BASE_GAP_LENGTH := 3.0
 
-## --- 以下参数可在编辑器中调整（通过 RoadManager 传入） ---
+## 预加载桥面和栅栏美术资源
+const BridgeScene := preload("res://Content/Art/Model/bridge/bridge.tscn")
+const HandrailScene := preload("res://Content/Art/Model/handdrail/handdrail.tscn")
+
+## 预加载怪物贴图（在断口中随机展示）
+const MONSTER_TEXTURES: Array[CompressedTexture2D] = [
+	preload("res://Content/Art/Sprite/Monsters/MonsterA.png"),
+	preload("res://Content/Art/Sprite/Monsters/MonsterB.png"),
+	preload("res://Content/Art/Sprite/Monsters/MonsterC.png"),
+]
+
+## --- 以下参数由 RoadManager 传入 ---
 
 ## 是否有断口
 var has_gap := false
@@ -19,6 +31,26 @@ var has_gap := false
 var gap_length := BASE_GAP_LENGTH
 ## 断口在路段中的起始位置（相对于路段起点的Z偏移，负值）
 var gap_start_z := 0.0
+## 怪物显示高度（米），由 RoadManager 传入
+var monster_height := 2.8
+## 是否启用路面与栏杆描边（由 RoadManager 传入）
+var outline_enabled := true
+## 路面与栏杆描边颜色（由 RoadManager 传入）
+var outline_color := Color(0.0, 0.0, 0.0, 1.0)
+## 路面与栏杆描边粗细（由 RoadManager 传入）
+var outline_width := 0.03
+
+## --- 场景节点引用 ---
+
+## 前半段路面（无断口时为完整路面）
+@onready var _road_body: StaticBody3D = $RoadBody
+@onready var _road_collision: CollisionShape3D = $RoadBody/CollisionShape3D
+
+## 后半段路面（仅断口时启用）
+@onready var _back_body: StaticBody3D = $BackBody
+@onready var _back_collision: CollisionShape3D = $BackBody/CollisionShape3D
+
+
 
 
 ## 获取断口在世界坐标系中的起始Z位置
@@ -30,6 +62,7 @@ func get_gap_world_start_z() -> float:
 func get_gap_world_end_z() -> float:
 	return position.z + gap_start_z - gap_length
 
+
 ## 初始化路段
 ## p_has_gap: 是否有断口
 ## p_gap_length: 断口长度（默认使用 BASE_GAP_LENGTH）
@@ -40,78 +73,143 @@ func setup(p_has_gap: bool, p_gap_length: float = BASE_GAP_LENGTH) -> void:
 		# 断口位置在路段中间区域随机（留出前后边距）
 		var margin := 4.0
 		gap_start_z = -randf_range(margin, SEGMENT_LENGTH - margin - gap_length)
+
+
+## 场景就绪后根据 setup 的数据配置节点
+func _ready() -> void:
+	# 将场景中共享的子资源复制为独立副本，防止多实例互相影响
+	_road_collision.shape = _road_collision.shape.duplicate()
+	_back_collision.shape = _back_collision.shape.duplicate()
 	_build_road()
 
 
-## 构建路面的网格和碰撞体
+## 根据断口数据配置场景节点
 func _build_road() -> void:
 	if not has_gap:
-		# 整段路面
-		_create_road_piece(Vector3(0, 0, 0), SEGMENT_LENGTH)
+		# 无断口 —— RoadBody 使用完整 20m，BackBody 保持隐藏
+		_setup_road_piece(_road_body, _road_collision, Vector3.ZERO, SEGMENT_LENGTH)
+		_back_body.visible = false
+		_back_body.process_mode = Node.PROCESS_MODE_DISABLED
+		# 放置完整桥面美术模型和栅栏
+		_place_bridge_art(Vector3.ZERO, SEGMENT_LENGTH)
 	else:
-		# 断口前的部分
+		# 有断口 —— 分成两段
 		var front_length := absf(gap_start_z)
+
+		# 断口前的部分
 		if front_length > 0.01:
-			_create_road_piece(Vector3(0, 0, 0), front_length)
+			_setup_road_piece(_road_body, _road_collision, Vector3.ZERO, front_length)
+			_place_bridge_art(Vector3.ZERO, front_length)
+		else:
+			_road_body.visible = false
+			_road_body.process_mode = Node.PROCESS_MODE_DISABLED
 
 		# 断口后的部分
 		var back_start_z := gap_start_z - gap_length
 		var back_length := SEGMENT_LENGTH - front_length - gap_length
 		if back_length > 0.01:
-			_create_road_piece(Vector3(0, 0, back_start_z), back_length)
+			_back_body.visible = true
+			_back_body.process_mode = Node.PROCESS_MODE_INHERIT
+			_setup_road_piece(_back_body, _back_collision, Vector3(0, 0, back_start_z), back_length)
+			_place_bridge_art(Vector3(0, 0, back_start_z), back_length)
+		else:
+			_back_body.visible = false
+			_back_body.process_mode = Node.PROCESS_MODE_DISABLED
 
-		# 在断口位置添加一个可视的警示标记（红色边缘）
-		_create_gap_marker(Vector3(0, 0, gap_start_z))
+		# 在断口中央放置怪物装饰
+		_place_gap_monster()
 
 
-## 创建一段路面（网格 + 碰撞体）
-func _create_road_piece(p_position: Vector3, p_length: float) -> void:
-	var static_body := StaticBody3D.new()
-	add_child(static_body)
+## 单段栅栏模型的长度（米）
+const HANDRAIL_LENGTH := 5.0
 
-	# 网格
-	var mesh_instance := MeshInstance3D.new()
-	var box_mesh := BoxMesh.new()
-	box_mesh.size = Vector3(ROAD_WIDTH, ROAD_HEIGHT, p_length)
-	mesh_instance.mesh = box_mesh
-	# 路面中心偏移：X居中，Y向下半个厚度，Z居中于该段
-	mesh_instance.position = p_position + Vector3(0, -ROAD_HEIGHT / 2.0, -p_length / 2.0)
-	static_body.add_child(mesh_instance)
+## 在指定位置放置桥面美术模型和两侧栅栏
+## p_start_pos: 这段路面的起始位置（局部坐标）
+## p_length: 这段路面的长度
+func _place_bridge_art(p_start_pos: Vector3, p_length: float) -> void:
+	# 计算缩放比例（模型标准长度假设为 SEGMENT_LENGTH=20m）
+	var length_scale := p_length / SEGMENT_LENGTH
 
-	# 材质 - 深灰色路面
-	var material := StandardMaterial3D.new()
-	material.albedo_color = Color(0.25, 0.25, 0.3)
-	mesh_instance.material_override = material
+	# 放置桥面模型
+	var bridge := BridgeScene.instantiate()
+	bridge.scale = Vector3(1, 1, length_scale)
+	bridge.position = p_start_pos
+	add_child(bridge)
 
-	# 碰撞体
-	var collision := CollisionShape3D.new()
-	var box_shape := BoxShape3D.new()
+	# 用多个5m栅栏拼接覆盖整段路面长度
+	_place_handrails(p_start_pos, p_length)
+
+
+## 沿路段两侧拼接放置栅栏
+func _place_handrails(p_start_pos: Vector3, p_length: float) -> void:
+	# 计算需要多少段栅栏（向上取整，最后一段可能需要缩放）
+	var count := ceili(p_length / HANDRAIL_LENGTH)
+	var remaining := p_length
+
+	for i in count:
+		# 当前栅栏的Z偏移（沿Z负方向排列）
+		var z_offset := -i * HANDRAIL_LENGTH
+		# 最后一段可能不足5m，需要缩放
+		var seg_length := minf(HANDRAIL_LENGTH, remaining)
+		var seg_scale := seg_length / HANDRAIL_LENGTH
+		remaining -= seg_length
+
+		# 左侧栅栏（旋转180°使其朝-Z方向延伸）
+		var rail_left := HandrailScene.instantiate()
+		rail_left.scale = Vector3(1, 1, seg_scale)
+		rail_left.rotation.y = PI
+		rail_left.position = p_start_pos + Vector3(-ROAD_WIDTH / 2.0, 0, z_offset)
+		add_child(rail_left)
+
+		# 右侧栅栏（镜像翻转 + 旋转180°）
+		var rail_right := HandrailScene.instantiate()
+		rail_right.scale = Vector3(-1, 1, seg_scale)
+		rail_right.rotation.y = PI
+		rail_right.position = p_start_pos + Vector3(ROAD_WIDTH / 2.0, 0, z_offset)
+		add_child(rail_right)
+
+
+func _apply_outline_to_instance(_root: Node) -> void:
+	return
+
+
+func _apply_outline_to_mesh(_mesh_instance: MeshInstance3D) -> void:
+	return
+
+
+## 在断口中央放置怪物 Sprite3D 装饰
+func _place_gap_monster() -> void:
+	# 断口中心的Z坐标
+	var gap_center_z := gap_start_z - gap_length / 2.0
+	var sprite := Sprite3D.new()
+	sprite.texture = MONSTER_TEXTURES.pick_random()
+	# 使用透明混合
+	sprite.transparency = 0.0
+	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
+	# 设置尺寸：使用 RoadManager 传入的怪物高度
+	var target_height := monster_height
+	var tex_height := sprite.texture.get_height()
+	sprite.pixel_size = target_height / tex_height
+	# 位置：断口中央，怪物底部与路面底部齐平，向上立起
+	var half_world_height := tex_height * sprite.pixel_size / 2.0
+	sprite.position = Vector3(0, -ROAD_HEIGHT + half_world_height, gap_center_z)
+	# 默认朝向即面朝+Z（玩家奔跑方向），无需旋转，怪物直立
+	# 不接受光照，保持原色显示
+	sprite.shaded = false
+	sprite.double_sided = true
+	add_child(sprite)
+
+
+
+## 配置一段路面的碰撞体尺寸与位置
+func _setup_road_piece(
+	body: StaticBody3D,
+	collision: CollisionShape3D,
+	p_position: Vector3,
+	p_length: float
+) -> void:
+	# 调整碰撞体尺寸
+	var box_shape := collision.shape as BoxShape3D
 	box_shape.size = Vector3(ROAD_WIDTH, ROAD_HEIGHT, p_length)
-	collision.shape = box_shape
-	collision.position = mesh_instance.position
-	static_body.add_child(collision)
-
-
-## 创建断口边缘的红色警示标记
-func _create_gap_marker(p_position: Vector3) -> void:
-	# 断口前沿的红色条
-	var marker_front := MeshInstance3D.new()
-	var marker_mesh := BoxMesh.new()
-	marker_mesh.size = Vector3(ROAD_WIDTH, 0.05, 0.2)
-	marker_front.mesh = marker_mesh
-	marker_front.position = p_position + Vector3(0, 0.01, -0.1)
-	add_child(marker_front)
-
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(0.8, 0.1, 0.1)
-	mat.emission_enabled = true
-	mat.emission = Color(0.8, 0.1, 0.1)
-	mat.emission_energy_multiplier = 0.5
-	marker_front.material_override = mat
-
-	# 断口后沿的红色条
-	var marker_back := MeshInstance3D.new()
-	marker_back.mesh = marker_mesh
-	marker_back.position = p_position + Vector3(0, 0.01, -gap_length + 0.1)
-	add_child(marker_back)
-	marker_back.material_override = mat
+	# 碰撞体中心偏移：X居中，Y向下半个厚度，Z居中于该段
+	collision.position = p_position + Vector3(0, -ROAD_HEIGHT / 2.0, -p_length / 2.0)

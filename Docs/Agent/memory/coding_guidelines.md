@@ -15,23 +15,19 @@
 
 ## 二、GDScript 规范
 
-### 1. 自动类型推断 `:=`
+### 1. 禁止使用自动类型推断 `:=`，必须显式标注类型
 
-- GDScript 使用 `:=` 进行自动类型推断，**仅当右值类型明确时使用**。
-- ✅ 正确：`var key := "hello"`（右值是明确的 String）
-- ✅ 正确：`var rect := child as ColorRect`（as 转换后类型明确）
-- ✅ 正确：`var count := 0`（右值是明确的 int）
-- ❌ 错误：`var x := null`（null 无法推断类型，编译错误）
-- ❌ 错误：`var value := dict.get("key")`（get 返回 Variant，不能用 `:=`）
-- 当右值类型不明确（如字典取值、Variant 返回值）时，应**显式标注类型**：
-  - `var value: Variant = dict.get("key")`
-  - `var node: Node = some_func()`
-
-### 2. 变量声明不要冗余标注
-
-- 当使用 `:=` 时，不要同时写类型标注，这是语法错误。
-- ❌ 错误：`var key: String := "hello"`（`:=` 和 `: String` 不能同时使用）
-- ✅ 正确：`var key := "hello"` 或 `var key: String = "hello"`
+- **禁止**使用 `:=` 进行自动类型推断，所有变量声明**必须显式标注类型**。
+- ✅ 正确：`var key: String = "hello"`
+- ✅ 正确：`var rect: ColorRect = child as ColorRect`
+- ✅ 正确：`var count: int = 0`
+- ✅ 正确：`var value: Variant = dict.get("key")`
+- ✅ 正确：`var node: Node = some_func()`
+- ❌ 错误：`var key := "hello"`（禁止使用 `:=`）
+- ❌ 错误：`var count := 0`（禁止使用 `:=`）
+- 函数返回值也必须显式标注类型：
+  - ✅ 正确：`func get_name() -> String:`
+  - ❌ 错误：`func get_name():`（缺少返回类型标注）
 
 ---
 
@@ -53,16 +49,7 @@
       return texture(TEXTURE, UV); // 编译错误：void 函数不能返回值
   }
   ```
-- 注意：`return;`（不带值的提前返回）在 void 函数中是**允许的**。
-
-### 2. 自定义函数的 return
-
-- 自定义的有返回值的函数可以正常使用 `return`：
-  ```glsl
-  float my_func(float x) {
-      return x * 2.0;
-  }
-  ```
+- 注意：`return;`（不带值的提前返回）在 gdshader 中也是**绝对不允许的**，应使用条件分支代替。
 
 ---
 
@@ -75,3 +62,12 @@
 ### 2. 相机处理
 
 - 处理相机逻辑和相机相关节点时，**优先使用 Phantom Camera**（插件），而非原生的 `Camera2D` / `Camera3D`。
+
+---
+
+## 五、数据与配置规范
+
+### 1. 不要修改 @export 变量的默认值
+
+- 如果遇到 `@export` 变量的数值看起来有问题，**不要直接在代码中修改其默认值**，也不要在 `.tscn` 文件中修改对应的覆盖值。
+- 这些数值由设计人员在编辑器中调整，AI **只需在聊天中告知数值可能存在的问题**即可。
