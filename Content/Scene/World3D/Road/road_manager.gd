@@ -28,14 +28,8 @@ var player: Player
 ## 断口中怪物的显示高度（米）
 @export var monster_height := 2.8
 
-## --- 路与栏杆轮廓 ---
-@export_group("路与栏杆轮廓")
-## 是否启用路面与栏杆描边
-@export var road_outline_enabled := true
-## 路面与栏杆描边颜色
-@export var road_outline_color := Color(0.0, 0.0, 0.0, 1.0)
-## 路面与栏杆描边粗细（米）
-@export_range(0.001, 0.9, 0.001) var road_outline_width := 0.03
+
+
 
 ## 当前所有活跃的路段
 var _segments: Array[RoadSegment] = []
@@ -51,6 +45,10 @@ var _last_segment_had_gap := false
 func initialize() -> void:
 	for i in range(segments_ahead + segments_behind):
 		_spawn_segment()
+
+
+
+
 
 
 ## 根据玩家位置更新路段（生成前方的、回收后方的）
@@ -74,10 +72,6 @@ func update_road(player_z: float) -> void:
 ## 生成一段新路
 func _spawn_segment() -> void:
 	var segment: RoadSegment = RoadSegmentScene.instantiate()
-
-	segment.outline_enabled = road_outline_enabled
-	segment.outline_color = road_outline_color
-	segment.outline_width = road_outline_width
 
 	# 决定是否有断口
 	# 规则：开局保护期内无断口；上一段有断口则这段强制无断口，防止连续断口

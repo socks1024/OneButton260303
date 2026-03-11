@@ -142,6 +142,9 @@ func _create_void_fog() -> void:
 	add_child(_void_fog)
 
 
+
+
+
 ## 闭眼/睁眼状态变化 — 使用 EyesOverlay 遮罩渐变
 func _on_eyes_state_changed(is_closed: bool) -> void:
 	# 打断上一个渐变动画（如果有）
