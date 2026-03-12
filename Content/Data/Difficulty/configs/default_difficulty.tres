@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="DifficultyConfig" format=3 uid="uid://vg2b55bvqx20"]
 
 [ext_resource type="Script" uid="uid://hpw8t25oofdi" path="res://Content/Data/Difficulty/difficulty_phase.gd" id="1_d7nt7"]
-[ext_resource type="Resource" uid="uid://1ypbf2ik1m20" path="res://Content/Data/Difficulty/phases/default_phase.tres" id="2_7q5cm"]
+[ext_resource type="Resource" uid="uid://dfak0bi873jur" path="res://Content/Data/Difficulty/phases/test_phase_1.tres" id="2_7q5cm"]
 [ext_resource type="Script" uid="uid://btklw2j3xx8my" path="res://Content/Data/Difficulty/difficulty_config.gd" id="2_k1xmu"]
+[ext_resource type="Resource" uid="uid://dsy2vxry4710g" path="res://Content/Data/Difficulty/phases/test_phase_2.tres" id="3_7q5cm"]
+[ext_resource type="Resource" uid="uid://c7i46a2ohei2y" path="res://Content/Data/Difficulty/phases/test_phase_3.tres" id="4_m2ggh"]
 
 [resource]
 script = ExtResource("2_k1xmu")
-phases = Array[ExtResource("1_d7nt7")]([ExtResource("2_7q5cm")])
+phases = Array[ExtResource("1_d7nt7")]([ExtResource("2_7q5cm"), ExtResource("3_7q5cm"), ExtResource("4_m2ggh")])
 safe_segments = 2
 metadata/_custom_type_script = "uid://btklw2j3xx8my"

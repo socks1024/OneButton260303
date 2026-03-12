@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="DifficultyPhase" format=3 uid="uid://c7i46a2ohei2y"]
+
+[ext_resource type="Script" uid="uid://hpw8t25oofdi" path="res://Content/Data/Difficulty/difficulty_phase.gd" id="1_hwea6"]
+
+[sub_resource type="Curve" id="Curve_tatdt"]
+_limits = [0.0, 9.24, 0.0, 1.0]
+_data = [Vector2(0, 6.0443788), 0.0, 0.0, 0, 0, Vector2(0.99870473, 6.8148646), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_mwtmi"]
+_data = [Vector2(0, 0.7), 0.0, 0.0, 0, 0, Vector2(1, 0.54889584), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_03y0g"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 1.8), 0.0, 0.0, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_7nbqf"]
+_limits = [0.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 6), 0.0, 0.0, 0, 0, Vector2(0.10621761, 6.7832994), 1.7101902, 0.0, 0, 0, Vector2(1, 7.37846), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[resource]
+script = ExtResource("1_hwea6")
+distance = 232.0
+speed_curve = SubResource("Curve_7nbqf")
+gap_chance_curve = SubResource("Curve_mwtmi")
+safe_duration_curve = SubResource("Curve_03y0g")
+active_duration_curve = SubResource("Curve_tatdt")
+fear_gain_rate = 12.0
+fear_decay_rate = 4.5
+lost_gain_rate = 7.0
+lost_decay_rate = 4.5
+metadata/_custom_type_script = "uid://hpw8t25oofdi"

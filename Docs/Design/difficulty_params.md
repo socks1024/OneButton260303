@@ -19,34 +19,34 @@
 ```
 DifficultyConfig (.tres)                    ← 挂在 GameWorld 上
 └── phases: Array[DifficultyPhase]          ← 按顺序引用多个独立 .tres 文件
-    ├── [0] → warmup_phase.tres             ← 阶段0（持续 distance 米）
-    ├── [1] → rising_phase.tres             ← 阶段1（持续 distance 米）
-    └── [2] → climax_phase.tres             ← 阶段2（持续 distance 米，结束后数值冻结）
+	├── [0] → warmup_phase.tres             ← 阶段0（持续 distance 米）
+	├── [1] → rising_phase.tres             ← 阶段1（持续 distance 米）
+	└── [2] → climax_phase.tres             ← 阶段2（持续 distance 米，结束后数值冻结）
 ```
 
 ```mermaid
 classDiagram
-    class DifficultyConfig {
-        +Array~DifficultyPhase~ phases
-        +int safe_segments
-        +sample_param(param_name, distance) float
-    }
+	class DifficultyConfig {
+		+Array~DifficultyPhase~ phases
+		+int safe_segments
+		+sample_param(param_name, distance) float
+	}
 
-    class DifficultyPhase {
-        +float distance
-        +Curve speed_curve
-        +Curve gap_chance_curve
-        +Curve safe_duration_curve
-        +Curve active_duration_curve
-        +float fear_gain_rate
-        +float fear_decay_rate
-        +float lost_gain_rate
-        +float lost_decay_rate
-        -Dictionary _param_map
-        +sample(param_name, progress, fallback) float
-    }
+	class DifficultyPhase {
+		+float distance
+		+Curve speed_curve
+		+Curve gap_chance_curve
+		+Curve safe_duration_curve
+		+Curve active_duration_curve
+		+float fear_gain_rate
+		+float fear_decay_rate
+		+float lost_gain_rate
+		+float lost_decay_rate
+		-Dictionary _param_map
+		+sample(param_name, progress, fallback) float
+	}
 
-    DifficultyConfig "1" *-- "*" DifficultyPhase : phases 引用独立.tres
+	DifficultyConfig "1" *-- "*" DifficultyPhase : phases 引用独立.tres
 ```
 
 ---
@@ -75,14 +75,14 @@ classDiagram
 
 ```
 _param_map = {
-    "speed"           → speed_curve,          # Curve
-    "gap_chance"      → gap_chance_curve,      # Curve
-    "safe_duration"   → safe_duration_curve,   # Curve
-    "active_duration" → active_duration_curve,  # Curve
-    "fear_gain_rate"  → fear_gain_rate,         # float
-    "fear_decay_rate" → fear_decay_rate,        # float
-    "lost_gain_rate"  → lost_gain_rate,         # float
-    "lost_decay_rate" → lost_decay_rate,        # float
+	"speed"           → speed_curve,          # Curve
+	"gap_chance"      → gap_chance_curve,      # Curve
+	"safe_duration"   → safe_duration_curve,   # Curve
+	"active_duration" → active_duration_curve,  # Curve
+	"fear_gain_rate"  → fear_gain_rate,         # float
+	"fear_decay_rate" → fear_decay_rate,        # float
+	"lost_gain_rate"  → lost_gain_rate,         # float
+	"lost_decay_rate" → lost_decay_rate,        # float
 }
 ```
 
@@ -108,15 +108,15 @@ _param_map = {
 
 ```
 func sample_param(param_name, distance, fallback) -> float:
-    1. 计算当前距离所在的阶段 phase 及阶段起始距离
-    2. 如果当前距离已超出所有阶段：
-       → 使用最后一个阶段，progress = 1.0（冻结在末尾值）
-    3. 计算阶段内进度：
-       local_progress = (distance - 阶段起始) / phase.distance，clamp到0~1
-    4. 从 phase._param_map 中取值 val：
-       a. val 是 Curve → 返回 val.sample_baked(local_progress)
-       b. val 是 float → 直接返回 val
-       c. val 不存在   → 返回 fallback
+	1. 计算当前距离所在的阶段 phase 及阶段起始距离
+	2. 如果当前距离已超出所有阶段：
+	   → 使用最后一个阶段，progress = 1.0（冻结在末尾值）
+	3. 计算阶段内进度：
+	   local_progress = (distance - 阶段起始) / phase.distance，clamp到0~1
+	4. 从 phase._param_map 中取值 val：
+	   a. val 是 Curve → 返回 val.sample_baked(local_progress)
+	   b. val 是 float → 直接返回 val
+	   c. val 不存在   → 返回 fallback
 ```
 
 ### 阶段起始距离推算
@@ -145,9 +145,9 @@ res://Data/Difficulty/
 │   └── endless_climax.tres           ← 无尽模式 - 冲刺期（曲线终点 = 极限值）
 │
 └── configs/                          ← 模式配置（组装阶段序列）
-    ├── level_1.tres                  ← 关卡1：教学期 → 上升期 → 高潮期
-    ├── level_2.tres                  ← 关卡2：（另一套阶段组合）
-    └── endless.tres                  ← 无尽模式：热身 → 正常 → 冲刺（结束后冻结）
+	├── level_1.tres                  ← 关卡1：教学期 → 上升期 → 高潮期
+	├── level_2.tres                  ← 关卡2：（另一套阶段组合）
+	└── endless.tres                  ← 无尽模式：热身 → 正常 → 冲刺（结束后冻结）
 ```
 
 ---
@@ -159,9 +159,9 @@ res://Data/Difficulty/
 ```
 level_1.tres (DifficultyConfig)
 └── phases:
-    [0] → tutorial_phase.tres    distance: 100   (0~100m 教学期)
-    [1] → rising_phase.tres      distance: 200   (100~300m 上升期)
-    [2] → climax_phase.tres      distance: 200   (300~500m 高潮期，结束后数值冻结)
+	[0] → tutorial_phase.tres    distance: 100   (0~100m 教学期)
+	[1] → rising_phase.tres      distance: 200   (100~300m 上升期)
+	[2] → climax_phase.tres      distance: 200   (300~500m 高潮期，结束后数值冻结)
 ```
 
 ### 无尽模式（3 个阶段文件）
@@ -169,9 +169,9 @@ level_1.tres (DifficultyConfig)
 ```
 endless.tres (DifficultyConfig)
 └── phases:
-    [0] → endless_warmup.tres    distance: 200   (0~200m 热身期)
-    [1] → endless_normal.tres    distance: 600   (200~800m 正常期)
-    [2] → endless_climax.tres    distance: 700   (800~1500m 冲刺期，曲线终点配为极限值)
+	[0] → endless_warmup.tres    distance: 200   (0~200m 热身期)
+	[1] → endless_normal.tres    distance: 600   (200~800m 正常期)
+	[2] → endless_climax.tres    distance: 700   (800~1500m 冲刺期，曲线终点配为极限值)
 ```
 
 > **无尽模式说明**：所有阶段结束后（1500m 之后），参数冻结在最后阶段曲线终点的值。
