@@ -9,8 +9,8 @@ extends Node3D
 @onready var game_over_panel: PanelContainer = $UI/GameOverPanel
 @onready var game_over_label: Label = $UI/GameOverPanel/VBoxContainer/GameOverLabel
 @onready var distance_result_label: Label = $UI/GameOverPanel/VBoxContainer/DistanceResultLabel
-@onready var fear_bar: ProgressBar = $UI/StatsPanel/VBoxContainer/FearBar
-@onready var lost_bar: ProgressBar = $UI/StatsPanel/VBoxContainer/LostBar
+@onready var fear_bar: FeelProgressBar = $UI/StatsPanel/VBoxContainer/FearBar
+@onready var lost_bar: FeelProgressBar = $UI/StatsPanel/VBoxContainer/LostBar
 @onready var eyes_overlay: ColorRect = $UI/EyesOverlay
 
 const SCENE_PATH := "res://Content/Scene/World3D/game_world.tscn"
@@ -31,10 +31,7 @@ var _game_over := false
 ## 当前阶段索引（-1 = 尚未开始，等于 phase_count = 全部完成）
 var _current_phase_index: int = -1
 
-## 进度条填充样式（只创建一次，运行时只改颜色）
-var _fear_bar_style: StyleBoxFlat
-var _lost_bar_style: StyleBoxFlat
-
+## 闭眼渐变
 ## 闭眼渐变 Tween 引用（用于打断上一个渐变动画）
 var _eyes_tween: Tween
 ## 闭眼渐变持续时间（秒）
@@ -60,25 +57,8 @@ func _ready() -> void:
 	eyes_overlay.modulate.a = 0.0
 
 	# 初始化数值条（恐惧值和迷失值从0开始）
-	fear_bar.max_value = 100.0
-	fear_bar.value = 0.0
-	lost_bar.max_value = 100.0
-	lost_bar.value = 0.0
-
-	# 初始化进度条样式（只创建一次，后续只改颜色）
-	_fear_bar_style = StyleBoxFlat.new()
-	_fear_bar_style.corner_radius_top_left = 2
-	_fear_bar_style.corner_radius_top_right = 2
-	_fear_bar_style.corner_radius_bottom_left = 2
-	_fear_bar_style.corner_radius_bottom_right = 2
-	fear_bar.add_theme_stylebox_override("fill", _fear_bar_style)
-
-	_lost_bar_style = StyleBoxFlat.new()
-	_lost_bar_style.corner_radius_top_left = 2
-	_lost_bar_style.corner_radius_top_right = 2
-	_lost_bar_style.corner_radius_bottom_left = 2
-	_lost_bar_style.corner_radius_bottom_right = 2
-	lost_bar.add_theme_stylebox_override("fill", _lost_bar_style)
+	fear_bar.set_value_immediate(0.0)
+	lost_bar.set_value_immediate(0.0)
 
 	# 连接玩家信号
 	player.player_fell.connect(_on_player_fell)
@@ -163,36 +143,28 @@ func _on_eyes_state_changed(is_closed: bool) -> void:
 
 ## 恐惧值变化回调
 func _on_fear_changed(current: float, max_val: float) -> void:
-	fear_bar.max_value = max_val
-	fear_bar.value = current
-	# 根据百分比改变颜色：绿 → 黄 → 红
-	_update_bar_color(fear_bar, current / max_val)
+	var ratio: float = current / max_val
+	fear_bar.value = ratio
+	fear_bar.bar_color = _calc_bar_color(ratio)
 
 
 ## 迷失值变化回调
 func _on_lost_changed(current: float, max_val: float) -> void:
-	lost_bar.max_value = max_val
-	lost_bar.value = current
-	_update_bar_color(lost_bar, current / max_val)
+	var ratio: float = current / max_val
+	lost_bar.value = ratio
+	lost_bar.bar_color = _calc_bar_color(ratio)
 
 
-## 根据比例更新进度条颜色（值越高越危险：绿 → 黄 → 红）
-func _update_bar_color(bar: ProgressBar, ratio: float) -> void:
-	var color: Color
+## 根据比例计算颜色（值越高越危险：绿 → 黄 → 红）
+func _calc_bar_color(ratio: float) -> Color:
 	if ratio < 0.5:
 		# 绿 → 黄（0.0 ~ 0.5）
 		var t: float = ratio / 0.5
-		color = Color(t, 0.8 + 0.2 * (1.0 - t), 0.2 * (1.0 - t))
+		return Color(t, 0.8 + 0.2 * (1.0 - t), 0.2 * (1.0 - t))
 	else:
 		# 黄 → 红（0.5 ~ 1.0）
 		var t: float = (ratio - 0.5) / 0.5
-		color = Color(1.0, 0.8 * (1.0 - t), 0.0)
-
-	# 直接修改已有样式的颜色，不重复创建对象
-	if bar == fear_bar:
-		_fear_bar_style.bg_color = color
-	elif bar == lost_bar:
-		_lost_bar_style.bg_color = color
+		return Color(1.0, 0.8 * (1.0 - t), 0.0)
 
 
 ## --- 难度阶段追踪 ---

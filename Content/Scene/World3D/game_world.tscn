@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_xhyiw"]
 [ext_resource type="Script" uid="uid://bmh7hicrtc3ok" path="res://Content/Script/Ghost/ghost_spawner.gd" id="5_ghost_spawner"]
 [ext_resource type="Shader" uid="uid://hltap48wr4u1" path="res://Content/Art/Shader/PostProcess3D/post_process_outline.gdshader" id="6_outline_shader"]
+[ext_resource type="PackedScene" uid="uid://bkqi4nluf1v2n" path="res://Content/Scene/UI/Common/ProgressBar/feel_progress_bar.tscn" id="7_fpbar"]
 
 [sub_resource type="Sky" id="Sky_1"]
 
@@ -59,6 +60,38 @@ size = Vector2(2, 2)
 
 [sub_resource type="Resource" id="Resource_6r6dc"]
 script = ExtResource("4_xhyiw")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vwfb"]
+resource_local_to_scene = true
+bg_color = Color(0.15, 0.15, 0.15, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25m5o"]
+resource_local_to_scene = true
+bg_color = Color(0.9, 0.8, 0.2, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i3t7"]
+resource_local_to_scene = true
+bg_color = Color(0.9, 0.9, 0.9, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beos3"]
+resource_local_to_scene = true
+bg_color = Color(0.2, 0.8, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="GameWorld" type="Node3D" unique_id=907344034]
 script = ExtResource("1_game")
@@ -196,16 +229,26 @@ theme_override_constants/separation = 8
 layout_mode = 2
 text = "恐惧值"
 
-[node name="FearBar" type="ProgressBar" parent="UI/StatsPanel/VBoxContainer" unique_id=1480515035]
-custom_minimum_size = Vector2(200, 20)
+[node name="FearBar" parent="UI/StatsPanel/VBoxContainer" unique_id=1480515035 instance=ExtResource("7_fpbar")]
 layout_mode = 2
-show_percentage = false
+
+[node name="BG" parent="UI/StatsPanel/VBoxContainer/FearBar" index="0" unique_id=1721026556]
+theme_override_styles/panel = SubResource("StyleBoxFlat_7vwfb")
+
+[node name="TrailIncrease" parent="UI/StatsPanel/VBoxContainer/FearBar" index="1" unique_id=621531781]
+theme_override_styles/panel = SubResource("StyleBoxFlat_25m5o")
+
+[node name="TrailDecrease" parent="UI/StatsPanel/VBoxContainer/FearBar" index="2" unique_id=621531782]
+theme_override_styles/panel = SubResource("StyleBoxFlat_5i3t7")
+
+[node name="Bar" parent="UI/StatsPanel/VBoxContainer/FearBar" index="3" unique_id=77194426]
+theme_override_styles/panel = SubResource("StyleBoxFlat_beos3")
 
 [node name="LostLabel" type="Label" parent="UI/StatsPanel/VBoxContainer" unique_id=2060984601]
 layout_mode = 2
 text = "迷失值"
 
-[node name="LostBar" type="ProgressBar" parent="UI/StatsPanel/VBoxContainer" unique_id=2096069936]
-custom_minimum_size = Vector2(200, 20)
+[node name="LostBar" parent="UI/StatsPanel/VBoxContainer" unique_id=2096069936 instance=ExtResource("7_fpbar")]
 layout_mode = 2
-show_percentage = false
+
+[editable path="UI/StatsPanel/VBoxContainer/FearBar"]

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://bd33wqnl0etwg"]
+
+[ext_resource type="PackedScene" uid="uid://bkqi4nluf1v2n" path="res://Content/Scene/UI/Common/ProgressBar/feel_progress_bar.tscn" id="1_pb"]
+[ext_resource type="Script" uid="uid://dko76us0hwdap" path="res://Test/test_progress_bar.gd" id="2_script"]
+
+[node name="TestProgressBar" type="Control" unique_id=1900167474]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_script")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1902618757]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=2035051418]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1737403773]
+layout_mode = 2
+text = "当前进度：100%"
+horizontal_alignment = 1
+
+[node name="FeelProgressBar" parent="CenterContainer/VBoxContainer" unique_id=1823887714 instance=ExtResource("1_pb")]
+custom_minimum_size = Vector2(400, 24)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=541559187]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BtnDecrease" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1057786473]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "减少 -10%"
+
+[node name="BtnIncrease" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1813504199]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "增加 +10%"
