@@ -99,8 +99,8 @@ func set_value(new_value: float, animated: bool = true) -> void:
 	value = new_value
 
 	if not animated:
-		if _increase_tween.is_valid():	_increase_tween.kill()
-		if _decrease_tween.is_valid():	_decrease_tween.kill()
+		if _increase_tween and _increase_tween.is_valid():	_increase_tween.kill()
+		if _decrease_tween and _decrease_tween.is_valid():	_decrease_tween.kill()
 
 		_set_bar_ratio(_bar, value)
 		_set_bar_ratio(_trail_increase, value)
@@ -124,8 +124,8 @@ func _animate_bars() -> void:
 
 # 进度减少：主条立即缩短，减少过渡条延迟后追赶（拖尾效果）
 func _apply_decrease() -> void:
-	if _decrease_tween.is_valid(): _decrease_tween.kill()
-	if _increase_tween.is_valid(): 
+	if _decrease_tween and _decrease_tween.is_valid(): _decrease_tween.kill()
+	if _increase_tween and _increase_tween.is_valid(): 
 		_increase_tween.kill()
 		_set_bar_ratio(_trail_decrease, _old_value)
 
@@ -138,8 +138,8 @@ func _apply_decrease() -> void:
 
 # 进度增加：增加过渡条先扩展到目标值，主条延迟后追上
 func _apply_increase() -> void:
-	if _increase_tween.is_valid(): _increase_tween.kill()
-	if _decrease_tween.is_valid(): _decrease_tween.kill()
+	if _increase_tween and _increase_tween.is_valid(): _increase_tween.kill()
+	if _decrease_tween and _decrease_tween.is_valid(): _decrease_tween.kill()
 
 	_set_bar_ratio(_trail_decrease, _get_bar_ratio(_bar))
 	_set_bar_ratio(_trail_increase, value)

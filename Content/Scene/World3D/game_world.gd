@@ -57,8 +57,8 @@ func _ready() -> void:
 	eyes_overlay.modulate.a = 0.0
 
 	# 初始化数值条（恐惧值和迷失值从0开始）
-	fear_bar.set_value_immediate(0.0)
-	lost_bar.set_value_immediate(0.0)
+	fear_bar.set_value(0.0,false)
+	lost_bar.set_value(0.0,false)
 
 	# 连接玩家信号
 	player.player_fell.connect(_on_player_fell)
