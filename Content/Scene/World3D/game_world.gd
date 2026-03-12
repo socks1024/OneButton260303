@@ -22,6 +22,8 @@ const SCENE_PATH := "res://Content/Scene/World3D/game_world.tscn"
 
 ## Gameplay 输入上下文（包含 jump 动作）
 var _gameplay_context: InputContext = preload("res://Content/Data/Input/Contexts/gameplay_context.tres")
+## 主 BGM 音频事件
+var _main_bgm: AudioEvent = preload("res://Content/Art/Audio/Events/BGM/bgm_escape_ghost.tres")
 
 var _game_over := false
 ## 难度配置资源（在编辑器中设置，或在 _ready 中加载）
@@ -109,6 +111,9 @@ func _ready() -> void:
 
 	# 启用 Gameplay 输入上下文，让 jump 动作可以传递到玩家
 	InputManager.add_context(_gameplay_context)
+
+	# 播放主 BGM
+	AudioManager.play_music(_main_bgm, &"main", 1.0)
 
 	CLog.o("游戏世界已加载，开始奔跑！")
 
@@ -233,6 +238,9 @@ func _trigger_victory() -> void:
 	# 移除 Gameplay 输入上下文
 	InputManager.remove_context(_gameplay_context.context_name)
 
+	# 停止主 BGM
+	AudioManager.play_music(null, &"main", 1.0)
+
 	# 确保遮罩隐藏
 	if _eyes_tween and _eyes_tween.is_valid():
 		_eyes_tween.kill()
@@ -272,6 +280,9 @@ func _trigger_game_over(cause: DeathCause) -> void:
 
 	# 游戏结束时移除 Gameplay 输入上下文
 	InputManager.remove_context(_gameplay_context.context_name)
+
+	# 停止主 BGM
+	AudioManager.play_music(null, &"main", 1.0)
 
 	# 失败时确保遮罩隐藏，能看到 Game Over 画面
 	if _eyes_tween and _eyes_tween.is_valid():
