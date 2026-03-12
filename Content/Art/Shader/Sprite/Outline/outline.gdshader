@@ -19,8 +19,22 @@ uniform vec4 outline_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 // 轮廓线宽度（像素数，值越大描边越粗）
 uniform float outline_width : hint_range(0.0, 10.0, 0.5) = 1.0;
 
+// ==================== 距离淡出参数 ====================
+// 是否启用距离淡出效果
+uniform bool enable_distance_fade = false;
+
+// 开始淡出的距离（米）
+uniform float fade_start_distance : hint_range(0.0, 100.0, 0.5) = 5.0;
+
+// 完全消失的距离（米）
+uniform float fade_end_distance : hint_range(0.0, 100.0, 0.5) = 20.0;
+// ==================================================
+
 // 用于传递膨胀后的 UV 缩放信息
 varying vec2 expanded_uv;
+
+// 用于传递世界空间位置
+varying vec3 world_position;
 
 void vertex() {
 	if (enabled) {
@@ -38,6 +52,9 @@ void vertex() {
 	} else {
 		expanded_uv = UV;
 	}
+	
+	// 计算世界空间位置（用于距离淡出）
+	world_position = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xyz;
 }
 
 // 安全采样函数：UV 超出 [0,1] 范围时返回完全透明
@@ -53,6 +70,32 @@ vec4 safe_texture(sampler2D tex, vec2 uv) {
 		return vec4(0.0);
 	}
 	return texture(tex, uv);
+}
+
+// 计算距离淡出因子
+float calculate_distance_fade(vec3 world_pos) {
+	if (!enable_distance_fade) {
+		return 1.0;
+	}
+	
+	// 获取摄影机世界位置
+	vec3 camera_pos = vec3(0.0);
+	// Godot 4.x CanvasItem 着色器中可以通过 CAMERA_POSITION 获取
+	// 但在 canvas_item 类型中不可用，我们使用一种近似方法
+	// 通过逆视图矩阵计算摄影机位置
+	camera_pos = (INV_VIEW_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+	
+	// 计算到摄影机的距离
+	float dist = length(world_pos - camera_pos);
+	
+	// 线性淡出
+	if (dist <= fade_start_distance) {
+		return 1.0;
+	} else if (dist >= fade_end_distance) {
+		return 0.0;
+	} else {
+		return 1.0 - (dist - fade_start_distance) / (fade_end_distance - fade_start_distance);
+	}
 }
 
 void fragment() {
@@ -81,6 +124,11 @@ void fragment() {
 		if (current_alpha < 0.1 && surrounding_alpha > 0.0) {
 			// 轮廓的透明度根据周围像素的密度决定，使边缘更平滑
 			float outline_alpha = min(surrounding_alpha / 3.0, 1.0) * outline_color.a;
+			
+			// 应用距离淡出
+			float fade_factor = calculate_distance_fade(world_position);
+			outline_alpha *= fade_factor;
+			
 			COLOR = vec4(outline_color.rgb, outline_alpha);
 		} else {
 			COLOR = original_color;
