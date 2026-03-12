@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://bmh7hicrtc3ok" path="res://Content/Script/Ghost/ghost_spawner.gd" id="5_ghost_spawner"]
 [ext_resource type="Shader" uid="uid://hltap48wr4u1" path="res://Content/Art/Shader/PostProcess3D/post_process_outline.gdshader" id="6_outline_shader"]
 [ext_resource type="PackedScene" uid="uid://bkqi4nluf1v2n" path="res://Content/Scene/UI/Common/ProgressBar/feel_progress_bar.tscn" id="7_fpbar"]
+[ext_resource type="Script" uid="uid://b3qxankvbabvi" path="res://Content/Script/Effects/camera_shake.gd" id="8_camera_shake"]
+[ext_resource type="Script" uid="uid://imqc4tk0vewl" path="res://Content/Script/Effects/light_flicker.gd" id="9_light_flicker"]
 
 [sub_resource type="Sky" id="Sky_1"]
 
@@ -64,7 +66,7 @@ size = Vector2(2, 2)
 [sub_resource type="Resource" id="Resource_6r6dc"]
 script = ExtResource("4_xhyiw")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vwfb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i3t7"]
 resource_local_to_scene = true
 bg_color = Color(0.15, 0.15, 0.15, 1)
 corner_radius_top_left = 4
@@ -72,7 +74,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25m5o"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beos3"]
 resource_local_to_scene = true
 bg_color = Color(0.9, 0.8, 0.2, 1)
 corner_radius_top_left = 4
@@ -80,7 +82,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i3t7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfxv1"]
 resource_local_to_scene = true
 bg_color = Color(0.9, 0.9, 0.9, 1)
 corner_radius_top_left = 4
@@ -88,7 +90,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beos3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tscm6"]
 resource_local_to_scene = true
 bg_color = Color(0.2, 0.8, 0.3, 1)
 corner_radius_top_left = 4
@@ -144,8 +146,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79225636, 0, -1.6031538)
 light_color = Color(1, 0, 0, 1)
 light_energy = 0.5
 
+[node name="LightFlicker" type="Node" parent="Player/OmniLight3D" unique_id=222333444]
+script = ExtResource("9_light_flicker")
+base_energy = 0.5
+flicker_range = 1.0
+flicker_speed = 2.0
+randomness = 1.5
+
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=1286234964]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CameraShake" type="Node" parent="Player/Camera3D" unique_id=111222333]
+script = ExtResource("8_camera_shake")
+shake_intensity = 0.15
+shake_frequency = 1.333
 
 [node name="PostProcessOutline" type="MeshInstance3D" parent="Player/Camera3D" unique_id=887721237]
 material_override = SubResource("ShaderMaterial_outline")
@@ -241,16 +255,16 @@ text = "恐惧值"
 layout_mode = 2
 
 [node name="BG" parent="UI/StatsPanel/VBoxContainer/FearBar" index="0" unique_id=1721026556]
-theme_override_styles/panel = SubResource("StyleBoxFlat_7vwfb")
-
-[node name="TrailIncrease" parent="UI/StatsPanel/VBoxContainer/FearBar" index="1" unique_id=621531781]
-theme_override_styles/panel = SubResource("StyleBoxFlat_25m5o")
-
-[node name="TrailDecrease" parent="UI/StatsPanel/VBoxContainer/FearBar" index="2" unique_id=621531782]
 theme_override_styles/panel = SubResource("StyleBoxFlat_5i3t7")
 
-[node name="Bar" parent="UI/StatsPanel/VBoxContainer/FearBar" index="3" unique_id=77194426]
+[node name="TrailIncrease" parent="UI/StatsPanel/VBoxContainer/FearBar" index="1" unique_id=621531781]
 theme_override_styles/panel = SubResource("StyleBoxFlat_beos3")
+
+[node name="TrailDecrease" parent="UI/StatsPanel/VBoxContainer/FearBar" index="2" unique_id=621531782]
+theme_override_styles/panel = SubResource("StyleBoxFlat_cfxv1")
+
+[node name="Bar" parent="UI/StatsPanel/VBoxContainer/FearBar" index="3" unique_id=77194426]
+theme_override_styles/panel = SubResource("StyleBoxFlat_tscm6")
 
 [node name="LostLabel" type="Label" parent="UI/StatsPanel/VBoxContainer" unique_id=2060984601]
 layout_mode = 2
