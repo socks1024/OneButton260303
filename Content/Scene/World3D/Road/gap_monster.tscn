@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://vv2n6nwfd3jk"]
+
+[ext_resource type="Script" uid="uid://k8aro5kyddb4" path="res://Content/Scene/World3D/Road/gap_monster.gd" id="1_script"]
+[ext_resource type="SpriteFrames" uid="uid://c4yegkukksfhv" path="res://Content/Art/Sprite/Monsters/anim/monster_sprite_frames.tres" id="1_vejqd"]
+
+[node name="GapMonster" type="AnimatedSprite3D" unique_id=1845580159]
+alpha_cut = 1
+sprite_frames = ExtResource("1_vejqd")
+script = ExtResource("1_script")

@@ -45,8 +45,8 @@ var move_direction := 1.0
 var _state_nodes: Dictionary = {}
 ## 当前状态
 var _current_state: State = State.IDLE
-## 当前活跃状态节点下的 Sprite3D 数组（用于淡入淡出等批量操作）
-var _sprites: Array[Sprite3D] = []
+## 当前活跃状态节点下的 AnimatedSprite3D 数组（用于淡入淡出等批量操作）
+var _animated_sprites: Array[AnimatedSprite3D] = []
 
 ## 内部计时器（用于浮动动画）
 var _time := 0.0
@@ -72,9 +72,10 @@ func _ready() -> void:
 	_switch_state(initial_state)
 	# 如果是 Move 状态且向左移动（move_direction < 0），翻转 Move 节点的精灵
 	if initial_state == State.MOVE and move_direction < 0.0:
-		_move_node.scale.x = -1.0
+		for sprite in _animated_sprites:
+			sprite.flip_h = true
 	# 初始完全透明，然后执行淡入动画
-	for sprite in _sprites:
+	for sprite in _animated_sprites:
 		sprite.modulate.a = 0.0
 	_start_fade_in()
 
@@ -128,12 +129,13 @@ func _switch_state(new_state: State) -> void:
 	for state: State in _state_nodes:
 		var node: Node3D = _state_nodes[state]
 		node.visible = (state == new_state)
-	# 收集当前活跃状态节点下的所有 Sprite3D 子节点
-	_sprites.clear()
+	# 收集当前活跃状态节点下的所有 AnimatedSprite3D 子节点，并播放动画
+	_animated_sprites.clear()
 	var active_node: Node3D = _state_nodes[new_state]
 	for child in active_node.get_children():
-		if child is Sprite3D:
-			_sprites.append(child)
+		if child is AnimatedSprite3D:
+			_animated_sprites.append(child)
+			child.play()
 
 
 ## 外部调用：切换鬼的状态（例如从 Idle 切换到 Move）
@@ -142,11 +144,11 @@ func change_state(new_state: State) -> void:
 		return
 	# 保留当前透明度，切换后应用到新状态的精灵上
 	var current_alpha := 1.0
-	if _sprites.size() > 0:
-		current_alpha = _sprites[0].modulate.a
+	if _animated_sprites.size() > 0:
+		current_alpha = _animated_sprites[0].modulate.a
 	_switch_state(new_state)
 	# 将透明度同步到新状态的精灵
-	for sprite in _sprites:
+	for sprite in _animated_sprites:
 		sprite.modulate.a = current_alpha
 
 
@@ -169,7 +171,7 @@ func _start_fade_in() -> void:
 	is_fully_visible = false
 	var tween := create_tween()
 	tween.set_parallel(true)
-	for sprite in _sprites:
+	for sprite in _animated_sprites:
 		tween.tween_property(sprite, "modulate:a", 1.0, fade_in_duration)
 	# 淡入完成后标记为完全显现
 	tween.chain().tween_callback(func(): is_fully_visible = true)
@@ -184,7 +186,7 @@ func _start_fade_out() -> void:
 	var tween := create_tween()
 	tween.set_parallel(true)
 	# 所有图层同时淡出
-	for sprite in _sprites:
+	for sprite in _animated_sprites:
 		tween.tween_property(sprite, "modulate:a", 0.0, fade_duration)
 	# 淡出音乐
 	_fade_out_music()

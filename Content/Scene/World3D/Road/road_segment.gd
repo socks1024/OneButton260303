@@ -16,12 +16,8 @@ const BASE_GAP_LENGTH := 3.0
 const BridgeScene := preload("res://Content/Art/Model/bridge/bridge.tscn")
 const HandrailScene := preload("res://Content/Art/Model/handdrail/handdrail.tscn")
 
-## 预加载怪物贴图（在断口中随机展示）
-const MONSTER_TEXTURES: Array[CompressedTexture2D] = [
-	preload("res://Content/Art/Sprite/Monsters/MonsterA.png"),
-	preload("res://Content/Art/Sprite/Monsters/MonsterB.png"),
-	preload("res://Content/Art/Sprite/Monsters/MonsterC.png"),
-]
+## 预加载断口怪物场景
+const GapMonsterScene := preload("res://Content/Scene/World3D/Road/gap_monster.tscn")
 
 ## --- 以下参数由 RoadManager 传入 ---
 
@@ -31,14 +27,14 @@ var has_gap := false
 var gap_length := BASE_GAP_LENGTH
 ## 断口在路段中的起始位置（相对于路段起点的Z偏移，负值）
 var gap_start_z := 0.0
-## 怪物显示高度（米），由 RoadManager 传入
-var monster_height := 2.8
 ## 是否启用路面与栏杆描边（由 RoadManager 传入）
 var outline_enabled := true
 ## 路面与栏杆描边颜色（由 RoadManager 传入）
 var outline_color := Color(0.0, 0.0, 0.0, 1.0)
 ## 路面与栏杆描边粗细（由 RoadManager 传入）
 var outline_width := 0.03
+## 怪物 Y 轴偏移（米），由 RoadManager 传入
+var monster_y_offset: float = 0.0
 
 ## --- 场景节点引用 ---
 
@@ -66,9 +62,11 @@ func get_gap_world_end_z() -> float:
 ## 初始化路段
 ## p_has_gap: 是否有断口
 ## p_gap_length: 断口长度（默认使用 BASE_GAP_LENGTH）
-func setup(p_has_gap: bool, p_gap_length: float = BASE_GAP_LENGTH) -> void:
+## p_monster_height: 怪物显示高度（米）
+func setup(p_has_gap: bool, p_gap_length: float = BASE_GAP_LENGTH, p_monster_y_offset: float = 0.0) -> void:
 	has_gap = p_has_gap
 	gap_length = clampf(p_gap_length, BASE_GAP_LENGTH, SEGMENT_LENGTH - 8.0)
+	monster_y_offset = p_monster_y_offset
 	if has_gap:
 		# 断口位置在路段中间区域随机（留出前后边距）
 		var margin := 4.0
@@ -177,27 +175,18 @@ func _apply_outline_to_mesh(_mesh_instance: MeshInstance3D) -> void:
 	return
 
 
-## 在断口中央放置怪物 Sprite3D 装饰
+## 在断口中央放置怪物装饰（实例化 gap_monster.tscn）
 func _place_gap_monster() -> void:
 	# 断口中心的Z坐标
-	var gap_center_z := gap_start_z - gap_length / 2.0
-	var sprite := Sprite3D.new()
-	sprite.texture = MONSTER_TEXTURES.pick_random()
-	# 使用透明混合
-	sprite.transparency = 0.0
-	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
-	# 设置尺寸：使用 RoadManager 传入的怪物高度
-	var target_height := monster_height
-	var tex_height := sprite.texture.get_height()
-	sprite.pixel_size = target_height / tex_height
-	# 位置：断口中央，怪物底部与路面底部齐平，向上立起
-	var half_world_height := tex_height * sprite.pixel_size / 2.0
-	sprite.position = Vector3(0, -ROAD_HEIGHT + half_world_height, gap_center_z)
-	# 默认朝向即面朝+Z（玩家奔跑方向），无需旋转，怪物直立
-	# 不接受光照，保持原色显示
-	sprite.shaded = false
-	sprite.double_sided = true
-	add_child(sprite)
+	var gap_center_z: float = gap_start_z - gap_length / 2.0
+	var monster: GapMonster = GapMonsterScene.instantiate()
+	# 从 SpriteFrames 获取第一帧贴图尺寸来计算 pixel_size
+	var first_frame: Texture2D = monster.sprite_frames.get_frame_texture("default", 0)
+	var tex_height: int = first_frame.get_height()
+	var half_world_height: float = tex_height * monster.pixel_size / 2.0
+	# 位置：断口中央，怪物底部与路面底部齐平，再加上 Y 轴偏移
+	monster.position = Vector3(0, -ROAD_HEIGHT + half_world_height + monster_y_offset, gap_center_z)
+	add_child(monster)
 
 
 

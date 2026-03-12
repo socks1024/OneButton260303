@@ -17,16 +17,18 @@ var difficulty_config: DifficultyConfig
 var player: Player
 
 
+## --- 断口怪物 ---
+@export_group("断口怪物")
+## 怪物相对父节点的 Y 轴偏移（米），正值向上
+@export var monster_y_offset: float = 0.0
+
 ## --- 断口宽度 ---
 @export_group("断口宽度")
 ## 断口宽度占跳跃最大飞行距离的比例（0~1）
 ## 值越大断口越宽越难跳，值为1.0时断口刚好等于跳跃极限距离
 @export_range(0.1, 1.0, 0.01) var gap_width_ratio := 0.6
 
-## --- 美术表现 ---
-@export_group("美术表现")
-## 断口中怪物的显示高度（米）
-@export var monster_height := 2.8
+
 
 
 
@@ -83,8 +85,7 @@ func _spawn_segment() -> void:
 
 	# 根据玩家当前速度动态计算断口宽度
 	var gap_len := _calculate_gap_length()
-	segment.setup(should_have_gap, gap_len)
-	segment.monster_height = monster_height
+	segment.setup(should_have_gap, gap_len, monster_y_offset)
 	segment.position = Vector3(0, 0, _next_segment_z)
 
 	add_child(segment)

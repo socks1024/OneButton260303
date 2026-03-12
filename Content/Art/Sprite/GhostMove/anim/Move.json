@@ -1,0 +1,491 @@
+﻿{"frames": {
+
+"元件 10000":
+{
+	"frame": {"x":0,"y":0,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10001":
+{
+	"frame": {"x":1260,"y":0,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10002":
+{
+	"frame": {"x":2520,"y":0,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10003":
+{
+	"frame": {"x":3780,"y":0,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10004":
+{
+	"frame": {"x":5040,"y":0,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10005":
+{
+	"frame": {"x":6300,"y":0,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10006":
+{
+	"frame": {"x":0,"y":781,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10007":
+{
+	"frame": {"x":1260,"y":781,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10008":
+{
+	"frame": {"x":2520,"y":781,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10009":
+{
+	"frame": {"x":3780,"y":781,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10010":
+{
+	"frame": {"x":5040,"y":781,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10011":
+{
+	"frame": {"x":6300,"y":781,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10012":
+{
+	"frame": {"x":0,"y":1562,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10013":
+{
+	"frame": {"x":1260,"y":1562,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10014":
+{
+	"frame": {"x":2520,"y":1562,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10015":
+{
+	"frame": {"x":3780,"y":1562,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10016":
+{
+	"frame": {"x":5040,"y":1562,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10017":
+{
+	"frame": {"x":6300,"y":1562,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10018":
+{
+	"frame": {"x":0,"y":2343,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10019":
+{
+	"frame": {"x":1260,"y":2343,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10020":
+{
+	"frame": {"x":2520,"y":2343,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10021":
+{
+	"frame": {"x":3780,"y":2343,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10022":
+{
+	"frame": {"x":5040,"y":2343,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10023":
+{
+	"frame": {"x":6300,"y":2343,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10024":
+{
+	"frame": {"x":0,"y":3124,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10025":
+{
+	"frame": {"x":1260,"y":3124,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10026":
+{
+	"frame": {"x":2520,"y":3124,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10027":
+{
+	"frame": {"x":3780,"y":3124,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10028":
+{
+	"frame": {"x":5040,"y":3124,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10029":
+{
+	"frame": {"x":6300,"y":3124,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10030":
+{
+	"frame": {"x":0,"y":3905,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10031":
+{
+	"frame": {"x":1260,"y":3905,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10032":
+{
+	"frame": {"x":2520,"y":3905,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10033":
+{
+	"frame": {"x":3780,"y":3905,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10034":
+{
+	"frame": {"x":5040,"y":3905,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10035":
+{
+	"frame": {"x":6300,"y":3905,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10036":
+{
+	"frame": {"x":0,"y":4686,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10037":
+{
+	"frame": {"x":1260,"y":4686,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10038":
+{
+	"frame": {"x":2520,"y":4686,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10039":
+{
+	"frame": {"x":3780,"y":4686,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10040":
+{
+	"frame": {"x":5040,"y":4686,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10041":
+{
+	"frame": {"x":6300,"y":4686,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10042":
+{
+	"frame": {"x":0,"y":5467,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10043":
+{
+	"frame": {"x":1260,"y":5467,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10044":
+{
+	"frame": {"x":2520,"y":5467,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10045":
+{
+	"frame": {"x":3780,"y":5467,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10046":
+{
+	"frame": {"x":5040,"y":5467,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10047":
+{
+	"frame": {"x":6300,"y":5467,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10048":
+{
+	"frame": {"x":0,"y":6248,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10049":
+{
+	"frame": {"x":1260,"y":6248,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10050":
+{
+	"frame": {"x":2520,"y":6248,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10051":
+{
+	"frame": {"x":3780,"y":6248,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10052":
+{
+	"frame": {"x":5040,"y":6248,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10053":
+{
+	"frame": {"x":6300,"y":6248,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10054":
+{
+	"frame": {"x":0,"y":7029,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10055":
+{
+	"frame": {"x":1260,"y":7029,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10056":
+{
+	"frame": {"x":2520,"y":7029,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10057":
+{
+	"frame": {"x":3780,"y":7029,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10058":
+{
+	"frame": {"x":5040,"y":7029,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+},
+"元件 10059":
+{
+	"frame": {"x":0,"y":0,"w":1260,"h":781},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1260,"h":781},
+	"sourceSize": {"w":1260,"h":781}
+}},
+"meta": {
+	"app": "Adobe Animate",
+	"version": "24.0.7.61",
+	"image": "恢复_无标题-2.png",
+	"format": "RGB8",
+	"size": {"w":8192,"h":8192},
+	"scale": "1"
+}
+}

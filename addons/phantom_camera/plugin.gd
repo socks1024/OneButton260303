@@ -142,7 +142,7 @@ func _exit_tree() -> void:
 	remove_custom_type(PCAM_TWEEN_DIRECTOR)
 
 
-func _btn_toggled(toggled_on: bool):
+func _btn_toggled(toggled_on: bool) -> void:
 	editor_panel_instance.viewfinder.set_visibility(toggled_on)
 #	if toggled_on:
 #		editor_panel_instance.viewfinder.viewfinder_visible = true
@@ -150,7 +150,7 @@ func _btn_toggled(toggled_on: bool):
 #	else:
 #		editor_panel_instance.viewfinder.viewfinder_visible = false
 
-func _make_visible(visible):
+func _make_visible(visible: bool) -> void:
 	if editor_panel_instance:
 		editor_panel_instance.set_visible(visible)
 

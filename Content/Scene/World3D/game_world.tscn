@@ -21,6 +21,7 @@ ambient_light_energy = 0.6
 fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.2820221, 0.1923052, 0.22529805, 1)
+fog_light_energy = 0.2
 fog_density = 1.0
 fog_height = -5.0
 fog_depth_end = 50.0
@@ -64,7 +65,7 @@ script = ExtResource("1_game")
 difficulty_config = ExtResource("2_gx1e2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1133536269]
-transform = Transform3D(-1, 2.262668e-08, -8.444392e-08, 0, 0.9659258, 0.25881904, 8.742278e-08, 0.25881904, -0.9659258, 0, 10, 0)
+transform = Transform3D(-1, 2.262668e-08, -8.444393e-08, -1.5050059e-08, 0.9069485, 0.4212416, 8.611758e-08, 0.4212416, -0.9069485, 0, 10, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=348390002]
@@ -78,7 +79,7 @@ mesh = SubResource("QuadMesh_void_fog")
 
 [node name="GhostSpawner" type="Node" parent="." unique_id=111802632]
 script = ExtResource("5_ghost_spawner")
-spawn_z_end = 10.0
+spawn_z_end = 5.0
 spawn_z_transition_distance = 2000.0
 spawn_x_range_start = 20.0
 spawn_x_range_end = 2.0
@@ -90,6 +91,8 @@ spawn_y_max = 3.0
 script = ExtResource("3_road")
 segments_ahead = 4
 segments_behind = 1
+monster_y_offset = -3.0
+gap_width_ratio = 0.7999999999999999
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=2092918163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
@@ -98,6 +101,11 @@ base_speed = 6.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=704763415]
 shape = SubResource("CapsuleShape3D_player")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Player" unique_id=978063078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79225636, 0, -1.6031538)
+light_color = Color(0.70789146, 0.3523989, 0.16312042, 1)
+light_energy = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=1286234964]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
