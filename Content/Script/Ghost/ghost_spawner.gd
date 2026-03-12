@@ -233,11 +233,12 @@ func _spawn_ghost() -> void:
 	current_ghost = ghost
 
 
-## 移除当前的鬼
+## 移除当前的鬼（触发淡出效果）
 func _remove_current_ghost() -> void:
 	if current_ghost and is_instance_valid(current_ghost):
 		current_ghost.ghost_vanished.disconnect(_on_ghost_vanished)
-		current_ghost.queue_free()
+		# 触发淡出效果，让鬼自行消失
+		current_ghost.fade_out_and_free()
 		current_ghost = null
 
 

@@ -32,7 +32,6 @@ var player: Player
 
 
 
-
 ## 当前所有活跃的路段
 var _segments: Array[RoadSegment] = []
 ## 下一个路段应该放置的Z坐标
@@ -52,7 +51,6 @@ func initialize() -> void:
 
 
 
-
 ## 根据玩家位置更新路段（生成前方的、回收后方的）
 func update_road(player_z: float) -> void:
 	# 生成前方路段
@@ -66,6 +64,9 @@ func update_road(player_z: float) -> void:
 		# 如果这段路已经完全在玩家后方足够远
 		if segment_end_z > player_z + RoadSegment.SEGMENT_LENGTH * segments_behind:
 			_segments.pop_front()
+			# 先触发怪物淡出效果
+			oldest.fade_out_monster()
+			# 立即释放路段（怪物已经独立出来，会自己淡出后释放）
 			oldest.queue_free()
 		else:
 			break

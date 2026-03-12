@@ -19,6 +19,11 @@ const HandrailScene := preload("res://Content/Art/Model/handdrail/handdrail.tscn
 ## 预加载断口怪物场景
 const GapMonsterScene := preload("res://Content/Scene/World3D/Road/gap_monster.tscn")
 
+## --- 场景节点引用 ---
+
+## 当前路段中的怪物实例（如果有）
+var _gap_monster: GapMonster = null
+
 ## --- 以下参数由 RoadManager 传入 ---
 
 ## 是否有断口
@@ -179,14 +184,46 @@ func _apply_outline_to_mesh(_mesh_instance: MeshInstance3D) -> void:
 func _place_gap_monster() -> void:
 	# 断口中心的Z坐标
 	var gap_center_z: float = gap_start_z - gap_length / 2.0
-	var monster: GapMonster = GapMonsterScene.instantiate()
+	_gap_monster = GapMonsterScene.instantiate()
 	# 从 SpriteFrames 获取第一帧贴图尺寸来计算 pixel_size
-	var first_frame: Texture2D = monster.sprite_frames.get_frame_texture("default", 0)
+	var first_frame: Texture2D = _gap_monster.sprite_frames.get_frame_texture("default", 0)
 	var tex_height: int = first_frame.get_height()
-	var half_world_height: float = tex_height * monster.pixel_size / 2.0
+	var half_world_height: float = tex_height * _gap_monster.pixel_size / 2.0
 	# 位置：断口中央，怪物底部与路面底部齐平，再加上 Y 轴偏移
-	monster.position = Vector3(0, -ROAD_HEIGHT + half_world_height + monster_y_offset, gap_center_z)
-	add_child(monster)
+	_gap_monster.position = Vector3(0, -ROAD_HEIGHT + half_world_height + monster_y_offset, gap_center_z)
+	add_child(_gap_monster)
+
+
+## 触发怪物淡出效果，并在淡出完成后释放怪物
+func fade_out_monster() -> void:
+	if _gap_monster != null and is_instance_valid(_gap_monster):
+		# 保存怪物引用
+		var monster = _gap_monster
+		# 清除引用，防止重复触发
+		_gap_monster = null
+		
+		# 将怪物从路段中分离，挂到场景树根节点下
+		# 这样即使路段被释放，怪物还能继续执行淡出动画
+		var current_parent = monster.get_parent()
+		if current_parent != null:
+			current_parent.remove_child(monster)
+		
+		# 添加到根节点，保持世界坐标位置
+		var tree = get_tree()
+		if tree == null:
+			push_error("RoadSegment: get_tree() is null in fade_out_monster()")
+			monster.queue_free()
+			return
+		
+		var root = tree.root
+		root.add_child(monster)
+		
+		# 保持世界坐标位置（必须在add_child之后设置）
+		var world_pos = monster.global_position
+		monster.global_position = world_pos
+		
+		# 触发淡出动画，动画完成后自动释放
+		monster.fade_out_and_free()
 
 
 
