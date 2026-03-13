@@ -51,6 +51,7 @@ var _death_messages := {
 
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	game_over_panel.hide()
 
 	# 初始化闭眼遮罩：默认完全透明（睁眼状态）
@@ -221,6 +222,7 @@ func _trigger_victory() -> void:
 	var distance := player.get_distance_traveled()
 	game_over_label.text = "你成功逃出了噩梦！"
 	distance_result_label.text = "跑了 %.1f 米" % distance
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	game_over_panel.show()
 	CLog.w("游戏胜利！跑了 %.1f 米" % distance)
 
@@ -264,11 +266,12 @@ func _trigger_game_over(cause: DeathCause) -> void:
 	var distance := player.get_distance_traveled()
 	game_over_label.text = _death_messages.get(cause, "游戏结束")
 	distance_result_label.text = "跑了 %.1f 米" % distance
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	game_over_panel.show()
 	CLog.w("游戏结束 - %s（跑了 %.1f 米）" % [_death_messages.get(cause, "未知原因"), distance])
 
 
 func _input(event: InputEvent) -> void:
-	# 游戏结束后按空格重新开始
 	if _game_over and event.is_action_pressed("jump"):
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 		SceneUtils.switch_scene_by_path(self, SCENE_PATH)
