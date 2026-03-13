@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bm724wyrfqpxm"]
+
+[ext_resource type="PackedScene" uid="uid://ds1xm12651tdl" path="res://Content/Art/Model/tree/tree3/tree3.fbx" id="1_clmuj"]
+[ext_resource type="Texture2D" uid="uid://xqo73gdxwph" path="res://Content/Art/Texture/tree/tree3/tree3_Material _47_BaseColor.png" id="2_1tbe1"]
+[ext_resource type="Texture2D" uid="uid://dcehi7jfflop2" path="res://Content/Art/Texture/tree/tree3/tree3_Material _47_Normal.png" id="3_vut3d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_clmuj"]
+albedo_texture = ExtResource("2_1tbe1")
+normal_enabled = true
+normal_texture = ExtResource("3_vut3d")
+
+[node name="tree3" unique_id=842858455 instance=ExtResource("1_clmuj")]
+
+[node name="Line007" parent="." index="0" unique_id=1293227275]
+surface_material_override/0 = SubResource("StandardMaterial3D_clmuj")

@@ -2,6 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://bkjowivgs5uon" path="res://Content/Scene/UI/Common/Button/common_button.tscn" id="1_0ysi3"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_0ysi3"]
+line_spacing = 10.0
+font_size = 60
+
 [sub_resource type="Curve" id="Curve_0ysi3"]
 resource_local_to_scene = true
 _limits = [-0.5, 0.5, 0.0, 1.0]
@@ -37,8 +41,10 @@ offset_right = 360.5
 offset_bottom = 49.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 72
-text = "Created by Sock1024"
+text = "CREDITS_DETAIL"
+label_settings = SubResource("LabelSettings_0ysi3")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Back" parent="Panel" unique_id=962221927 instance=ExtResource("1_0ysi3")]
 layout_mode = 0

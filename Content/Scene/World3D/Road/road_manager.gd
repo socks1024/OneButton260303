@@ -4,12 +4,17 @@ extends Node3D
 ## 路段沿Z轴负方向延伸（玩家也沿Z轴负方向移动）。
 
 ## 路段场景预加载
-const RoadSegmentScene := preload("res://Content/Scene/World3D/Road/road_segment.tscn")
+const RoadSegmentScene: PackedScene = preload("res://Content/Scene/World3D/Road/road_segment.tscn")
+const TreeScene1: PackedScene = preload("res://Content/Art/Model/tree/tree1/tree.tscn")
+const TreeScene2: PackedScene = preload("res://Content/Art/Model/tree/tree2/tree_2.tscn")
+const TreeScene3: PackedScene = preload("res://Content/Art/Model/tree/tree3/tree_3.tscn")
+
+const TREE_Z_MARGIN: float = 2.0
 
 ## 在玩家前方保持多少段路
-@export var segments_ahead := 5
+@export var segments_ahead: int = 5
 ## 在玩家后方保留多少段路（超出的会被回收）
-@export var segments_behind := 2
+@export var segments_behind: int = 2
 
 ## 难度配置资源引用（由 GameWorld 注入）
 var difficulty_config: DifficultyConfig
@@ -26,7 +31,18 @@ var player: Player
 @export_group("断口宽度")
 ## 断口宽度占跳跃最大飞行距离的比例（0~1）
 ## 值越大断口越宽越难跳，值为1.0时断口刚好等于跳跃极限距离
-@export_range(0.1, 1.0, 0.01) var gap_width_ratio := 0.6
+@export_range(0.1, 1.0, 0.01) var gap_width_ratio: float = 0.6
+
+## --- 道路树木装饰 ---
+@export_group("道路树木装饰")
+## 树木相对路面的高度随机范围（米）
+@export var tree_height_min: float = -0.2
+@export var tree_height_max: float = 0.6
+## 树木距离路边的随机范围（米）
+@export var tree_side_distance_min: float = 1.5
+@export var tree_side_distance_max: float = 3.5
+## 平均每侧每多少米生成一棵树
+@export_range(1.0, 30.0, 0.1, "or_greater") var tree_spacing_average: float = 8.0
 
 
 
@@ -35,11 +51,11 @@ var player: Player
 ## 当前所有活跃的路段
 var _segments: Array[RoadSegment] = []
 ## 下一个路段应该放置的Z坐标
-var _next_segment_z := 0.0
+var _next_segment_z: float = 0.0
 ## 已经生成的路段总数
-var _total_segments_spawned := 0
+var _total_segments_spawned: int = 0
 ## 上一段路是否有断口（防止连续断口导致跳进下一个断口）
-var _last_segment_had_gap := false
+var _last_segment_had_gap: bool = false
 
 
 ## 初始化道路（需在 difficulty_config 和 player 注入后由外部调用）
@@ -60,7 +76,7 @@ func update_road(player_z: float) -> void:
 	# 回收远离玩家的后方路段
 	while _segments.size() > 0:
 		var oldest: RoadSegment = _segments[0]
-		var segment_end_z := oldest.position.z - RoadSegment.SEGMENT_LENGTH
+		var segment_end_z: float = oldest.position.z - RoadSegment.SEGMENT_LENGTH
 		# 如果这段路已经完全在玩家后方足够远
 		if segment_end_z > player_z + RoadSegment.SEGMENT_LENGTH * segments_behind:
 			_segments.pop_front()
@@ -78,16 +94,17 @@ func _spawn_segment() -> void:
 
 	# 决定是否有断口
 	# 规则：开局保护期内无断口；上一段有断口则这段强制无断口，防止连续断口
-	var should_have_gap := false
+	var should_have_gap: bool = false
 	if _total_segments_spawned >= difficulty_config.safe_segments and not _last_segment_had_gap:
-		var dist := player.get_distance_traveled()
-		var chance := difficulty_config.sample_param("gap_chance", dist)
+		var dist: float = player.get_distance_traveled()
+		var chance: float = difficulty_config.sample_param("gap_chance", dist)
 		should_have_gap = randf() < chance
 
 	# 根据玩家当前速度动态计算断口宽度
-	var gap_len := _calculate_gap_length()
+	var gap_len: float = _calculate_gap_length()
 	segment.setup(should_have_gap, gap_len, monster_y_offset)
 	segment.position = Vector3(0, 0, _next_segment_z)
+	_spawn_trees_for_segment(segment)
 
 	add_child(segment)
 	_segments.append(segment)
@@ -97,18 +114,63 @@ func _spawn_segment() -> void:
 	_total_segments_spawned += 1
 
 
+func _spawn_trees_for_segment(segment: RoadSegment) -> void:
+	_spawn_trees_on_side(segment, -1.0)
+	_spawn_trees_on_side(segment, 1.0)
+
+
+func _spawn_trees_on_side(segment: RoadSegment, side_sign: float) -> void:
+	var usable_length: float = maxf(0.0, RoadSegment.SEGMENT_LENGTH - TREE_Z_MARGIN * 2.0)
+	var safe_tree_spacing: float = maxf(tree_spacing_average, 0.1)
+	var expected_tree_count: float = usable_length / safe_tree_spacing
+	var tree_count: int = int(floor(expected_tree_count))
+	var extra_tree_chance: float = expected_tree_count - float(tree_count)
+	if randf() < extra_tree_chance:
+		tree_count += 1
+
+	for i in range(tree_count):
+		var tree_scene: PackedScene = _pick_tree_scene()
+		var tree_node: Node = tree_scene.instantiate()
+		if not tree_node is Node3D:
+			tree_node.queue_free()
+			continue
+
+		var tree: Node3D = tree_node as Node3D
+		var distance_from_road: float = randf_range(
+			minf(tree_side_distance_min, tree_side_distance_max),
+			maxf(tree_side_distance_min, tree_side_distance_max)
+		)
+		var height_from_road: float = randf_range(
+			minf(tree_height_min, tree_height_max),
+			maxf(tree_height_min, tree_height_max)
+		)
+		var z_position: float = -randf_range(TREE_Z_MARGIN, RoadSegment.SEGMENT_LENGTH - TREE_Z_MARGIN)
+		var x_position: float = side_sign * (RoadSegment.ROAD_WIDTH / 2.0 + distance_from_road)
+		tree.position = Vector3(x_position, height_from_road, z_position)
+		segment.add_child(tree)
+
+
+func _pick_tree_scene() -> PackedScene:
+	var tree_index: int = randi_range(0, 2)
+	if tree_index == 0:
+		return TreeScene1
+	if tree_index == 1:
+		return TreeScene2
+	return TreeScene3
+
+
 ## 查询玩家前方最近的断口信息
 ## 返回字典：{ "has_gap": bool, "gap_length": float, "distance_to_gap": float }
 ## distance_to_gap 是从 player_z 到断口起始边缘的距离
 func get_next_gap_info(player_z: float) -> Dictionary:
-	var result := { "has_gap": false, "gap_length": 0.0, "distance_to_gap": 999.0 }
+	var result: Dictionary = { "has_gap": false, "gap_length": 0.0, "distance_to_gap": 999.0 }
 	for segment in _segments:
 		if not segment.has_gap:
 			continue
-		var gap_start := segment.get_gap_world_start_z()
+		var gap_start: float = segment.get_gap_world_start_z()
 		# 断口在玩家前方（Z轴负方向，所以 gap_start < player_z）
 		if gap_start < player_z:
-			var dist := player_z - gap_start
+			var dist: float = player_z - gap_start
 			if dist < result["distance_to_gap"]:
 				result["has_gap"] = true
 				result["gap_length"] = segment.gap_length
@@ -122,8 +184,8 @@ func is_over_gap(z: float) -> bool:
 	for segment in _segments:
 		if not segment.has_gap:
 			continue
-		var gap_start := segment.get_gap_world_start_z()
-		var gap_end := segment.get_gap_world_end_z()
+		var gap_start: float = segment.get_gap_world_start_z()
+		var gap_end: float = segment.get_gap_world_end_z()
 		# 断口范围：gap_end < z < gap_start（Z轴负方向，gap_end更小）
 		if z < gap_start and z > gap_end:
 			return true
@@ -137,8 +199,8 @@ func is_over_gap(z: float) -> bool:
 func _calculate_gap_length() -> float:
 	if player == null:
 		return RoadSegment.BASE_GAP_LENGTH
-	var vy := sqrt(2.0 * player.gravity * player.jump_height)
-	var air_time := 2.0 * vy / player.gravity
-	var max_jump_distance := player.current_speed * air_time
-	var gap_len := max_jump_distance * gap_width_ratio
+	var vy: float = sqrt(2.0 * player.gravity * player.jump_height)
+	var air_time: float = 2.0 * vy / player.gravity
+	var max_jump_distance: float = player.current_speed * air_time
+	var gap_len: float = max_jump_distance * gap_width_ratio
 	return maxf(gap_len, RoadSegment.BASE_GAP_LENGTH)

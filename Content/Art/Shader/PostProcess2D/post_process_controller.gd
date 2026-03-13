@@ -50,7 +50,7 @@ func _scan_effects() -> void:
 			var shader_param: String = prop_name.trim_prefix("shader_parameter/")
 
 			# 过滤掉 sampler2D 等不应暴露的参数
-			if _should_ignore_param(shader_param, prop):
+			if _should_ignore_param(shader_param):
 				continue
 
 			var default_value: Variant = mat.get_shader_parameter(shader_param)
@@ -85,7 +85,7 @@ func _scan_effects() -> void:
 			node.visible = _enabled_states.get(effect_name, false)
 
 ## 判断是否应忽略此 shader 参数
-func _should_ignore_param(shader_param: String, prop: Dictionary) -> bool:
+func _should_ignore_param(shader_param: String) -> bool:
 	# 始终过滤内置屏幕纹理采样器（不应暴露给用户）
 	if shader_param == "SCREEN_TEXTURE":
 		return true
@@ -115,7 +115,7 @@ func _ready() -> void:
 		var effect_name: String = effect["name"]
 		var node := get_node_or_null(NodePath(effect_name)) as ColorRect
 		if not node:
-			push_warning("PostProcessController: 找不到效果节点 '%s'" % effect_name)
+			CLog.w("PostProcessController: 找不到效果节点 '%s'" % effect_name)
 			continue
 
 		# 设置可见性
@@ -295,7 +295,7 @@ func get_effect_material(effect_name: String) -> ShaderMaterial:
 	var node := get_node_or_null(NodePath(effect_name)) as ColorRect
 	if node:
 		return node.material as ShaderMaterial
-	push_warning("PostProcessController: 未知的效果名称 '%s'" % effect_name)
+	CLog.w("PostProcessController: 未知的效果名称 '%s'" % effect_name)
 	return null
 
 ## 设置指定效果的某个 shader 参数
@@ -333,7 +333,7 @@ func reset_effect_param(effect_name: String, shader_param: String) -> void:
 					notify_property_list_changed()
 					return
 	
-	push_warning("PostProcessController: 未找到效果 '%s' 或参数 '%s'" % [effect_name, shader_param])
+	CLog.w("PostProcessController: 未找到效果 '%s' 或参数 '%s'" % [effect_name, shader_param])
 
 ## 恢复指定效果的所有参数到默认值
 func reset_effect_params(effect_name: String) -> void:
@@ -354,7 +354,7 @@ func reset_effect_params(effect_name: String) -> void:
 			notify_property_list_changed()
 			return
 	
-	push_warning("PostProcessController: 未找到效果 '%s'" % effect_name)
+	CLog.w("PostProcessController: 未找到效果 '%s'" % effect_name)
 
 ## 恢复所有效果的所有参数到默认值
 func reset_all_params() -> void:

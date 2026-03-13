@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dh57usms8qvmk"]
+
+[ext_resource type="PackedScene" uid="uid://grtxrajoleap" path="res://Content/Art/Model/tree/tree1/tree.fbx" id="1_0f13y"]
+[ext_resource type="Texture2D" uid="uid://dv6qntosxljrg" path="res://Content/Art/Texture/tree/tree/tree_Material _43_BaseColor.png" id="2_8wxxp"]
+[ext_resource type="Texture2D" uid="uid://dmrald3p2tqq6" path="res://Content/Art/Texture/tree/tree/tree_Material _43_Normal.png" id="3_glitq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gqy3"]
+albedo_texture = ExtResource("2_8wxxp")
+normal_enabled = true
+normal_texture = ExtResource("3_glitq")
+
+[node name="tree" unique_id=2020655846 instance=ExtResource("1_0f13y")]
+
+[node name="Cylinder001" parent="." index="0" unique_id=648768488]
+surface_material_override/0 = SubResource("StandardMaterial3D_1gqy3")

@@ -80,6 +80,12 @@ var _old_value: float = 1.0
 
 
 func _ready() -> void:
+	# 编辑器中的值需要重新同步，很诡异
+	_set_panel_color(_bg, bg_color)
+	_set_panel_color(_trail_increase, trail_increase_color)
+	_set_panel_color(_trail_decrease, trail_decrease_color)
+	_set_panel_color(_bar, bar_color)
+
 	# 预烘焙缓动曲线
 	if increase_ease_curve != null:
 		increase_ease_curve.bake()
