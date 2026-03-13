@@ -170,9 +170,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not is_running:
 		return
 	# 按住空格 = 闭眼，松开空格 = 睁眼
-	if event.is_action_pressed("jump"):
+	if event.is_action_pressed("close_eye"):
 		_set_eyes_closed(true)
-	elif event.is_action_released("jump"):
+	elif event.is_action_released("close_eye"):
 		_set_eyes_closed(false)
 
 

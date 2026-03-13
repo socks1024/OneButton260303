@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://g6owaymnd7hv"]
 
-[ext_resource type="Shader" uid="uid://di2178e4vbqwl" path="res://Content/Art/Shader/PostProcess2D/PPShaders/chromatic_aberration.gdshader" id="1"]
-[ext_resource type="Shader" uid="uid://dpg0ipk3np46v" path="res://Content/Art/Shader/PostProcess2D/PPShaders/scanline.gdshader" id="2"]
-[ext_resource type="Shader" uid="uid://cjltkol0oh56q" path="res://Content/Art/Shader/PostProcess2D/PPShaders/flicker.gdshader" id="3"]
-[ext_resource type="Shader" uid="uid://8p5pofye4o25" path="res://Content/Art/Shader/PostProcess2D/PPShaders/brightness.gdshader" id="4"]
-[ext_resource type="Shader" uid="uid://br6yt6aeenuxf" path="res://Content/Art/Shader/PostProcess2D/PPShaders/vignette.gdshader" id="5"]
-[ext_resource type="Shader" uid="uid://cta567m78543q" path="res://Content/Art/Shader/PostProcess2D/PPShaders/bloom.gdshader" id="6"]
-[ext_resource type="Script" uid="uid://cmo7kqfwdcmuh" path="res://Content/Art/Shader/PostProcess2D/post_process_controller.gd" id="7"]
-[ext_resource type="Shader" uid="uid://fki67kx50jkl" path="res://Content/Art/Shader/PostProcess2D/PPShaders/transition.gdshader" id="8"]
+[ext_resource type="Shader" uid="uid://di2178e4vbqwl" path="res://Content/Art/Shader/PostProcess/PostProcess2D/Shaders/chromatic_aberration.gdshader" id="1"]
+[ext_resource type="Shader" uid="uid://dpg0ipk3np46v" path="res://Content/Art/Shader/PostProcess/PostProcess2D/Shaders/scanline.gdshader" id="2"]
+[ext_resource type="Shader" uid="uid://cjltkol0oh56q" path="res://Content/Art/Shader/PostProcess/PostProcess2D/Shaders/flicker.gdshader" id="3"]
+[ext_resource type="Shader" uid="uid://8p5pofye4o25" path="res://Content/Art/Shader/PostProcess/PostProcess2D/Shaders/brightness.gdshader" id="4"]
+[ext_resource type="Shader" uid="uid://br6yt6aeenuxf" path="res://Content/Art/Shader/PostProcess/PostProcess2D/Shaders/vignette.gdshader" id="5"]
+[ext_resource type="Shader" uid="uid://cta567m78543q" path="res://Content/Art/Shader/PostProcess/PostProcess2D/Shaders/bloom.gdshader" id="6"]
+[ext_resource type="Script" uid="uid://cmo7kqfwdcmuh" path="res://Content/Art/Shader/PostProcess/PostProcess2D/post_process_2d_controller.gd" id="7"]
+[ext_resource type="Shader" uid="uid://fki67kx50jkl" path="res://Content/Art/Shader/PostProcess/PostProcess2D/Shaders/transition.gdshader" id="8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
 resource_local_to_scene = true

@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_pcam3d"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_xhyiw"]
 [ext_resource type="Script" uid="uid://bmh7hicrtc3ok" path="res://Content/Script/Ghost/ghost_spawner.gd" id="5_ghost_spawner"]
-[ext_resource type="Shader" uid="uid://hltap48wr4u1" path="res://Content/Art/Shader/PostProcess3D/post_process_outline.gdshader" id="6_outline_shader"]
+[ext_resource type="Shader" uid="uid://hltap48wr4u1" path="res://Content/Art/Shader/PostProcess/PostProcess3D/Shaders/post_process_outline.gdshader" id="6_outline_shader"]
 [ext_resource type="PackedScene" uid="uid://bkqi4nluf1v2n" path="res://Content/Scene/UI/Common/ProgressBar/feel_progress_bar.tscn" id="7_fpbar"]
 [ext_resource type="Script" uid="uid://b3qxankvbabvi" path="res://Content/Script/Effects/camera_shake.gd" id="8_camera_shake"]
 [ext_resource type="Script" uid="uid://imqc4tk0vewl" path="res://Content/Script/Effects/light_flicker.gd" id="9_light_flicker"]
@@ -86,10 +86,10 @@ mesh = SubResource("QuadMesh_void_fog")
 
 [node name="GhostSpawner" type="Node" parent="." unique_id=111802632]
 script = ExtResource("5_ghost_spawner")
-spawn_z_start = 20.0
+spawn_z_start = 15.0
 spawn_z_end = 5.0
 spawn_z_transition_distance = 2000.0
-spawn_x_range_start = 20.0
+spawn_x_range_start = 10.0
 spawn_x_range_end = 2.0
 spawn_x_transition_distance = 2000.0
 spawn_x_min_from_center = 4.0

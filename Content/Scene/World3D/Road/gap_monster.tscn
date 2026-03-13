@@ -4,6 +4,9 @@
 [ext_resource type="SpriteFrames" uid="uid://c4yegkukksfhv" path="res://Content/Art/Sprite/Monsters/anim/monster_sprite_frames.tres" id="1_vejqd"]
 
 [node name="GapMonster" type="AnimatedSprite3D" unique_id=1845580159]
+shaded = true
 alpha_cut = 1
 sprite_frames = ExtResource("1_vejqd")
+frame = 31
+frame_progress = 0.7995923
 script = ExtResource("1_script")

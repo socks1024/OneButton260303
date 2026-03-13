@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="InputContext" format=3]
+[gd_resource type="Resource" script_class="InputContext" format=3 uid="uid://ck4f165dbma78"]
 
 [ext_resource type="Script" uid="uid://cnmdmdgpavjnc" path="res://Content/Script/Input/input_context.gd" id="1_ctx"]
 
 [resource]
 script = ExtResource("1_ctx")
 context_name = &"Gameplay"
-include_ui_actions = false
-actions = Array[StringName]([&"jump"])
+actions = Array[StringName]([&"close_eye"])
 metadata/_custom_type_script = "uid://cnmdmdgpavjnc"

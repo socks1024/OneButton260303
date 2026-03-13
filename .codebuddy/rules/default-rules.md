@@ -21,6 +21,8 @@ type: always
 
 项目模板及其中功能的说明在 res://Docs/Template/README.md 这个文档中，文档开头有目录，可以根据目录查询相关功能。
 
+编码的风格指南在 res://Docs/Agent/memory/gdscript_style_guideline.md 这个文档中，每次对代码进行大规模的增删后，都必须确保代码的形式符合风格指南。
+
 ### 数据与配置
 - `@export` 变量数值有问题时，**只在聊天中告知，不要自行修改代码或 .tscn**
 - 能在场景中静态配置的内容，**不要在脚本中动态生成**
