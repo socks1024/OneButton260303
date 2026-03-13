@@ -8,7 +8,7 @@ _data = [Vector2(0, 4), 0.0, 0.0, 0, 0, Vector2(1, 5.5), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_mwtmi"]
-_data = [Vector2(0, 0.7), 0.0, 0.0, 0, 0, Vector2(1, 0.7), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.0021008402, 0.73279154), 0.0, 0.0, 0, 0, Vector2(1, 0.73279154), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_03y0g"]
@@ -28,7 +28,8 @@ speed_curve = SubResource("Curve_7nbqf")
 gap_chance_curve = SubResource("Curve_mwtmi")
 safe_duration_curve = SubResource("Curve_03y0g")
 active_duration_curve = SubResource("Curve_tatdt")
-fear_decay_rate = 0.9
-lost_gain_rate = 4.5
-lost_decay_rate = 0.9
+fear_gain_rate = 8.0
+fear_decay_rate = 1.2
+lost_gain_rate = 4.0
+lost_decay_rate = 1.2
 metadata/_custom_type_script = "uid://hpw8t25oofdi"
