@@ -99,6 +99,8 @@ layout_mode = 1
 [node name="Back" parent="UI/CreditMenu/Panel" parent_id_path=PackedInt32Array(191120225, 1741080736) index="1" unique_id=962221927]
 ease_curve = SubResource("Curve_73ngu")
 
+[node name="World" type="Node3D" parent="." unique_id=743525482]
+
 [connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/NewGame" to="." method="_on_new_game"]
 [connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/Settings" to="." method="_on_goto_settings"]
 [connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/Credits" to="." method="_on_goto_credits"]

@@ -193,7 +193,7 @@ horizontal_alignment = 1
 
 [node name="RestartLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer" unique_id=2099170765]
 layout_mode = 2
-text = "按空格键重新开始"
+text = "按 R 键重新开始"
 horizontal_alignment = 1
 
 [node name="EyesOverlay" type="ColorRect" parent="UI" unique_id=999888777]

@@ -272,6 +272,6 @@ func _trigger_game_over(cause: DeathCause) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if _game_over and event.is_action_pressed("jump"):
+	if _game_over and Input.is_key_pressed(KEY_R):
 		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 		SceneUtils.switch_scene_by_path(self, SCENE_PATH)
