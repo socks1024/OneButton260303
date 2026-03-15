@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://dxqwreoq0e3is" path="res://Content/Art/UI/Sprites/闭眼ui/7.png" id="20_t4nrq"]
 [ext_resource type="Texture2D" uid="uid://cewthwx5r3hbp" path="res://Content/Art/UI/Sprites/睁眼ui/图标.png" id="21_sw8tn"]
 [ext_resource type="Texture2D" uid="uid://ch4k0eau1jt5j" path="res://Content/Art/UI/Sprites/睁眼ui/光点.png" id="22_8am7b"]
+[ext_resource type="SpriteFrames" uid="uid://im70uihwjtl6" path="res://Content/Art/Sprite/GhostAttack/attack_sprite_frames.tres" id="25_37ohg"]
 
 [sub_resource type="Sky" id="Sky_1"]
 
@@ -326,6 +327,11 @@ offset_top = 279.0
 offset_right = 1372.0
 offset_bottom = 1024.0
 texture = ExtResource("14_mxcyt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI" unique_id=731348677]
+position = Vector2(961, 542)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("25_37ohg")
 
 [node name="GameOverPanel" type="PanelContainer" parent="UI" unique_id=125286127]
 anchors_preset = 8

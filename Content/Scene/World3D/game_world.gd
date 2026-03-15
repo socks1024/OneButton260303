@@ -179,10 +179,15 @@ func _on_phase_changed(old_index: int, new_index: int) -> void:
 	# if new_index == 1:
 	#     play_cutscene("chapter_2_intro")
 	
-	#if new_index == 1:
-		#ghost_anim.show()
-		#ghost_anim.play()
-		#ghost_anim.animation_finished.connect(func():ghost_anim.hide())
+	if new_index == 2:
+		player._set_eyes_closed(false)
+		InputManager.remove_context(_gameplay_context.context_name)
+		ghost_anim.show()
+		ghost_anim.play()
+		
+		ghost_anim.animation_finished.connect(func():
+			ghost_anim.hide()
+			InputManager.add_context(_gameplay_context))
 
 
 ## --- 胜利处理 ---

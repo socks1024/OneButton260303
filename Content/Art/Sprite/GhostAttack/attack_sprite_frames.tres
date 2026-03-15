@@ -1,0 +1,646 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://im70uihwjtl6"]
+
+[ext_resource type="Texture2D" uid="uid://dmcuj5leos7ao" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20001.png" id="1_25q2i"]
+[ext_resource type="Texture2D" uid="uid://cj77gjnrust05" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20002.png" id="2_3xs54"]
+[ext_resource type="Texture2D" uid="uid://2wbenyv1hjt1" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20003.png" id="3_g4wci"]
+[ext_resource type="Texture2D" uid="uid://jvtbq7527aw6" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20004.png" id="4_n3hwy"]
+[ext_resource type="Texture2D" uid="uid://b0lpus8vehwja" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20005.png" id="5_qp88i"]
+[ext_resource type="Texture2D" uid="uid://btcaddif02edw" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20006.png" id="6_h24su"]
+[ext_resource type="Texture2D" uid="uid://csvwx8oxrporp" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20007.png" id="7_klh4d"]
+[ext_resource type="Texture2D" uid="uid://d3y0aiyajpbfp" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20008.png" id="8_017bi"]
+[ext_resource type="Texture2D" uid="uid://y57el0kluuhl" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20009.png" id="9_jyhh0"]
+[ext_resource type="Texture2D" uid="uid://cw0l48ipwvvf5" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20010.png" id="10_2mi7x"]
+[ext_resource type="Texture2D" uid="uid://dmg1o8htyxcec" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20011.png" id="11_juyje"]
+[ext_resource type="Texture2D" uid="uid://c71w6h62sfxby" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20012.png" id="12_klyv0"]
+[ext_resource type="Texture2D" uid="uid://dlcy5ox2xybvs" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20013.png" id="13_v2t4j"]
+[ext_resource type="Texture2D" uid="uid://dj8ju1wgpshnk" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20014.png" id="14_0xidf"]
+[ext_resource type="Texture2D" uid="uid://l2s8xmku068q" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20015.png" id="15_bfaj0"]
+[ext_resource type="Texture2D" uid="uid://dmjhskf7w6jyj" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20016.png" id="16_utxiv"]
+[ext_resource type="Texture2D" uid="uid://ciuwobh6it2oa" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20017.png" id="17_aknnt"]
+[ext_resource type="Texture2D" uid="uid://c6hf72tbjrop" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20018.png" id="18_qm0g3"]
+[ext_resource type="Texture2D" uid="uid://cbworjxh4kw8w" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20019.png" id="19_1rkdu"]
+[ext_resource type="Texture2D" uid="uid://ddee8o5s55jrh" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20020.png" id="20_pgxdi"]
+[ext_resource type="Texture2D" uid="uid://cnnmcw0j0epvw" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20021.png" id="21_cr4nq"]
+[ext_resource type="Texture2D" uid="uid://c2rl2kmb67ms4" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20022.png" id="22_85pk3"]
+[ext_resource type="Texture2D" uid="uid://il0lm0qpf8ko" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20023.png" id="23_3i8fu"]
+[ext_resource type="Texture2D" uid="uid://dk5gpmdwu4chj" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20024.png" id="24_noryw"]
+[ext_resource type="Texture2D" uid="uid://b6o7b3h1febcu" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20025.png" id="25_v4k0s"]
+[ext_resource type="Texture2D" uid="uid://yg6al3r3tq8g" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20026.png" id="26_q7g8i"]
+[ext_resource type="Texture2D" uid="uid://50fvxs4nmnqy" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20027.png" id="27_q7pb2"]
+[ext_resource type="Texture2D" uid="uid://ckrwsi6hbvikt" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20028.png" id="28_88ikk"]
+[ext_resource type="Texture2D" uid="uid://c8u4mke1au6ip" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20029.png" id="29_ipohp"]
+[ext_resource type="Texture2D" uid="uid://crahofen7br0d" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20030.png" id="30_6eo3n"]
+[ext_resource type="Texture2D" uid="uid://mu4u2bhusf0g" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20031.png" id="31_6vjj3"]
+[ext_resource type="Texture2D" uid="uid://c634goa3hbode" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20032.png" id="32_5f7e2"]
+[ext_resource type="Texture2D" uid="uid://d1tl7vhe1i0uk" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20033.png" id="33_4jr7o"]
+[ext_resource type="Texture2D" uid="uid://celmfuaysqa7i" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20034.png" id="34_e3qjo"]
+[ext_resource type="Texture2D" uid="uid://crxi7jpx4lgeb" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20035.png" id="35_du20y"]
+[ext_resource type="Texture2D" uid="uid://bsl6pku3dwqjk" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20036.png" id="36_bn4ct"]
+[ext_resource type="Texture2D" uid="uid://bdijtard3wbvs" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20037.png" id="37_iffg4"]
+[ext_resource type="Texture2D" uid="uid://cbuv38rgbben5" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20038.png" id="38_3p8pw"]
+[ext_resource type="Texture2D" uid="uid://bnx5p2wcb7wnm" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20039.png" id="39_slr8c"]
+[ext_resource type="Texture2D" uid="uid://b36cuutci8bjl" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20040.png" id="40_k78eb"]
+[ext_resource type="Texture2D" uid="uid://b6magicvlnjpi" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20041.png" id="41_6stcw"]
+[ext_resource type="Texture2D" uid="uid://bxvmk3xol2g82" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20042.png" id="42_yriv0"]
+[ext_resource type="Texture2D" uid="uid://c1l8ak7chs5nd" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20043.png" id="43_h4ibx"]
+[ext_resource type="Texture2D" uid="uid://o1xip8udbb2q" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20044.png" id="44_ntrll"]
+[ext_resource type="Texture2D" uid="uid://b58balb4drlyu" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20045.png" id="45_nj6hu"]
+[ext_resource type="Texture2D" uid="uid://cay045cdqjrvb" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20046.png" id="46_4ja3y"]
+[ext_resource type="Texture2D" uid="uid://c0mwigtshmn8t" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20047.png" id="47_u6xyq"]
+[ext_resource type="Texture2D" uid="uid://e8sycnp5mweo" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20048.png" id="48_sttvb"]
+[ext_resource type="Texture2D" uid="uid://iyjnd014panw" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20049.png" id="49_y48so"]
+[ext_resource type="Texture2D" uid="uid://dadrmdys8u0fv" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20050.png" id="50_71sbj"]
+[ext_resource type="Texture2D" uid="uid://djvv8vocbeeux" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20051.png" id="51_63422"]
+[ext_resource type="Texture2D" uid="uid://wnqawpxv1p8j" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20052.png" id="52_cihud"]
+[ext_resource type="Texture2D" uid="uid://c8e573o5gyk4y" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20053.png" id="53_ieqc3"]
+[ext_resource type="Texture2D" uid="uid://b68or8u0n5s5p" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20054.png" id="54_b2ltk"]
+[ext_resource type="Texture2D" uid="uid://d2e601h1ckbyb" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20055.png" id="55_us2nj"]
+[ext_resource type="Texture2D" uid="uid://yp0l3tivp0ei" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20056.png" id="56_bobo8"]
+[ext_resource type="Texture2D" uid="uid://dse37gpqp5wn5" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20057.png" id="57_w3dki"]
+[ext_resource type="Texture2D" uid="uid://dds2dk3hw12io" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20058.png" id="58_1c2jl"]
+[ext_resource type="Texture2D" uid="uid://bqu41s54xkmf4" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20059.png" id="59_pff3f"]
+[ext_resource type="Texture2D" uid="uid://bd2ulhvmitki7" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20060.png" id="60_7f7ou"]
+[ext_resource type="Texture2D" uid="uid://c6l4t3tttskxg" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20061.png" id="61_01foe"]
+[ext_resource type="Texture2D" uid="uid://cckr5md2xie06" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20062.png" id="62_gs8ae"]
+[ext_resource type="Texture2D" uid="uid://bvw62hlcxyl5p" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20063.png" id="63_r8jqf"]
+[ext_resource type="Texture2D" uid="uid://bxehc6xtjmfr7" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20064.png" id="64_57pwp"]
+[ext_resource type="Texture2D" uid="uid://b318xnhkvvv15" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20065.png" id="65_5h4gl"]
+[ext_resource type="Texture2D" uid="uid://cq1y5ymjaopkk" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20066.png" id="66_gshvr"]
+[ext_resource type="Texture2D" uid="uid://dh2v3rf7w6rio" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20067.png" id="67_3vqvs"]
+[ext_resource type="Texture2D" uid="uid://cn57sea4bxr47" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20068.png" id="68_fkr10"]
+[ext_resource type="Texture2D" uid="uid://baqfvaacmmkw7" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20069.png" id="69_6mtxv"]
+[ext_resource type="Texture2D" uid="uid://i8pl32cj330n" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20070.png" id="70_jx3px"]
+[ext_resource type="Texture2D" uid="uid://bsbii8rsvlu4k" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20071.png" id="71_06t0m"]
+[ext_resource type="Texture2D" uid="uid://bw2tdsfl0n4p2" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20072.png" id="72_eehbv"]
+[ext_resource type="Texture2D" uid="uid://c52t5i8smrk1e" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20073.png" id="73_nc118"]
+[ext_resource type="Texture2D" uid="uid://ciebgnba8i4q1" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20074.png" id="74_7wi8s"]
+[ext_resource type="Texture2D" uid="uid://2pmub6enmjyv" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20075.png" id="75_br3mr"]
+[ext_resource type="Texture2D" uid="uid://c01ry1hlq2fdd" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20076.png" id="76_xeipx"]
+[ext_resource type="Texture2D" uid="uid://dcnx0wgocmkjj" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20077.png" id="77_u7lko"]
+[ext_resource type="Texture2D" uid="uid://7wddmibma33p" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20078.png" id="78_f61s0"]
+[ext_resource type="Texture2D" uid="uid://chde0euw3e7ys" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20079.png" id="79_3nsbk"]
+[ext_resource type="Texture2D" uid="uid://cq1mq2n3obvor" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20080.png" id="80_4eiso"]
+[ext_resource type="Texture2D" uid="uid://cu0bvskkaa2uk" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20081.png" id="81_e02tm"]
+[ext_resource type="Texture2D" uid="uid://dp61ajqjpjnyq" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20082.png" id="82_pn4ac"]
+[ext_resource type="Texture2D" uid="uid://brdo6t3o3k3t6" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20083.png" id="83_0i1t2"]
+[ext_resource type="Texture2D" uid="uid://bfc4fcdqsoiul" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20084.png" id="84_p4f7e"]
+[ext_resource type="Texture2D" uid="uid://b43saknuyiopf" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20085.png" id="85_6rlgy"]
+[ext_resource type="Texture2D" uid="uid://cf37eqykkbit0" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20086.png" id="86_cwmld"]
+[ext_resource type="Texture2D" uid="uid://ci2342hpav5ul" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20087.png" id="87_jpj1a"]
+[ext_resource type="Texture2D" uid="uid://ty7b3cag76d8" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20088.png" id="88_33e1s"]
+[ext_resource type="Texture2D" uid="uid://cbrsn5r04dpte" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20089.png" id="89_w0i4c"]
+[ext_resource type="Texture2D" uid="uid://bnijicafa461e" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20090.png" id="90_lskjs"]
+[ext_resource type="Texture2D" uid="uid://dpuxfq512c2n" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20091.png" id="91_d5h5c"]
+[ext_resource type="Texture2D" uid="uid://db2p8jtjwqc84" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20092.png" id="92_56763"]
+[ext_resource type="Texture2D" uid="uid://ptrjx5p422w2" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20093.png" id="93_7arfu"]
+[ext_resource type="Texture2D" uid="uid://cr11bqt0evsob" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20094.png" id="94_hwcj1"]
+[ext_resource type="Texture2D" uid="uid://xspmp5yamv5g" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20095.png" id="95_bpkut"]
+[ext_resource type="Texture2D" uid="uid://8esga65k1oa8" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20096.png" id="96_sbpmf"]
+[ext_resource type="Texture2D" uid="uid://c3pl3dmut7qta" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20097.png" id="97_ygwwm"]
+[ext_resource type="Texture2D" uid="uid://bt8qxk4acl7ug" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20098.png" id="98_i12tx"]
+[ext_resource type="Texture2D" uid="uid://t5b6oudsiew0" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20099.png" id="99_54s6k"]
+[ext_resource type="Texture2D" uid="uid://ciedspanqrt7a" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20100.png" id="100_8gfq2"]
+[ext_resource type="Texture2D" uid="uid://dxt3epr8x0o1w" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20101.png" id="101_8r0wr"]
+[ext_resource type="Texture2D" uid="uid://chy06cosxg0yb" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20102.png" id="102_6s72r"]
+[ext_resource type="Texture2D" uid="uid://dxo57hpjywn6r" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20103.png" id="103_jow28"]
+[ext_resource type="Texture2D" uid="uid://cflsvqa3606ak" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20104.png" id="104_rxan4"]
+[ext_resource type="Texture2D" uid="uid://usu3w8jt3bhs" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20105.png" id="105_e0ba0"]
+[ext_resource type="Texture2D" uid="uid://di13plapb424e" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20106.png" id="106_42n0d"]
+[ext_resource type="Texture2D" uid="uid://dtw4ke6qkd3iq" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20107.png" id="107_bfx6y"]
+[ext_resource type="Texture2D" uid="uid://bf3kt24dvgyye" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20108.png" id="108_lrdcg"]
+[ext_resource type="Texture2D" uid="uid://rltps74gsioq" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20109.png" id="109_fqpe1"]
+[ext_resource type="Texture2D" uid="uid://dlmrk8luv3pch" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20110.png" id="110_ug7ac"]
+[ext_resource type="Texture2D" uid="uid://6gbutqqogsby" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20111.png" id="111_5bfkl"]
+[ext_resource type="Texture2D" uid="uid://c6xdpwu4wgjob" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20112.png" id="112_cq8d7"]
+[ext_resource type="Texture2D" uid="uid://bunjyi1h1bc28" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20113.png" id="113_ba6p7"]
+[ext_resource type="Texture2D" uid="uid://b4tcgjgat6f22" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20114.png" id="114_lx0x3"]
+[ext_resource type="Texture2D" uid="uid://x1dd0ki6tcv4" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20115.png" id="115_f6d30"]
+[ext_resource type="Texture2D" uid="uid://dsimjregec2if" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20116.png" id="116_cff8i"]
+[ext_resource type="Texture2D" uid="uid://cey6oyr3husr2" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20117.png" id="117_tn67d"]
+[ext_resource type="Texture2D" uid="uid://uggkjdtd0tex" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20118.png" id="118_j7cdu"]
+[ext_resource type="Texture2D" uid="uid://dgrpsomjsw632" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20119.png" id="119_cydy8"]
+[ext_resource type="Texture2D" uid="uid://bjxu5n7vm501b" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20120.png" id="120_vnljc"]
+[ext_resource type="Texture2D" uid="uid://c56qwq2xtucgn" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20121.png" id="121_mtix7"]
+[ext_resource type="Texture2D" uid="uid://cxhg0drtee84k" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20122.png" id="122_tgi7i"]
+[ext_resource type="Texture2D" uid="uid://cjppvw52aym2j" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20123.png" id="123_vd7ab"]
+[ext_resource type="Texture2D" uid="uid://dqxmvduc6ov0m" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20124.png" id="124_65570"]
+[ext_resource type="Texture2D" uid="uid://be8kpn01yt7lb" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20125.png" id="125_00y8e"]
+[ext_resource type="Texture2D" uid="uid://dtlb5o6nrwj2y" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20126.png" id="126_1himf"]
+[ext_resource type="Texture2D" uid="uid://d0w53k5khkmjp" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20127.png" id="127_nsqxs"]
+[ext_resource type="Texture2D" uid="uid://ba3lqgv0eqnvs" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20128.png" id="128_2wgo5"]
+[ext_resource type="Texture2D" uid="uid://igqj6d41gn16" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20129.png" id="129_muyb6"]
+[ext_resource type="Texture2D" uid="uid://dwuekjqkco1eg" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20130.png" id="130_yj8vx"]
+[ext_resource type="Texture2D" uid="uid://bnaa2ihjl7l50" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20131.png" id="131_j8l75"]
+[ext_resource type="Texture2D" uid="uid://bqtihsdl34knn" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20132.png" id="132_n8cge"]
+[ext_resource type="Texture2D" uid="uid://biy0pm0tet8tv" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20133.png" id="133_pbkef"]
+[ext_resource type="Texture2D" uid="uid://die4pmctqss3y" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20134.png" id="134_quqy6"]
+[ext_resource type="Texture2D" uid="uid://b4q7g341q10mg" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20135.png" id="135_uf82j"]
+[ext_resource type="Texture2D" uid="uid://dylhh8j4t02dc" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20136.png" id="136_01lsq"]
+[ext_resource type="Texture2D" uid="uid://rkgqdeaqn3ny" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20137.png" id="137_jgtgt"]
+[ext_resource type="Texture2D" uid="uid://8j841scawrxn" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20138.png" id="138_pdwpr"]
+[ext_resource type="Texture2D" uid="uid://dm3naps7cr0x5" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20139.png" id="139_qyhc3"]
+[ext_resource type="Texture2D" uid="uid://dwf8xe7pi1jo4" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20140.png" id="140_b2apf"]
+[ext_resource type="Texture2D" uid="uid://cw720wcirvuxp" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20141.png" id="141_813i3"]
+[ext_resource type="Texture2D" uid="uid://def4ntde27t2d" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20142.png" id="142_ojx4e"]
+[ext_resource type="Texture2D" uid="uid://b40uyoswovmjl" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20143.png" id="143_o0kjy"]
+[ext_resource type="Texture2D" uid="uid://bm8037bsc01i4" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20144.png" id="144_bu3ob"]
+[ext_resource type="Texture2D" uid="uid://ceb3jqaalikjd" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20145.png" id="145_82ekg"]
+[ext_resource type="Texture2D" uid="uid://doffra147ctc6" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20146.png" id="146_wp3sc"]
+[ext_resource type="Texture2D" uid="uid://d1wkkxyl2yngb" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20147.png" id="147_n7fv5"]
+[ext_resource type="Texture2D" uid="uid://dgm3hiw1vadoq" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20148.png" id="148_qs5yn"]
+[ext_resource type="Texture2D" uid="uid://cxdqisggfp8u4" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20149.png" id="149_dd6fo"]
+[ext_resource type="Texture2D" uid="uid://3p1vtdousew4" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20150.png" id="150_m467h"]
+[ext_resource type="Texture2D" uid="uid://x2d213t5m65p" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20151.png" id="151_22vm3"]
+[ext_resource type="Texture2D" uid="uid://dko4hpia3yiya" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20152.png" id="152_t81mq"]
+[ext_resource type="Texture2D" uid="uid://b6i6n3vg7cif4" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20153.png" id="153_h6ci2"]
+[ext_resource type="Texture2D" uid="uid://dixdm6rsicwo1" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20154.png" id="154_x4v1v"]
+[ext_resource type="Texture2D" uid="uid://1eemqdf4wu1s" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20155.png" id="155_eifc3"]
+[ext_resource type="Texture2D" uid="uid://dv3xwnret8plv" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20156.png" id="156_slwol"]
+[ext_resource type="Texture2D" uid="uid://b758kut5s4nrl" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20157.png" id="157_3ar4a"]
+[ext_resource type="Texture2D" uid="uid://c6rpph1cqna7u" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20158.png" id="158_2t2p5"]
+[ext_resource type="Texture2D" uid="uid://w612lmv2mjq6" path="res://Content/Art/Sprite/GhostAttack/突脸/元件 20159.png" id="159_f4y4d"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_25q2i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_3xs54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_g4wci")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n3hwy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qp88i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_h24su")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_klh4d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_017bi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_jyhh0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_2mi7x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_juyje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_klyv0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_v2t4j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_0xidf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_bfaj0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_utxiv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_aknnt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_qm0g3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_1rkdu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_pgxdi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_cr4nq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_85pk3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_3i8fu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_noryw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_v4k0s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_q7g8i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_q7pb2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_88ikk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_ipohp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_6eo3n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_6vjj3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_5f7e2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_4jr7o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_e3qjo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_du20y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_bn4ct")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_iffg4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_3p8pw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_slr8c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_k78eb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_6stcw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_yriv0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_h4ibx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_ntrll")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_nj6hu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_4ja3y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_u6xyq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_sttvb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_y48so")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_71sbj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_63422")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_cihud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_ieqc3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_b2ltk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_us2nj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_bobo8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_w3dki")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_1c2jl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_pff3f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_7f7ou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_01foe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_gs8ae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_r8jqf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_57pwp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_5h4gl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_gshvr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_3vqvs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_fkr10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_6mtxv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_jx3px")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_06t0m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_eehbv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_nc118")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_7wi8s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_br3mr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_xeipx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_u7lko")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_f61s0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_3nsbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_4eiso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_e02tm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_pn4ac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_0i1t2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_p4f7e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_6rlgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_cwmld")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_jpj1a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("88_33e1s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("89_w0i4c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("90_lskjs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("91_d5h5c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("92_56763")
+}, {
+"duration": 1.0,
+"texture": ExtResource("93_7arfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("94_hwcj1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("95_bpkut")
+}, {
+"duration": 1.0,
+"texture": ExtResource("96_sbpmf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("97_ygwwm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_i12tx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("99_54s6k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("100_8gfq2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("101_8r0wr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("102_6s72r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("103_jow28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("104_rxan4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("105_e0ba0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("106_42n0d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("107_bfx6y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("108_lrdcg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("109_fqpe1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("110_ug7ac")
+}, {
+"duration": 1.0,
+"texture": ExtResource("111_5bfkl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("112_cq8d7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("113_ba6p7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("114_lx0x3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("115_f6d30")
+}, {
+"duration": 1.0,
+"texture": ExtResource("116_cff8i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("117_tn67d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("118_j7cdu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("119_cydy8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("120_vnljc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("121_mtix7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("122_tgi7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("123_vd7ab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("124_65570")
+}, {
+"duration": 1.0,
+"texture": ExtResource("125_00y8e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("126_1himf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("127_nsqxs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("128_2wgo5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("129_muyb6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("130_yj8vx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("131_j8l75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("132_n8cge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("133_pbkef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("134_quqy6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("135_uf82j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("136_01lsq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("137_jgtgt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("138_pdwpr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("139_qyhc3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("140_b2apf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("141_813i3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("142_ojx4e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("143_o0kjy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("144_bu3ob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("145_82ekg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("146_wp3sc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("147_n7fv5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("148_qs5yn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("149_dd6fo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("150_m467h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("151_22vm3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("152_t81mq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("153_h6ci2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("154_x4v1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("155_eifc3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("156_slwol")
+}, {
+"duration": 1.0,
+"texture": ExtResource("157_3ar4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("158_2t2p5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("159_f4y4d")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
