@@ -11,6 +11,20 @@
 [ext_resource type="PackedScene" uid="uid://bkqi4nluf1v2n" path="res://Content/Scene/UI/Common/ProgressBar/feel_progress_bar.tscn" id="7_fpbar"]
 [ext_resource type="Script" uid="uid://b3qxankvbabvi" path="res://Content/Script/Effects/camera_shake.gd" id="8_camera_shake"]
 [ext_resource type="Script" uid="uid://imqc4tk0vewl" path="res://Content/Script/Effects/light_flicker.gd" id="9_light_flicker"]
+[ext_resource type="Script" uid="uid://61tl5v8j5tg7" path="res://Content/Scene/World3D/fear_bar.gd" id="11_8am7b"]
+[ext_resource type="Texture2D" uid="uid://jx0h6pktduag" path="res://Content/Art/UI/Sprites/闭眼ui/外.png" id="12_cfxv1"]
+[ext_resource type="Texture2D" uid="uid://drvrmf8qsy3b6" path="res://Content/Art/UI/Sprites/闭眼ui/里.png" id="13_tscm6"]
+[ext_resource type="Script" uid="uid://pq68mpnlk3ec" path="res://Content/Scene/World3D/lost_bar.gd" id="14_dyo6l"]
+[ext_resource type="Texture2D" uid="uid://sb8hdfrlqwqw" path="res://Content/Art/UI/Sprites/闭眼ui/把.png" id="14_mxcyt"]
+[ext_resource type="Texture2D" uid="uid://ratlqmr42t7o" path="res://Content/Art/UI/Sprites/闭眼ui/1.png" id="14_p65dm"]
+[ext_resource type="Texture2D" uid="uid://beoesmigvqx4k" path="res://Content/Art/UI/Sprites/闭眼ui/2.png" id="15_1me0d"]
+[ext_resource type="Texture2D" uid="uid://c5k3yb784d5ia" path="res://Content/Art/UI/Sprites/闭眼ui/3.png" id="16_sw8tn"]
+[ext_resource type="Texture2D" uid="uid://b5x7e2g0hsh1a" path="res://Content/Art/UI/Sprites/闭眼ui/4.png" id="17_8am7b"]
+[ext_resource type="Texture2D" uid="uid://dtom8vnrxdrfi" path="res://Content/Art/UI/Sprites/闭眼ui/5.png" id="18_dyo6l"]
+[ext_resource type="Texture2D" uid="uid://do0mqyvs63fvn" path="res://Content/Art/UI/Sprites/闭眼ui/6.png" id="19_37ohg"]
+[ext_resource type="Texture2D" uid="uid://dxqwreoq0e3is" path="res://Content/Art/UI/Sprites/闭眼ui/7.png" id="20_t4nrq"]
+[ext_resource type="Texture2D" uid="uid://cewthwx5r3hbp" path="res://Content/Art/UI/Sprites/睁眼ui/图标.png" id="21_sw8tn"]
+[ext_resource type="Texture2D" uid="uid://ch4k0eau1jt5j" path="res://Content/Art/UI/Sprites/睁眼ui/光点.png" id="22_8am7b"]
 
 [sub_resource type="Sky" id="Sky_1"]
 
@@ -165,6 +179,154 @@ offset_right = 300.0
 offset_bottom = 85.0
 text = "速度: 0 m/s"
 
+[node name="FearBar" type="Control" parent="UI" unique_id=962799352]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 972.0
+offset_top = 158.0
+offset_right = 1012.0
+offset_bottom = 198.0
+script = ExtResource("11_8am7b")
+
+[node name="图标" type="TextureRect" parent="UI/FearBar" unique_id=595860464]
+layout_mode = 0
+offset_left = -975.0
+offset_top = -157.0
+offset_right = 915.0
+offset_bottom = 473.0
+texture = ExtResource("21_sw8tn")
+
+[node name="Bar" type="ColorRect" parent="UI/FearBar" unique_id=1153732179]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -28.0
+offset_right = 480.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="光点" type="TextureRect" parent="UI/FearBar" unique_id=2004613015]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -167.0
+offset_top = -152.0
+offset_right = 127.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("22_8am7b")
+
+[node name="EyesOverlay" type="ColorRect" parent="UI" unique_id=999888777]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LostBar" type="Control" parent="UI/EyesOverlay" unique_id=1551657309]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_dyo6l")
+
+[node name="bg1" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=2134359474]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_cfxv1")
+
+[node name="bg2" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=1394587967]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_tscm6")
+
+[node name="0" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=46409049]
+layout_mode = 0
+offset_left = 683.0
+offset_top = 377.0
+offset_right = 886.0
+offset_bottom = 855.0
+texture = ExtResource("18_dyo6l")
+
+[node name="1" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=1722203464]
+layout_mode = 0
+offset_left = 611.0
+offset_top = 290.0
+offset_right = 883.0
+offset_bottom = 493.0
+texture = ExtResource("19_37ohg")
+
+[node name="2" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=351681067]
+layout_mode = 0
+offset_left = 695.0
+offset_top = 76.0
+offset_right = 905.0
+offset_bottom = 409.0
+texture = ExtResource("20_t4nrq")
+
+[node name="3" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=1723892339]
+layout_mode = 1
+offset_left = 909.0
+offset_top = 114.0
+offset_right = 1004.0
+offset_bottom = 386.0
+texture = ExtResource("14_p65dm")
+
+[node name="4" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=1161974435]
+layout_mode = 0
+offset_left = 1004.0
+offset_top = 208.0
+offset_right = 1214.0
+offset_bottom = 579.0
+texture = ExtResource("15_1me0d")
+
+[node name="5" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=632990376]
+layout_mode = 0
+offset_left = 1025.0
+offset_top = 398.0
+offset_right = 1297.0
+offset_bottom = 785.0
+texture = ExtResource("16_sw8tn")
+
+[node name="6" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=565079298]
+layout_mode = 0
+offset_left = 1014.0
+offset_top = 291.0
+offset_right = 1213.0
+offset_bottom = 871.0
+texture = ExtResource("17_8am7b")
+
+[node name="center" type="TextureRect" parent="UI/EyesOverlay/LostBar" unique_id=392474765]
+layout_mode = 1
+offset_left = 767.0
+offset_top = 279.0
+offset_right = 1372.0
+offset_bottom = 1024.0
+texture = ExtResource("14_mxcyt")
+
 [node name="GameOverPanel" type="PanelContainer" parent="UI" unique_id=125286127]
 anchors_preset = 8
 anchor_left = 0.5
@@ -196,17 +358,8 @@ layout_mode = 2
 text = "按 R 键重新开始"
 horizontal_alignment = 1
 
-[node name="EyesOverlay" type="ColorRect" parent="UI" unique_id=999888777]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
 [node name="StatsPanel" type="VBoxContainer" parent="UI" unique_id=843450176]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0

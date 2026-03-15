@@ -9,9 +9,10 @@ extends Node3D
 @onready var game_over_panel: PanelContainer = $UI/GameOverPanel
 @onready var game_over_label: Label = $UI/GameOverPanel/VBoxContainer/GameOverLabel
 @onready var distance_result_label: Label = $UI/GameOverPanel/VBoxContainer/DistanceResultLabel
-@onready var fear_bar: FeelProgressBar = $UI/StatsPanel/VBoxContainer/FearBar
-@onready var lost_bar: FeelProgressBar = $UI/StatsPanel/VBoxContainer/LostBar
+@onready var fear_bar: Control = $UI/FearBar
+@onready var lost_bar: Control = $UI/EyesOverlay/LostBar
 @onready var eyes_overlay: ColorRect = $UI/EyesOverlay
+@onready var ghost_anim: AnimatedSprite2D = $UI/AnimatedSprite2D
 
 const SCENE_PATH := "res://Content/Scene/World3D/game_world.tscn"
 
@@ -58,8 +59,8 @@ func _ready() -> void:
 	eyes_overlay.modulate.a = 0.0
 
 	# 初始化数值条（恐惧值和迷失值从0开始）
-	fear_bar.set_value(0.0,false)
-	lost_bar.set_value(0.0,false)
+	fear_bar.set_value(0.0)
+	lost_bar.set_value(0.0)
 
 	# 连接玩家信号
 	player.player_fell.connect(_on_player_fell)
@@ -122,11 +123,6 @@ func _physics_process(_delta: float) -> void:
 	_update_difficulty_phase(distance)
 
 
-## 闭眼/睁眼状态变化
-
-
-
-
 ## 闭眼/睁眼状态变化 — 使用 EyesOverlay 遮罩渐变
 func _on_eyes_state_changed(is_closed: bool) -> void:
 	# 打断上一个渐变动画（如果有）
@@ -145,27 +141,15 @@ func _on_eyes_state_changed(is_closed: bool) -> void:
 ## 恐惧值变化回调
 func _on_fear_changed(current: float, max_val: float) -> void:
 	var ratio: float = current / max_val
-	fear_bar.value = ratio
-	fear_bar.bar_color = _calc_bar_color(ratio)
+	fear_bar.set_value(ratio)
+	# fear_bar.bar_color = _calc_bar_color(ratio)
 
 
 ## 迷失值变化回调
 func _on_lost_changed(current: float, max_val: float) -> void:
 	var ratio: float = current / max_val
-	lost_bar.value = ratio
-	lost_bar.bar_color = _calc_bar_color(ratio)
-
-
-## 根据比例计算颜色（值越高越危险：绿 → 黄 → 红）
-func _calc_bar_color(ratio: float) -> Color:
-	if ratio < 0.5:
-		# 绿 → 黄（0.0 ~ 0.5）
-		var t: float = ratio / 0.5
-		return Color(t, 0.8 + 0.2 * (1.0 - t), 0.2 * (1.0 - t))
-	else:
-		# 黄 → 红（0.5 ~ 1.0）
-		var t: float = (ratio - 0.5) / 0.5
-		return Color(1.0, 0.8 * (1.0 - t), 0.0)
+	lost_bar.set_value(ratio)
+	# lost_bar.bar_color = _calc_bar_color(ratio)
 
 
 ## --- 难度阶段追踪 ---
@@ -194,6 +178,11 @@ func _on_phase_changed(old_index: int, new_index: int) -> void:
 	# 例如：
 	# if new_index == 1:
 	#     play_cutscene("chapter_2_intro")
+	
+	#if new_index == 1:
+		#ghost_anim.show()
+		#ghost_anim.play()
+		#ghost_anim.animation_finished.connect(func():ghost_anim.hide())
 
 
 ## --- 胜利处理 ---

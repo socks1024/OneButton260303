@@ -12,6 +12,9 @@ fade_duration = 1.0
 move_speed = 2.0
 ghost_music = ExtResource("6_ghost_music")
 
+[node name="VisibleTimer" type="Timer" parent="." unique_id=211740002]
+one_shot = true
+
 [node name="Idle" type="Node3D" parent="." unique_id=1363967288]
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Idle" unique_id=869480852]
@@ -24,6 +27,3 @@ visible = false
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Move" unique_id=1974228718]
 shaded = true
 sprite_frames = ExtResource("8_jo4w6")
-
-[node name="VisibleTimer" type="Timer" parent="." unique_id=211740002]
-one_shot = true
