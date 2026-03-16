@@ -265,7 +265,25 @@ func _trigger_game_over(cause: DeathCause) -> void:
 	CLog.w("游戏结束 - %s（跑了 %.1f 米）" % [_death_messages.get(cause, "未知原因"), distance])
 
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if _game_over and Input.is_key_pressed(KEY_R):
 		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 		SceneUtils.switch_scene_by_path(self, SCENE_PATH)
+
+
+## 场景被释放时，打断所有由本场景发起的音频（BGM、鬼的音乐、音效）
+func _exit_tree() -> void:
+	# 停止主 BGM 轨道
+	if AudioManager.music_track_players.has(&"main"):
+		var audio_player: AudioEventPlayer = AudioManager.music_track_players[&"main"]
+		audio_player.stop_audio(true)
+
+	# 停止鬼的音乐轨道
+	if AudioManager.music_track_players.has(Ghost.GHOST_MUSIC_TRACK):
+		var audio_player: AudioEventPlayer = AudioManager.music_track_players[Ghost.GHOST_MUSIC_TRACK]
+		audio_player.stop_audio(true)
+
+	# 停止所有正在播放的音效
+	for audio_player: AudioEventPlayer in AudioManager.sound_pool:
+		if audio_player.is_playing():
+			audio_player.stop_audio()

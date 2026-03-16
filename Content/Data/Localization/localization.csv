@@ -1,7 +1,7 @@
 keys,en,zh
 LANG_SETTING,Language,语言
-TITLE,About My Dream on the Naihe Bridge Where I Was Chased by a Gravity-Defying Gravity-Type Big Sister and Forced to Perform Extreme Sports to Escape the Gravity-Defying Gravity-Type Big Sister in My Dream on the Naihe Bridge,关于我在奈何桥的梦中被不受重力影响的重力系大姐姐追逐而被迫展开极限运动逃离梦中的奈何桥上不受重力影响的重力系大姐姐这件事
-NEW_GAME,New Game,新游戏
+TITLE,Eyes Closed,不要看
+NEW_GAME,Start New Game,开始新游戏
 CONTINUE_GAME,Continue,继续游戏
 SETTINGS,Settings,设置
 CREDITS,Credits,制作者
@@ -26,3 +26,18 @@ S-H-I-F-T","24数娱江承彦
 24游技王析今
 24数娱孙家澍
 24游艺于奕堃"
+PAUSE,Pause,暂停
+RESUME,Resume,继续游戏
+HELP,Help,帮助
+BACK_TO_START,Back to Start,回到开始菜单
+HELP_CONTENT,"You are trapped in a terrifying dream—fight your way out!
+When ""she"" appears, close your eyes to stay calm.
+But be careful—keeping your eyes shut too long will also make you lost in the dream.
+(Press/Release the Space bar to time your blinks wisely. Do not let the Panic and Loss meters above drop to zero.)
+Also, you can only see the path when your eyes are open—so time your jumps across the broken paths carefully.
+Stay calm and keep moving forward. May you escape this nightmare...","你被困在了一个恐怖的梦中，努力逃出去吧！
+当“她”出现时，为了保持冷静请闭上眼睛。
+但是请注意，闭眼太久也会让你迷失在梦中。
+（按下/松开 Space，衡量睁眼和闭眼的时机，不要让屏幕上方的恐慌值与迷失值归零）
+同时，你只有在能看见路的时候才能跳过路面断裂的地方。
+平静且坚定地向前吧，祝你能离开这场噩梦……"

@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://61tl5v8j5tg7" path="res://Content/Scene/World3D/fear_bar.gd" id="11_8am7b"]
 [ext_resource type="Texture2D" uid="uid://jx0h6pktduag" path="res://Content/Art/UI/Sprites/闭眼ui/外.png" id="12_cfxv1"]
 [ext_resource type="Texture2D" uid="uid://drvrmf8qsy3b6" path="res://Content/Art/UI/Sprites/闭眼ui/里.png" id="13_tscm6"]
-[ext_resource type="Script" uid="uid://pq68mpnlk3ec" path="res://Content/Scene/World3D/lost_bar.gd" id="14_dyo6l"]
+[ext_resource type="Script" path="res://Content/Scene/World3D/lost_bar.gd" id="14_dyo6l"]
 [ext_resource type="Texture2D" uid="uid://sb8hdfrlqwqw" path="res://Content/Art/UI/Sprites/闭眼ui/把.png" id="14_mxcyt"]
 [ext_resource type="Texture2D" uid="uid://ratlqmr42t7o" path="res://Content/Art/UI/Sprites/闭眼ui/1.png" id="14_p65dm"]
 [ext_resource type="Texture2D" uid="uid://beoesmigvqx4k" path="res://Content/Art/UI/Sprites/闭眼ui/2.png" id="15_1me0d"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://cewthwx5r3hbp" path="res://Content/Art/UI/Sprites/睁眼ui/图标.png" id="21_sw8tn"]
 [ext_resource type="Texture2D" uid="uid://ch4k0eau1jt5j" path="res://Content/Art/UI/Sprites/睁眼ui/光点.png" id="22_8am7b"]
 [ext_resource type="SpriteFrames" uid="uid://im70uihwjtl6" path="res://Content/Art/Sprite/GhostAttack/attack_sprite_frames.tres" id="25_37ohg"]
+[ext_resource type="Shader" uid="uid://lugfp6hy2byj" path="res://Content/Scene/World3D/fear_bar_dissolve.gdshader" id="26_dissolve"]
 
 [sub_resource type="Sky" id="Sky_1"]
 
@@ -80,6 +81,15 @@ size = Vector2(2, 2)
 
 [sub_resource type="Resource" id="Resource_6r6dc"]
 script = ExtResource("4_xhyiw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fear_dissolve"]
+shader = ExtResource("26_dissolve")
+shader_parameter/bar_color = Color(0, 1, 0.2, 1)
+shader_parameter/fade_distance = 0.10999999754128
+shader_parameter/fade_intensity = 0.60000000894072
+shader_parameter/noise_strength = 0.47999998927104
+shader_parameter/noise_scale = 25.0
+shader_parameter/bar_size = Vector2(1000, 16)
 
 [node name="GameWorld" type="Node3D" unique_id=907344034]
 script = ExtResource("1_game")
@@ -198,6 +208,7 @@ offset_bottom = 473.0
 texture = ExtResource("21_sw8tn")
 
 [node name="Bar" type="ColorRect" parent="UI/FearBar" unique_id=1153732179]
+material = SubResource("ShaderMaterial_fear_dissolve")
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -219,12 +230,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -167.0
-offset_top = -152.0
-offset_right = 127.0
-offset_bottom = 113.0
+offset_left = -148.0
+offset_top = -150.5
+offset_right = 146.0
+offset_bottom = 114.5
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(0.5, 0.5)
 texture = ExtResource("22_8am7b")
 
 [node name="EyesOverlay" type="ColorRect" parent="UI" unique_id=999888777]
@@ -339,29 +351,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -50.0
-offset_right = 150.0
-offset_bottom = 50.0
+offset_left = -300.0
+offset_top = -100.0
+offset_right = 300.0
+offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOverPanel" unique_id=152236321]
 layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
 
 [node name="GameOverLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer" unique_id=182472264]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "你在黑暗中坠入了深渊……"
 horizontal_alignment = 1
 
 [node name="DistanceResultLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer" unique_id=838119799]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "跑了 0 米"
 horizontal_alignment = 1
 
 [node name="RestartLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer" unique_id=2099170765]
 layout_mode = 2
-text = "按 R 键重新开始"
+theme_override_font_sizes/font_size = 24
+text = "按 R 键回到梦境……"
 horizontal_alignment = 1
 
 [node name="StatsPanel" type="VBoxContainer" parent="UI" unique_id=843450176]
