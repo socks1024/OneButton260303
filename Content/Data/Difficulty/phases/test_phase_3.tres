@@ -18,12 +18,12 @@ point_count = 2
 
 [sub_resource type="Curve" id="Curve_7nbqf"]
 _limits = [0.0, 10.0, 0.0, 1.0]
-_data = [Vector2(0, 6), 0.0, 0.0, 0, 0, Vector2(0.10621761, 6.7832994), 1.7101902, 0.0, 0, 0, Vector2(1, 7.37846), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 7), 0.0, 0.0, 0, 0, Vector2(0.106, 7.783), 1.7101902, 0.0, 0, 0, Vector2(1, 8.378), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [resource]
 script = ExtResource("1_hwea6")
-distance = 232.0
+distance = 265.0
 speed_curve = SubResource("Curve_7nbqf")
 gap_chance_curve = SubResource("Curve_mwtmi")
 safe_duration_curve = SubResource("Curve_03y0g")
