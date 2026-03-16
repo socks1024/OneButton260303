@@ -6,6 +6,7 @@ extends Control
 
 @onready var _bar: ColorRect = $Bar
 @onready var _bar_size_x: float = _bar.size.x
+@onready var _light_spot: TextureRect = $LightSpot
 
 
 func set_value(value: float) -> void:
@@ -13,6 +14,7 @@ func set_value(value: float) -> void:
 	_bar.position.x = -0.5 * _bar.size.x
 	var bar_color: Color = _calc_bar_color(value)
 	_bar.color = bar_color
+	_light_spot.modulate = bar_color
 	# 同步颜色和尺寸到 shader
 	var mat: ShaderMaterial = _bar.material as ShaderMaterial
 	if mat:

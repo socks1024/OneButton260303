@@ -1,7 +1,7 @@
 class_name CLogColors
 
 
-const SOURCE_LINK_COLOR = Color(1.0, 1.2, 1.0, 0.75)
+const SOURCE_LINK_COLOR = Color(0.5347, 1.2, 0.5884, 0.75)
 const TEXT_COLOR = Color(1.0, 1.0, 1.0, 0.75)
 const DIMMED_COLOR = Color(1.0, 1.0, 1.0, 0.5)
 const ERROR_COLOR = Color(1.0, 0.47, 0.42, 1.0)
