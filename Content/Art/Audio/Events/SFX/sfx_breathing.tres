@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AudioEvent" format=3]
+
+[ext_resource type="Script" uid="uid://b8l57kl8oyb2f" path="res://Content/Script/Audio/audio_event.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://cabb6mlb6ec1y" path="res://Content/Art/Audio/Raw/SFX/喘气.mp3" id="2_audio"]
+
+[resource]
+script = ExtResource("1_script")
+name = &"SFXBreathing"
+audio_stream = ExtResource("2_audio")
+is_loop = false
+bus = &"SFX"
+random_pitch_range = 0.1
+metadata/_custom_type_script = "uid://b8l57kl8oyb2f"

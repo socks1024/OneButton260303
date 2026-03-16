@@ -2,24 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://bkjowivgs5uon" path="res://Content/Scene/UI/Common/Button/common_button.tscn" id="1_i6emh"]
 [ext_resource type="Script" uid="uid://clgp4bfhaunuw" path="res://Content/Scene/UI/Menus/Start/start_menu.gd" id="1_scefs"]
-
-[sub_resource type="Curve" id="Curve_scefs"]
-resource_local_to_scene = true
-_limits = [-0.5, 0.5, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="Curve" id="Curve_ikp7q"]
-resource_local_to_scene = true
-_limits = [-0.5, 0.5, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="Curve" id="Curve_bn61v"]
-resource_local_to_scene = true
-_limits = [-0.5, 0.5, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
+[ext_resource type="Texture2D" uid="uid://bl2k1qcqm7pyb" path="res://Content/Art/UI/Menu/背景.png" id="2_ikp7q"]
+[ext_resource type="Texture2D" uid="uid://0fgaxsm8v6a0" path="res://Content/Art/UI/Menu/艺术字.png" id="3_bn61v"]
+[ext_resource type="Texture2D" uid="uid://bh3vdcak62451" path="res://Content/Art/UI/Menu/开始按钮.png" id="5_r4neo"]
 
 [sub_resource type="Curve" id="Curve_r4neo"]
 resource_local_to_scene = true
@@ -28,6 +13,24 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vecto
 point_count = 4
 
 [sub_resource type="Curve" id="Curve_mgepj"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_exk2g"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_nsuyr"]
+resource_local_to_scene = true
+_limits = [-0.5, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_ckgnx"]
 resource_local_to_scene = true
 _limits = [-0.5, 0.5, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 0.4), 0.0, 0.0, 0, 0, Vector2(0.6, -0.15), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -50,7 +53,46 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Bridge" type="TextureRect" parent="Panel" unique_id=875637350]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1572.0
+offset_bottom = 907.0
+grow_horizontal = 0
+texture = ExtResource("2_ikp7q")
+
+[node name="Title" type="TextureRect" parent="Panel" unique_id=183362589]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1787.0
+offset_top = -496.0
+offset_bottom = 496.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_bn61v")
+
+[node name="Play" type="TextureButton" parent="Panel" unique_id=718530538]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1055.0
+offset_top = -179.83002
+offset_bottom = -104.82916
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("5_r4neo")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=2079655913]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -70,9 +112,9 @@ alignment = 1
 custom_minimum_size = Vector2(1200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
+text = "TITLE"
 horizontal_alignment = 1
 autowrap_mode = 2
-text = "TITLE"
 
 [node name="Buttons" type="VBoxContainer" parent="Panel/VBoxContainer" unique_id=709712620]
 custom_minimum_size = Vector2(150, 0)
@@ -83,26 +125,26 @@ theme_override_constants/separation = 20
 [node name="NewGame" parent="Panel/VBoxContainer/Buttons" unique_id=962221927 instance=ExtResource("1_i6emh")]
 layout_mode = 2
 text = "NEW_GAME"
-ease_curve = SubResource("Curve_scefs")
+ease_curve = SubResource("Curve_r4neo")
 
 [node name="Continue" parent="Panel/VBoxContainer/Buttons" unique_id=132687649 instance=ExtResource("1_i6emh")]
 layout_mode = 2
 text = "CONTINUE_GAME"
-ease_curve = SubResource("Curve_ikp7q")
+ease_curve = SubResource("Curve_mgepj")
 
 [node name="Settings" parent="Panel/VBoxContainer/Buttons" unique_id=966228876 instance=ExtResource("1_i6emh")]
 layout_mode = 2
 text = "SETTINGS"
-ease_curve = SubResource("Curve_bn61v")
+ease_curve = SubResource("Curve_exk2g")
 
 [node name="Credits" parent="Panel/VBoxContainer/Buttons" unique_id=819866585 instance=ExtResource("1_i6emh")]
 layout_mode = 2
 text = "CREDITS"
-ease_curve = SubResource("Curve_r4neo")
+ease_curve = SubResource("Curve_nsuyr")
 
 [node name="Exit" parent="Panel/VBoxContainer/Buttons" unique_id=792682864 instance=ExtResource("1_i6emh")]
 layout_mode = 2
 text = "EXIT_GAME"
-ease_curve = SubResource("Curve_mgepj")
+ease_curve = SubResource("Curve_ckgnx")
 
 [connection signal="button_anim_finish" from="Panel/VBoxContainer/Buttons/Exit" to="." method="_on_exit_clicked"]

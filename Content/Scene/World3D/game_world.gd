@@ -25,12 +25,25 @@ const SCENE_PATH := "res://Content/Scene/World3D/game_world.tscn"
 var _gameplay_context: InputContext = preload("res://Content/Data/Input/Contexts/gameplay_context.tres")
 ## 主 BGM 音频事件
 var _main_bgm: AudioEvent = preload("res://Content/Art/Audio/Events/BGM/bgm_escape_ghost.tres")
+## 喊气声音效
+var _sfx_breathing: AudioEvent = preload("res://Content/Art/Audio/Events/SFX/sfx_breathing.tres")
+## 鬼尖叫声音效
+var _sfx_ghost_scream: AudioEvent = preload("res://Content/Art/Audio/Events/SFX/sfx_ghost_scream.tres")
 
 var _game_over := false
 ## 难度配置资源（在编辑器中设置，或在 _ready 中加载）
 @export var difficulty_config: DifficultyConfig
 ## 当前阶段索引（-1 = 尚未开始，等于 phase_count = 全部完成）
 var _current_phase_index: int = -1
+
+## 跑步脚步声音乐轨道名称
+const FOOTSTEP_TRACK: StringName = &"Footstep"
+## 喘气声随机触发计时器
+var _breathing_timer: float = 0.0
+## 喘气声最小间隔（秒）
+const BREATHING_INTERVAL_MIN: float = 8.0
+## 喘气声最大间隔（秒）
+const BREATHING_INTERVAL_MAX: float = 20.0
 
 ## 闭眼渐变
 ## 闭眼渐变 Tween 引用（用于打断上一个渐变动画）
@@ -97,6 +110,8 @@ func _ready() -> void:
 	# 播放主 BGM
 	AudioManager.play_music(_main_bgm, &"main", 1.0)
 
+	# 初始化喊气声随机计时器	_breathing_timer = randf_range(BREATHING_INTERVAL_MIN, BREATHING_INTERVAL_MAX)
+
 	CLog.o("游戏世界已加载，开始奔跑！")
 
 
@@ -119,8 +134,17 @@ func _physics_process(_delta: float) -> void:
 	distance_label.text = "距离: %.1f m" % distance
 	speed_label.text = "速度: %.1f m/s" % player.current_speed
 
+	# 根据玩家是否在地面控制脚步声播放/暂停
+	_update_footstep_audio(player.is_on_floor())
+
 	# 阶段追踪与胜利检测
 	_update_difficulty_phase(distance)
+
+	# 喘气声随机触发
+	_breathing_timer -= _delta
+	if _breathing_timer <= 0.0:
+		AudioManager.play_sound(_sfx_breathing)
+		_breathing_timer = randf_range(BREATHING_INTERVAL_MIN, BREATHING_INTERVAL_MAX)
 
 
 ## 闭眼/睁眼状态变化 — 使用 EyesOverlay 遮罩渐变
@@ -184,6 +208,8 @@ func _on_phase_changed(old_index: int, new_index: int) -> void:
 		InputManager.remove_context(_gameplay_context.context_name)
 		ghost_anim.show()
 		ghost_anim.play()
+		# 播放鬼尖叫音效
+		AudioManager.play_sound(_sfx_ghost_scream)
 		
 		ghost_anim.animation_finished.connect(func():
 			ghost_anim.hide()
@@ -252,6 +278,7 @@ func _trigger_game_over(cause: DeathCause) -> void:
 	# 停止主 BGM
 	AudioManager.play_music(null, &"main", 1.0)
 
+	# 失败时确保遮罩隐藏
 	# 失败时确保遮罩隐藏，能看到 Game Over 画面
 	if _eyes_tween and _eyes_tween.is_valid():
 		_eyes_tween.kill()
@@ -270,6 +297,16 @@ func _input(_event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 		SceneUtils.switch_scene_by_path(self, SCENE_PATH)
 
+
+## 根据是否在地面上控制脚步声的暂停与恢复
+func _update_footstep_audio(on_floor: bool) -> void:
+	if not AudioManager.music_track_players.has(FOOTSTEP_TRACK):
+		return
+	var footstep_player: AudioEventPlayer = AudioManager.music_track_players[FOOTSTEP_TRACK]
+	footstep_player.stream_paused = not on_floor
+
+
+## 场景被释放时
 
 ## 场景被释放时，打断所有由本场景发起的音频（BGM、鬼的音乐、音效）
 func _exit_tree() -> void:

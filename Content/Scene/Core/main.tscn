@@ -170,6 +170,7 @@ ease_curve = SubResource("Curve_kxngn")
 [node name="HelpBack" parent="UI/PauseMenu/HelpPanel/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(990754091, 2033912565) index="1" unique_id=1388060525]
 ease_curve = SubResource("Curve_jyiaa")
 
+[connection signal="pressed" from="UI/StartMenu/Panel/Play" to="." method="_on_new_game"]
 [connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/NewGame" to="." method="_on_new_game"]
 [connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/Settings" to="." method="_on_goto_settings"]
 [connection signal="button_anim_finish" from="UI/StartMenu/Panel/VBoxContainer/Buttons/Credits" to="." method="_on_goto_credits"]

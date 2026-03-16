@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AudioEvent" format=3 uid="uid://dq2qvhxjh0u2f"]
+
+[ext_resource type="Script" uid="uid://b8l57kl8oyb2f" path="res://Content/Script/Audio/audio_event.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://c3ibyd8tqpfkd" path="res://Content/Art/Audio/Raw/SFX/UI/click_double_off.wav" id="2_audio"]
+
+[resource]
+script = ExtResource("1_script")
+name = &"SFXUIClick"
+audio_stream = ExtResource("2_audio")
+bus = &"SFX"
+metadata/_custom_type_script = "uid://b8l57kl8oyb2f"

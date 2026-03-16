@@ -11,20 +11,29 @@ const LOADING_SCENE_PATH := "res://Content/Scene/UI/Loading/loading_scene.tscn"
 @onready var credit_menu: Control = $UI/CreditMenu
 @onready var pause_menu: Control = $UI/PauseMenu
 
+## 跑步脚步声音效
+var _sfx_footstep: AudioEvent = preload("res://Content/Art/Audio/Events/SFX/sfx_footstep.tres")
+## 跑步脚步声音乐轨道名称
+const FOOTSTEP_TRACK: StringName = &"Footstep"
+
 var _game_root: Node = null
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	pause_menu.hide()
 
+	# 从主菜单开始就播放跑步脚步声（贯穿整个游戏生命周期）
+	AudioManager.play_music(_sfx_footstep, FOOTSTEP_TRACK, 0.5)
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and _game_root != null:
-		CLog.o("ESC")
 		if get_tree().paused:
 			_resume_game()
 		else:
 			_pause_game()
+	elif event.is_action_pressed("ui_cancel") and _game_root == null:
+		get_tree().quit()
 
 
 func _show_only_menu(menu:Control) -> void:

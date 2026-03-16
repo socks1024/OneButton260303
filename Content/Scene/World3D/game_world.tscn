@@ -177,6 +177,7 @@ light_energy = 1.5
 [node name="UI" type="CanvasLayer" parent="." unique_id=1341657753]
 
 [node name="DistanceLabel" type="Label" parent="UI" unique_id=3110298]
+visible = false
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 300.0
@@ -184,6 +185,7 @@ offset_bottom = 50.0
 text = "距离: 0 m"
 
 [node name="SpeedLabel" type="Label" parent="UI" unique_id=1979833809]
+visible = false
 offset_left = 20.0
 offset_top = 55.0
 offset_right = 300.0
