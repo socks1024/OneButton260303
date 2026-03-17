@@ -58,9 +58,9 @@ var _death_cause := DeathCause.NONE
 
 ## 失败原因对应的文案
 var _death_messages := {
-	DeathCause.FELL: "你在黑暗中坠入了深渊……",
-	DeathCause.FEAR_MAXED: "你被恐惧吞噬了……",
-	DeathCause.LOST_MAXED: "你永远迷失在了梦境之中……",
+	DeathCause.FELL: "DEATH_FELL",
+	DeathCause.FEAR_MAXED: "DEATH_FEAR",
+	DeathCause.LOST_MAXED: "DEATH_LOST",
 }
 
 
@@ -204,16 +204,20 @@ func _on_phase_changed(old_index: int, new_index: int) -> void:
 	#     play_cutscene("chapter_2_intro")
 	
 	if new_index == 2:
-		player._set_eyes_closed(false)
-		InputManager.remove_context(_gameplay_context.context_name)
-		ghost_anim.show()
-		ghost_anim.play()
-		# 播放鬼尖叫音效
-		AudioManager.play_sound(_sfx_ghost_scream)
-		
-		ghost_anim.animation_finished.connect(func():
-			ghost_anim.hide()
-			InputManager.add_context(_gameplay_context))
+		_play_ghost_anim()
+
+
+func _play_ghost_anim():
+	player._set_eyes_closed(false)
+	InputManager.remove_context(_gameplay_context.context_name)
+	ghost_anim.show()
+	ghost_anim.play()
+	# 播放鬼尖叫音效
+	AudioManager.play_sound(_sfx_ghost_scream)
+	
+	ghost_anim.animation_finished.connect(func():
+		ghost_anim.hide()
+		InputManager.add_context(_gameplay_context))
 
 
 ## --- 胜利处理 ---
@@ -240,8 +244,8 @@ func _trigger_victory() -> void:
 	eyes_overlay.modulate.a = 0.0
 
 	var distance := player.get_distance_traveled()
-	game_over_label.text = "你成功逃出了噩梦！"
-	distance_result_label.text = "跑了 %.1f 米" % distance
+	game_over_label.text = "GAME_WIN"
+	distance_result_label.text = tr("DISTANCE") % distance
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	game_over_panel.show()
 	CLog.w("游戏胜利！跑了 %.1f 米" % distance)
@@ -283,13 +287,15 @@ func _trigger_game_over(cause: DeathCause) -> void:
 	if _eyes_tween and _eyes_tween.is_valid():
 		_eyes_tween.kill()
 	eyes_overlay.modulate.a = 0.0
-
+	
+	if cause == DeathCause.FEAR_MAXED: _play_ghost_anim()
+	
 	var distance := player.get_distance_traveled()
-	game_over_label.text = _death_messages.get(cause, "游戏结束")
-	distance_result_label.text = "跑了 %.1f 米" % distance
+	game_over_label.text = _death_messages.get(cause, "GAME OVER")
+	distance_result_label.text = tr("DISTANCE") % distance
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	game_over_panel.show()
-	CLog.w("游戏结束 - %s（跑了 %.1f 米）" % [_death_messages.get(cause, "未知原因"), distance])
+	CLog.w("游戏结束 - %s（跑了 %.1f 米）" % [_death_messages.get(cause, "UNKNOWN REASON"), distance])
 
 
 func _input(_event: InputEvent) -> void:

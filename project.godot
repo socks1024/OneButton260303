@@ -14,10 +14,11 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="CloseYourEyes"
+config/name="EyesClosed"
+config/version="v0.3.0"
 run/main_scene="uid://c3lso300yfoep"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://Test/icon.svg"
+config/icon="uid://cwmg3jnir7hnu"
 
 [audio]
 

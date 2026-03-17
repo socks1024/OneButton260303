@@ -197,8 +197,8 @@ layout_mode = 3
 anchors_preset = 0
 offset_left = 972.0
 offset_top = 158.0
-offset_right = 1012.0
-offset_bottom = 198.0
+offset_right = 972.0
+offset_bottom = 158.0
 script = ExtResource("11_8am7b")
 color_safe = Color(0.860683, 0.8592778, 1.540184e-06, 1)
 color_warn = Color(0.9009098, 0.52782005, 1.92523e-06, 1)
@@ -219,10 +219,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -493.035
-offset_top = -28.0
-offset_right = 506.96497
-offset_bottom = -12.0
+offset_left = -493.0
+offset_top = -6.0
+offset_right = 507.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
@@ -234,10 +234,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -153.0
-offset_right = 144.0
-offset_bottom = 112.0
+offset_left = -149.42001
+offset_top = -134.0
+offset_right = 144.57999
+offset_bottom = 131.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(0.5, 0.5)
@@ -370,19 +370,19 @@ alignment = 1
 [node name="GameOverLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer" unique_id=182472264]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "你在黑暗中坠入了深渊……"
+text = "GAME_OVER"
 horizontal_alignment = 1
 
 [node name="DistanceResultLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer" unique_id=838119799]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "跑了 0 米"
+text = "DISTANCE"
 horizontal_alignment = 1
 
 [node name="RestartLabel" type="Label" parent="UI/GameOverPanel/VBoxContainer" unique_id=2099170765]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "按 R 键回到梦境……"
+text = "REPLAY"
 horizontal_alignment = 1
 
 [node name="StatsPanel" type="VBoxContainer" parent="UI" unique_id=843450176]
